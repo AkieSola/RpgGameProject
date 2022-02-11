@@ -28,6 +28,12 @@ namespace RPGGame
             }
         }
 
+        protected override void OnInit(ProcedureOwner procedureOwner)
+        {
+            base.OnInit(procedureOwner);
+
+        }
+
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -40,7 +46,7 @@ namespace RPGGame
             GameEntry.Event.Subscribe(WebRequestFailureEventArgs.EventId, OnWebRequestFailure);
 
             // 向服务器请求版本信息
-            GameEntry.WebRequest.AddWebRequest(Utility.Text.Format(GameEntry.BuiltinData.BuildInfo.CheckVersionUrl, GetPlatformPath()), this);
+            GameEntry.WebRequest.AddWebRequest(Utility.Text.Format(GameEntry.BuiltinData.BuildInfo_.CheckVersionUrl, GetPlatformPath()), this);
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -78,7 +84,7 @@ namespace RPGGame
         {
             string url = null;
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-            url = GameEntry.BuiltinData.BuildInfo.WindowsAppUrl;
+            url = GameEntry.BuiltinData.BuildInfo_.WindowsAppUrl;
 #elif UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             url = GameEntry.BuiltinData.BuildInfo.MacOSAppUrl;
 #elif UNITY_IOS

@@ -17,7 +17,9 @@ namespace RPGGame.Editor.DataTableTools
 {
     public sealed class DataTableGenerator
     {
+        //数据表(.txt文件所在位置)
         private const string DataTablePath = "Assets/GameMain/DataTables";
+        //生成CSharp类所在位置
         private const string CSharpCodePath = "Assets/GameMain/Scripts/DataTable";
         private const string CSharpCodeTemplateFileName = "Assets/GameMain/Configs/DataTableCodeTemplate.txt";
         private static readonly Regex EndWithNumberRegex = new Regex(@"\d+$");
@@ -74,7 +76,7 @@ namespace RPGGame.Editor.DataTableTools
             string dataTableName = (string)userData;
 
             codeContent.Replace("__DATA_TABLE_CREATE_TIME__", DateTime.UtcNow.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss.fff"));
-            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "StarForce");
+            codeContent.Replace("__DATA_TABLE_NAME_SPACE__", "RPGGame");
             codeContent.Replace("__DATA_TABLE_CLASS_NAME__", "DR" + dataTableName);
             codeContent.Replace("__DATA_TABLE_COMMENT__", dataTableProcessor.GetValue(0, 1) + "。");
             codeContent.Replace("__DATA_TABLE_ID_COMMENT__", "获取" + dataTableProcessor.GetComment(dataTableProcessor.IdColumn) + "。");

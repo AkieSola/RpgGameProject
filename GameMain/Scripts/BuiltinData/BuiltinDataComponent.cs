@@ -24,7 +24,7 @@ namespace RPGGame
 
         private BuildInfo m_BuildInfo = null;
 
-        public BuildInfo BuildInfo
+        public BuildInfo BuildInfo_
         {
             get
             {

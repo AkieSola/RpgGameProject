@@ -80,6 +80,10 @@ namespace RPGGame
             entityComponent.ShowEntity(typeof(Effect), "Effect", Constant.AssetPriority.EffectAsset, data);
         }
 
+        public static void ShowPlayer(this EntityComponent entityComponent,PlayerData data)
+        {
+            entityComponent.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.PlayerAsset, data);
+        }
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

@@ -30,6 +30,7 @@ namespace RPGGame
             "UIForm",
             "UISound",
             "Weapon",
+            "Player",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

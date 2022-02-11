@@ -42,7 +42,7 @@ namespace RPGGame
         /// <summary>
         /// 最大行动值
         /// </summary>
-        public abstract int MaxSp
+        public abstract int MaxSP
         {
             get;
         }

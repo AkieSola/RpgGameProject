@@ -258,7 +258,30 @@ namespace XLua
 #endif
 		}
         
-		public int __Gen_Delegate_Imp11(int p0, string p1, out Tutorial.CSCallLua.DClass p2)
+		public XLuaTest.InvokeLua.ICalc __Gen_Delegate_Imp11(int p0, string[] p1)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
+                ObjectTranslator translator = luaEnv.translator;
+                LuaAPI.xlua_pushinteger(L, p0);
+                if (p1 != null)  { for (int __gen_i = 0; __gen_i < p1.Length; ++__gen_i) LuaAPI.lua_pushstring(L, p1[__gen_i]); };
+                
+                PCall(L, 1 + (p1 == null ? 0 : p1.Length), 1, errFunc);
+                
+                
+                XLuaTest.InvokeLua.ICalc __gen_ret = (XLuaTest.InvokeLua.ICalc)translator.GetObject(L, errFunc + 1, typeof(XLuaTest.InvokeLua.ICalc));
+                LuaAPI.lua_settop(L, errFunc - 1);
+                return  __gen_ret;
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public int __Gen_Delegate_Imp12(int p0, string p1, out Tutorial.CSCallLua.DClass p2)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -282,7 +305,7 @@ namespace XLua
 #endif
 		}
         
-		public System.Action __Gen_Delegate_Imp12()
+		public System.Action __Gen_Delegate_Imp13()
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -296,29 +319,6 @@ namespace XLua
                 
                 
                 System.Action __gen_ret = translator.GetDelegate<System.Action>(L, errFunc + 1);
-                LuaAPI.lua_settop(L, errFunc - 1);
-                return  __gen_ret;
-#if THREAD_SAFE || HOTFIX_ENABLE
-            }
-#endif
-		}
-        
-		public XLuaTest.InvokeLua.ICalc __Gen_Delegate_Imp13(int p0, string[] p1)
-		{
-#if THREAD_SAFE || HOTFIX_ENABLE
-            lock (luaEnv.luaEnvLock)
-            {
-#endif
-                RealStatePtr L = luaEnv.rawL;
-                int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
-                ObjectTranslator translator = luaEnv.translator;
-                LuaAPI.xlua_pushinteger(L, p0);
-                if (p1 != null)  { for (int __gen_i = 0; __gen_i < p1.Length; ++__gen_i) LuaAPI.lua_pushstring(L, p1[__gen_i]); };
-                
-                PCall(L, 1 + (p1 == null ? 0 : p1.Length), 1, errFunc);
-                
-                
-                XLuaTest.InvokeLua.ICalc __gen_ret = (XLuaTest.InvokeLua.ICalc)translator.GetObject(L, errFunc + 1, typeof(XLuaTest.InvokeLua.ICalc));
                 LuaAPI.lua_settop(L, errFunc - 1);
                 return  __gen_ret;
 #if THREAD_SAFE || HOTFIX_ENABLE
@@ -771,19 +771,19 @@ namespace XLua
 			    return new System.Action<bool>(__Gen_Delegate_Imp10);
 			}
 		
+		    if (type == typeof(XLuaTest.InvokeLua.CalcNew))
+			{
+			    return new XLuaTest.InvokeLua.CalcNew(__Gen_Delegate_Imp11);
+			}
+		
 		    if (type == typeof(Tutorial.CSCallLua.FDelegate))
 			{
-			    return new Tutorial.CSCallLua.FDelegate(__Gen_Delegate_Imp11);
+			    return new Tutorial.CSCallLua.FDelegate(__Gen_Delegate_Imp12);
 			}
 		
 		    if (type == typeof(Tutorial.CSCallLua.GetE))
 			{
-			    return new Tutorial.CSCallLua.GetE(__Gen_Delegate_Imp12);
-			}
-		
-		    if (type == typeof(XLuaTest.InvokeLua.CalcNew))
-			{
-			    return new XLuaTest.InvokeLua.CalcNew(__Gen_Delegate_Imp13);
+			    return new Tutorial.CSCallLua.GetE(__Gen_Delegate_Imp13);
 			}
 		
 		    return null;

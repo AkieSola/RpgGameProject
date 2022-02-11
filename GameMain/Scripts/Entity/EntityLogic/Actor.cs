@@ -5,7 +5,7 @@ using UnityGameFramework.Runtime;
 
 namespace RPGGame
 {
-    public class Actor : Entity
+    public abstract class Actor : Entity
     {
         [SerializeField]
         private ActorData m_ActorData = null;
@@ -17,6 +17,8 @@ namespace RPGGame
                 return m_ActorData.HP <= 0;
             }
         }
+
+        public abstract ImpactData GetImpactData();
 
         public void ApplyDamage(Entity attacker, int damageHP)
         {
