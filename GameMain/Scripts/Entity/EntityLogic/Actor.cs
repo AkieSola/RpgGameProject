@@ -46,7 +46,6 @@ namespace RPGGame
 
         protected virtual void OnDead(Entity attacker)
         {
-
         }
     }
 }
