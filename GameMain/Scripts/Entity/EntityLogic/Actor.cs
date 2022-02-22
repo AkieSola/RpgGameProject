@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +47,28 @@ namespace RPGGame
 
         protected virtual void OnDead(Entity attacker)
         {
+        }
+
+        public int CompareTo(Actor actor)
+        {
+            int result;
+            try
+            {
+                if (this.m_ActorData.Priority >= actor.m_ActorData.Priority)
+                {
+                    result = 1;
+                }
+                else
+                {
+                    result = 0;
+                }
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                throw new NotImplementedException("≈≈–Ú“Ï≥£");
+            }
         }
     }
 }
