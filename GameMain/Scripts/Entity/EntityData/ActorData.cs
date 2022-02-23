@@ -7,8 +7,6 @@ namespace RPGGame
 {
     public abstract class ActorData : EntityData
     {
-        [SerializeField]        
-        private int m_ID = 0;                           //角色ID
         [SerializeField]                                
         private int m_HP = 0;                           //生命值
         [SerializeField]
@@ -17,6 +15,22 @@ namespace RPGGame
         private float m_Priority = 0;                   //先攻值
         [SerializeField]
         private CampType m_Camp = CampType.Unknown;     //阵营
+        [SerializeField]
+        private int m_Power = 0;                        //力量
+        [SerializeField]
+        private int m_Agile = 0;                        //敏捷
+        [SerializeField]
+        private int m_Intelligence = 0;                 //智力
+        [SerializeField]
+        private int m_Luck = 0;                         //运气
+        [SerializeField]
+        private int m_PhysicalAtk = 0;                  //物理攻击
+        [SerializeField]
+        private int m_SpellAtk = 0;                     //法术强度
+        [SerializeField]
+        private int m_PhysicalDfs = 0;                  //物理防御
+        [SerializeField]
+        private int m_SpellDfs = 0;                     //法术防御
 
         public ActorData(int entityId, int typeId, CampType camp) : base(entityId, typeId)
         {
@@ -42,7 +56,7 @@ namespace RPGGame
         /// 生命百分比
         /// </summary>
         public float HPRatio
-        {
+        { 
             get
             {
                 return MaxHP > 0 ? (float)HP / MaxHP : 0f;
@@ -60,6 +74,14 @@ namespace RPGGame
         public abstract int MaxSP
         {
             get;
+        }
+
+        /// <summary>
+        /// 每回合SP的恢复量
+        /// </summary>
+        public int SPRecovery
+        {
+            get => MaxSP >> 1 + 2;
         }
 
         /// <summary>

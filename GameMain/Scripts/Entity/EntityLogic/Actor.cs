@@ -6,10 +6,18 @@ using UnityGameFramework.Runtime;
 
 namespace RPGGame
 {
-    public abstract class Actor : Entity
+    public abstract class Actor : Entity,IComparable
     {
         [SerializeField]
         private ActorData m_ActorData = null;
+
+        public ActorData ActorData
+        {
+            get
+            {
+                return m_ActorData;
+            }
+        }
 
         public bool IsDead
         {
@@ -49,12 +57,14 @@ namespace RPGGame
         {
         }
 
-        public int CompareTo(Actor actor)
+
+        //actor之间的大小比较按各自数据的先攻值来比较
+        public int CompareTo(object obj)
         {
             int result;
             try
             {
-                if (this.m_ActorData.Priority >= actor.m_ActorData.Priority)
+                if (this.m_ActorData.Priority >= (obj as Actor).m_ActorData.Priority)
                 {
                     result = 1;
                 }
@@ -65,7 +75,7 @@ namespace RPGGame
 
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new NotImplementedException("排序异常");
             }

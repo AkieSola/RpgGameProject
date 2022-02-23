@@ -17,12 +17,12 @@ namespace RPGGame
         /// <summary>
         /// 第一玩家阵营。
         /// </summary>
-        Player,
+        Player = 1,
 
         /// <summary>
         /// 第一敌人阵营。
         /// </summary>
-        Enemy,
+        Enemy = 2,
 
         /// <summary>
         /// 第一中立阵营。

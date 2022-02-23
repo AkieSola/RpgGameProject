@@ -1,81 +1,141 @@
+using GameFramework.Fsm;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
-public class BattleMgr : MonoBehaviour
-{
-    private List<Actor> battleActors;
-    private Dictionary<int, Actor> camp1Dic;
-    private Dictionary<int, Actor> camp2Dic;
-
-    private Actor m_CurActor;
-    private int m_CurActorIndex;
-
-    public void OnInit(List<Actor> actors)
+namespace RPGGame {
+    public class BattleMgr : MonoBehaviour
     {
-        battleActors = actors;
-        
-        lineSort();
-    }
+        private List<Actor> battleActors;
+        private Dictionary<int, Actor> camp1Dic;  //单机模式下通常指玩家阵营
+        private Dictionary<int, Actor> camp2Dic;  //单机模式下通常指npc敌人阵营
 
-    // Start is called before the first frame update
-    void Start()
-    {   
-    }
+        private int m_CurActorIndex;
 
-    public bool CheckBattleEnd()
-    {
-        if(camp1Dic.Count == 0 || camp2Dic.Count == 0)
+        private IFsm<BattleMgr> m_Fsm = null;
+
+
+        public Actor CurActor
         {
-            return true;
+            get => battleActors[m_CurActorIndex];
         }
 
-        return false;
-    }
 
-    private void ShiftToNextActor() 
-    { 
-        if(m_CurActorIndex == battleActors.Count - 1)
+        public void OnInit(List<Actor> actors)
         {
-            m_CurActorIndex = 0;
+            battleActors = actors;
+            foreach(var a in actors)
+            {
+                if(a.ActorData.Camp == CampType.Player)
+                {
+                    camp1Dic.Add(a.ActorData.Id, a);
+                }
+                else if(a.ActorData.Camp == CampType.Enemy)
+                {
+                    camp2Dic.Add(a.ActorData.Id, a);
+                }
+            }
+
+            //名称：BattleMgrFsm | Owner: this | 状态：BattleRoundStartState，BattleRoundDoState，BattleRoundEndState
+            m_Fsm = GameEntry.Fsm.CreateFsm("BattleMgrFsm", this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
+            lineSort();
         }
-        else
+
+        // Start is called before the first frame update
+        void Start()
         {
-            m_CurActorIndex++;
+            m_Fsm.Start<BattleRoundStartState>();  
         }
 
-        m_CurActor = battleActors[m_CurActorIndex];
+        public bool CheckBattleEnd()
+        {
+            if (camp1Dic.Count == 0 || camp2Dic.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void ShiftToNextActor()
+        {
+            if (m_CurActorIndex == battleActors.Count - 1)
+            {
+                m_CurActorIndex = 0;     
+            }
+            else
+            {
+                m_CurActorIndex++;
+            }
+        }
+
+        public void RemoveActor(int id)
+        {
+            for(int i = 0; i < battleActors.Count; i++)
+            {
+                if(battleActors[i].ActorData.Id == id)
+                {
+                    battleActors.RemoveAt(i);
+                    camp1Dic.Remove(id);
+                    camp2Dic.Remove(id);
+                }
+            }
+        }
+
+        private void EndBattle()
+        {
+        }
+
+        void LaunchAttack()
+        {
+        }
+
+        void lineSort()
+        {
+            battleActors.Sort();
+        }
+
+        //IEnumerator WaitForTakeDamage()
+        //{
+        //}
     }
 
-    private void EndBattle()
+    public class BattleRoundStartState : FsmState<BattleMgr>
     {
+        protected override void OnEnter(IFsm<BattleMgr> fsm)
+        {
+            base.OnEnter(fsm); 
+            
+        }
 
+        protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)
+        {
+            base.OnLeave(fsm, isShutdown);
+        }
     }
 
-    void FindTaget() 
+    public class BattleRoundDoState : FsmState<BattleMgr>
     {
+        protected override void OnEnter(IFsm<BattleMgr> fsm)
+        {
+            base.OnEnter(fsm);
+        }
     }
 
-    void RunToTarget() 
-    { 
-    }
-
-    void LaunchAttack() 
-    { 
-    }
-
-    void lineSort()
+    public class BattleRoundEndState : FsmState<BattleMgr>
     {
-        battleActors.Sort();
-    }
+        protected override void OnEnter(IFsm<BattleMgr> fsm)
+        {
+            base.OnEnter(fsm);
+        }
 
-    //IEnumerator WaitForTakeDamage()
-    //{
-
-    //}
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)
+        {
+            //轮换下个角色
+            fsm.Owner.ShiftToNextActor();
+            base.OnLeave(fsm, isShutdown);
+        }
     }
 }
+
