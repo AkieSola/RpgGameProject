@@ -7,30 +7,16 @@ namespace RPGGame {
     public class PlayerData : ActorData
     {
         [SerializeField]
-        private int m_MaxHP = 0;
+        private ActorEquips actorEquips = null;
 
-        [SerializeField]
-        private int m_MaxSP = 0;
         public PlayerData(int entityId, int typeId, CampType camp) 
             : base(entityId, typeId, camp)
         {
             
         }
 
-        public override int MaxHP
-        {
-            get
-            {
-                return m_MaxHP;
-            }
-        }
+        public override int MaxHP => throw new System.NotImplementedException();
 
-        public override int MaxSP
-        {
-            get
-            {
-                return m_MaxSP;
-            }
-        }
+        public override int MaxSP => throw new System.NotImplementedException();
     }
 }

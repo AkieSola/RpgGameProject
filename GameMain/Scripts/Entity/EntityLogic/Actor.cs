@@ -6,6 +6,46 @@ using UnityGameFramework.Runtime;
 
 namespace RPGGame
 {
+    public class ActorEquips
+    {
+        private int m_WeaponId;
+        private int m_ArmorId;
+        private int m_RingId;
+
+        public int WeaponId => m_WeaponId;
+        public int ArmorId => m_ArmorId;
+        public int RingId => m_RingId;
+
+        /// <summary> 
+        /// </summary>
+        /// <param name="x">Œ‰∆˜id</param>
+        /// <param name="y">∑¿æﬂid</param>
+        /// <param name="z"> Œ∆∑id</param>
+        public ActorEquips(int x, int y, int z)
+        {
+            m_WeaponId = x;
+            m_ArmorId = y;
+            m_RingId = z;
+        }
+
+        public void SetWeapon(int x)
+        {
+            m_WeaponId = x;
+        }
+
+        public void SetArmor(int y)
+        {
+            m_ArmorId = y;
+        }
+
+        public void SetRing(int z)
+        {
+            m_RingId = z;
+        }
+    }
+
+
+
     public abstract class Actor : Entity,IComparable
     {
         [SerializeField]
@@ -16,6 +56,14 @@ namespace RPGGame
             get
             {
                 return m_ActorData;
+            }
+        }
+
+        public int ATK
+        {
+            get
+            {
+                return 100;
             }
         }
 
