@@ -16,5 +16,9 @@ namespace RPGGame
         /// 生存模式。
         /// </summary>
         Survival,
+        /// <summary>
+        /// 剧情模式
+        /// </summary>
+        Story,
     }
 }

@@ -19,7 +19,7 @@ namespace RPGGame
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
-
+            
             m_PlayerData = userData as PlayerData;
             if(m_PlayerData == null)
             {
@@ -29,7 +29,7 @@ namespace RPGGame
 
             Name = Utility.Text.Format("Player ({0})", Id);
 
-            GameEntry.Entity.ShowPlayer(m_PlayerData);
+            //GameEntry.Entity.ShowPlayer(m_PlayerData);
         }
     }
 }

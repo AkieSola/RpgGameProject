@@ -8,7 +8,8 @@ namespace RPGGame {
     {
         [SerializeField]
         private ActorEquips actorEquips = null;
-
+        [SerializeField]
+        private string m_Name;
         public PlayerData(int entityId, int typeId, CampType camp) 
             : base(entityId, typeId, camp)
         {
@@ -18,5 +19,7 @@ namespace RPGGame {
         public override int MaxHP => throw new System.NotImplementedException();
 
         public override int MaxSP => throw new System.NotImplementedException();
+
+        public string Name { get => m_Name; set => m_Name = value; }
     }
 }

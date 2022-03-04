@@ -59,7 +59,7 @@ namespace RPGGame
             if (m_StartGame)
             {
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.MainCity"));
-                procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
+                procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Story);
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }

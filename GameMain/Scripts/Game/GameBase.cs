@@ -30,29 +30,31 @@ namespace RPGGame
             protected set;
         }
 
-        private MyAircraft m_MyAircraft = null;
+        //private MyAircraft m_MyAircraft = null;
+        private Player m_Player = null;
+
 
         public virtual void Initialize()
         {
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
             GameEntry.Event.Subscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
 
-            SceneBackground = Object.FindObjectOfType<ScrollableBackground>();
+            /*SceneBackground = Object.FindObjectOfType<ScrollableBackground>();
             if (SceneBackground == null)
             {
                 Log.Warning("Can not find scene background.");
                 return;
             }
+            SceneBackground.VisibleBoundary.gameObject.GetOrAddComponent<HideByBoundary>();*/
 
-            SceneBackground.VisibleBoundary.gameObject.GetOrAddComponent<HideByBoundary>();
-            GameEntry.Entity.ShowMyAircraft(new MyAircraftData(GameEntry.Entity.GenerateSerialId(), 10000)
+            GameEntry.Entity.ShowPlayer(new PlayerData(GameEntry.Entity.GenerateSerialId(), 10000, CampType.Player)
             {
-                Name = "My Aircraft",
+                Name = "Player",
                 Position = Vector3.zero,
-            });
+            }) ;
 
             GameOver = false;
-            m_MyAircraft = null;
+            m_Player = null;
         }
 
         public virtual void Shutdown()
@@ -63,7 +65,7 @@ namespace RPGGame
 
         public virtual void Update(float elapseSeconds, float realElapseSeconds)
         {
-            if (m_MyAircraft != null && m_MyAircraft.IsDead)
+            if (m_Player != null && m_Player.IsDead)
             {
                 GameOver = true;
                 return;
@@ -73,9 +75,9 @@ namespace RPGGame
         protected virtual void OnShowEntitySuccess(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
-            if (ne.EntityLogicType == typeof(MyAircraft))
+            if (ne.EntityLogicType == typeof(Player))
             {
-                m_MyAircraft = (MyAircraft)ne.Entity.Logic;
+                m_Player = (Player)ne.Entity.Logic;
             }
         }
 

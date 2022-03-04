@@ -1,3 +1,4 @@
+using GameFramework.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,6 +52,10 @@ namespace RPGGame
         [SerializeField]
         private ActorData m_ActorData = null;
 
+        public virtual void Awake()
+        {
+            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, OnActorRoundStart);
+        }
         public ActorData ActorData
         {
             get
@@ -86,9 +91,13 @@ namespace RPGGame
             }
         }
 
+
         protected override void OnInit(object userData)
         {
             m_ActorData = userData as ActorData;
+
+            m_ActorData.HP = 100;
+
             if (m_ActorData == null)
             {
                 Log.Error("Actor data is invalid.");
@@ -127,6 +136,26 @@ namespace RPGGame
             {
                 throw new NotImplementedException("排序异常");
             }
+        }
+
+
+        /// <summary>
+        /// 每回合开始恢复SP
+        /// </summary>
+        private void RestoreSP()
+        {
+            ActorData.SP += ActorData.SPRecovery;
+        }
+
+        private void OnActorRoundStart(object sender, GameEventArgs e)
+        {
+            ActorRoundStartEventArgs ne = (ActorRoundStartEventArgs)e;
+            if (ne.ActorId != this.ActorData.Id)
+            {
+                return;
+            }
+
+            RestoreSP();
         }
     }
 }

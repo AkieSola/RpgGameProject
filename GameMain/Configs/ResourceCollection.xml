@@ -15,6 +15,21 @@
       <Resource Name="DataTables/UIForm" LoadType="0" Packed="False" />
       <Resource Name="DataTables/UISound" LoadType="0" Packed="False" />
       <Resource Name="DataTables/Weapon" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Asteroid01" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Asteroid02" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Asteroid03" LoadType="0" Packed="False" />
+      <Resource Name="Entities/AsteroidExplosion" LoadType="0" Packed="False" />
+      <Resource Name="Entities/DefaultArmor" LoadType="0" Packed="False" />
+      <Resource Name="Entities/DefaultWeapon" LoadType="0" Packed="False" />
+      <Resource Name="Entities/EnemyBolt" LoadType="0" Packed="False" />
+      <Resource Name="Entities/EnemyEngine" LoadType="0" Packed="False" />
+      <Resource Name="Entities/EnemyExplosion" LoadType="0" Packed="False" />
+      <Resource Name="Entities/EnemyShip" LoadType="0" Packed="False" />
+      <Resource Name="Entities/Player" LoadType="0" Packed="False" />
+      <Resource Name="Entities/PlayerBolt" LoadType="0" Packed="False" />
+      <Resource Name="Entities/PlayerEngine" LoadType="0" Packed="False" />
+      <Resource Name="Entities/PlayerExplosion" LoadType="0" Packed="False" />
+      <Resource Name="Entities/PlayerShip" LoadType="0" Packed="False" />
       <Resource Name="Fonts/MainFont" LoadType="0" Packed="False" />
       <Resource Name="Localization/ChineseSimplified/Dictionaries/Default" LoadType="0" Packed="False" />
       <Resource Name="Localization/ChineseTraditional/Dictionaries/Default" LoadType="0" Packed="False" />
@@ -112,14 +127,17 @@
       <Asset Guid="04dbc0581071c254ea6564b2ff06ff9b" ResourceName="Textures/part_shockwave_dff" />
       <Asset Guid="093f8873cfe371d41b854ed9fb6bff69" ResourceName="Music/music_about" />
       <Asset Guid="0963e6c65b2b1f74d9f455e21901e2dc" ResourceName="Textures/part_jet_core_dff" />
+      <Asset Guid="0992f89f84d762f478fd32f8225168b0" ResourceName="Entities/DefaultArmor" />
       <Asset Guid="09966b19e546cc94aa84d0743cb2a83d" ResourceName="UI/UIForms/MenuForm" />
       <Asset Guid="0a65a68c01a76ea4b8b574827a6467aa" ResourceName="UI/UISprites/Common/dialog-title-background" />
       <Asset Guid="0ed73dc47f4cb38489020d05e9f02c99" ResourceName="Materials/part_glow_mat" />
       <Asset Guid="0f995b3145e0e7247a42da6cef1dbf23" ResourceName="Materials/part_spark_white_mat" />
       <Asset Guid="1053b0070685be347ab58587156842dc" ResourceName="Localization/ChineseTraditional/Dictionaries/Default" />
+      <Asset Guid="11e27c26ac87b40f0a62ec40d7261989" ResourceName="Entities/EnemyBolt" />
       <Asset Guid="1478894bc9a1ed241b05b0862a7b8bce" ResourceName="Textures/part_spark_small_dff" />
       <Asset Guid="14869ac0d4433f04db1704e39d03412e" ResourceName="Localization/English/Dictionaries/Default" />
       <Asset Guid="156d241f796508c4da4fc354a7fbf5a8" ResourceName="UI/UISprites/Common/progressbar-background" />
+      <Asset Guid="160925a6fe2664f2a978566b819f0af0" ResourceName="Entities/EnemyExplosion" />
       <Asset Guid="185f97f18bd603a478461ce9c08bd039" ResourceName="Materials/part_star_mat" />
       <Asset Guid="1b4bad6cea5a94611b21f9757fe41444" ResourceName="Materials/fx_enemyShip_engines_mat" />
       <Asset Guid="1be4472894949437694aead55c6da60f" ResourceName="Sounds/weapon_enemy" />
@@ -133,6 +151,7 @@
       <Asset Guid="2768a9a4c8d289840918dcb879705893" ResourceName="Meshes/prop_asteroid_03" />
       <Asset Guid="2cb5eef4d7d7bf6459dd13a3f8d90246" ResourceName="Textures/part_jet_flare_dff" />
       <Asset Guid="315e8ed2db27c254cb3366ff0793cd90" ResourceName="DataTables/Music" />
+      <Asset Guid="3455fe69f7ddc4604b95bf9b0a1e88d7" ResourceName="Entities/PlayerExplosion" />
       <Asset Guid="352da872791696c48af3b21132e3e3c3" ResourceName="DataTables/UIForm" />
       <Asset Guid="372a8b1e52bedc64b9207b12d167afaa" ResourceName="DataTables/Sound" />
       <Asset Guid="3aa539b1e46111d4299a83c73ebe762c" ResourceName="UI/UIForms/AboutForm" />
@@ -163,16 +182,21 @@
       <Asset Guid="6e5d026bf0652ed4380f6a66f4aa26c5" ResourceName="Textures/vehicle_enemyShip_purple_dff" />
       <Asset Guid="71646ebaae78d43aeb8b53cacdb69671" ResourceName="Textures/tile_nebula_green_dff" />
       <Asset Guid="72e76810224064300b7d32e8322a5d12" ResourceName="Sounds/explosion_enemy" />
+      <Asset Guid="738bdf56857a65f479c367c7b62c4ad7" ResourceName="Entities/PlayerShip" />
       <Asset Guid="77cbb7c5404c10242ab59953e0746314" ResourceName="Fonts/MainFont" />
+      <Asset Guid="7d5f7699d6d1d48e485ac71126e12061" ResourceName="Entities/Asteroid01" />
       <Asset Guid="7e91cd9bad7babf4b975882a4b7453cb" ResourceName="Textures/part_spark_large_dff" />
       <Asset Guid="7eae0d2701845a54aa570b07c55dab44" ResourceName="Textures/prop_asteroid_03_nrm" />
       <Asset Guid="7f5aee8da226edf4991598327cb32ce0" ResourceName="UI/UISprites/Logos/unity-logo" />
       <Asset Guid="7fd11dc5d29076d469d414dec2818f11" ResourceName="Configs/DefaultConfig" />
+      <Asset Guid="834bfaee90a9d4e04b1e8c1ca22cc88e" ResourceName="Entities/Asteroid03" />
       <Asset Guid="836be25be3e1e8c41ae5545bc8a9a4d7" ResourceName="Textures/prop_asteroid_03_dff" />
       <Asset Guid="8940b037a9b441c4cbd3d2b446838424" ResourceName="Materials/vehicle_playerShip_metal_mat" />
       <Asset Guid="8b1acacd22538f34cb85287a0781ea5e" ResourceName="DataTables/Weapon" />
+      <Asset Guid="8cf749fdfa5edc3478d16893efeaa0eb" ResourceName="Entities/PlayerEngine" />
       <Asset Guid="8e114ded6a865324588170636872943c" ResourceName="DataTables/UISound" />
       <Asset Guid="8e27380ee68aa4a219b4db9018e7da31" ResourceName="Materials/done_fx_bolt_orange_mat" />
+      <Asset Guid="9143e2b62ad50488482f9b73672fc331" ResourceName="Entities/Asteroid02" />
       <Asset Guid="955000b4d1441470e8cbf94f483228b5" ResourceName="Materials/done_tile_nebula_green_dff" />
       <Asset Guid="97b1f8b25cca2bc458cb9d6127c8d186" ResourceName="Materials/part_spark_large_mat" />
       <Asset Guid="97d117308cf86924289e81e7e71dd5dd" ResourceName="DataTables/Entity" />
@@ -186,13 +210,16 @@
       <Asset Guid="a019ae3af8e864616b85773c509f5285" ResourceName="Sounds/explosion_player" />
       <Asset Guid="a23eef5e20ff8cb46adf33491fc443fb" ResourceName="Materials/part_spark_yellow_mat" />
       <Asset Guid="a33e23ae848110243820cda82120b105" ResourceName="DataTables/UIForm" />
+      <Asset Guid="a6d58f54ce5934781962a4f887e834f3" ResourceName="Entities/AsteroidExplosion" />
       <Asset Guid="a71f8bb1b1b2c51438e2bafc884cb02c" ResourceName="DataTables/Scene" />
       <Asset Guid="a7b030cffa2dc44478c14e49a22771c2" ResourceName="Materials/part_jet_flare_mat" />
       <Asset Guid="a8c07bbe04fdaf04b80e27f651a8edd6" ResourceName="UI/UISprites/Common/button-outline" />
       <Asset Guid="ab45c3f613f388d43bbf43ec05eb92e2" ResourceName="UI/UISprites/Common/dialog-background" />
       <Asset Guid="ab4774faf71b57a40a29a9e902403fe3" ResourceName="DataTables/Weapon" />
+      <Asset Guid="abd1565e9e268f04cac3631d022b4ace" ResourceName="Entities/DefaultWeapon" />
       <Asset Guid="ad56aae2bb0f2ce4a86711287e14e223" ResourceName="DataTables/Asteroid" />
       <Asset Guid="ae6a7f967521769458b0913fa39caaf4" ResourceName="Textures/prop_asteroid_01_dff" />
+      <Asset Guid="afc18fc39ade3744397c0c993b57be53" ResourceName="Entities/EnemyShip" />
       <Asset Guid="b031b4f2980561542a7f7ba41391edc3" ResourceName="Scenes/Menu" />
       <Asset Guid="b0c7cf51d3fecb446ab93bf854419715" ResourceName="Materials/part_spark_blue_mat" />
       <Asset Guid="b103566de9e95e24fab6cdeb608789d3" ResourceName="DataTables/Player" />
@@ -209,6 +236,7 @@
       <Asset Guid="cfe53cf384344bd47a8680f8c5f97a7b" ResourceName="DataTables/Entity" />
       <Asset Guid="d9808401c68af274a8edfbed3d1b53c7" ResourceName="Meshes/vehicle_playerShip" />
       <Asset Guid="db58965402f12ed47b4dad61a9e48c9d" ResourceName="UI/UISprites/Icons/world" />
+      <Asset Guid="dc3920c65240fc1488f7888e8ad067db" ResourceName="Entities/Player" />
       <Asset Guid="e0792649e7774a24d8e7cceba0231c61" ResourceName="DataTables/Asteroid" />
       <Asset Guid="e5ca26c53b6ab8a46b52817008d7c7fa" ResourceName="UI/UISprites/Icons/sound" />
       <Asset Guid="e82837c9099f69a48b48fc44eb8d119d" ResourceName="UI/UISprites/Common/progressbar" />
@@ -219,10 +247,12 @@
       <Asset Guid="f2f97a713beae744181ba934f9c4113a" ResourceName="DataTables/UISound" />
       <Asset Guid="f36c72c738c55f741afcd674a0b1245f" ResourceName="Materials/vehicle_playerShip_glass_mat" />
       <Asset Guid="f438a72a91e1c3c4a9ced40888ffec96" ResourceName="UI/UISprites/Icons/music" />
+      <Asset Guid="f4ec271e525e14ca9927a07e6a2e153d" ResourceName="Entities/PlayerBolt" />
       <Asset Guid="f6db5bbdfe0e9894798706814cd6b336" ResourceName="Textures/prop_asteroid_01_nrm" />
       <Asset Guid="f799968abd730dc4e9433d497c9d6b92" ResourceName="DataTables/Player" />
       <Asset Guid="fd3cbf51780694849b9b019b36a3938e" ResourceName="Textures/fx_lazer_orange_dff" />
       <Asset Guid="fdb5edd099d06b045af609ba3172400a" ResourceName="DataTables/Scene" />
+      <Asset Guid="fedd25a3c60e7ae499fc6efab9ee180b" ResourceName="Entities/EnemyEngine" />
     </Assets>
   </ResourceCollection>
 </UnityGameFramework>

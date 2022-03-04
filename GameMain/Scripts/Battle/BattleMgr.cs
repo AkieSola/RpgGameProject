@@ -7,7 +7,7 @@ using UnityGameFramework.Runtime;
 namespace RPGGame {
     public class BattleMgr : MonoBehaviour
     {
-        private List<Actor> battleActors;
+        public List<Actor> battleActors;
         private Dictionary<int, Actor> camp1Dic;  //单机模式下通常指玩家阵营
         private Dictionary<int, Actor> camp2Dic;  //单机模式下通常指npc敌人阵营
 
@@ -38,14 +38,14 @@ namespace RPGGame {
             }
 
             //名称：BattleMgrFsm | Owner: this | 状态：BattleRoundStartState，BattleRoundDoState，BattleRoundEndState
-            m_Fsm = GameEntry.Fsm.CreateFsm("BattleMgrFsm", this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
+            //m_Fsm = GameEntry.Fsm.CreateFsm("BattleMgrFsm", this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
             lineSort();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            m_Fsm.Start<BattleRoundStartState>();  
+ 
         }
 
         public bool CheckBattleEnd()
@@ -58,17 +58,6 @@ namespace RPGGame {
             return false;
         }
 
-        public void ShiftToNextActor()
-        {
-            if (m_CurActorIndex == battleActors.Count - 1)
-            {
-                m_CurActorIndex = 0;     
-            }
-            else
-            {
-                m_CurActorIndex++;
-            }
-        }
 
         public void RemoveActor(int id)
         {
@@ -83,14 +72,6 @@ namespace RPGGame {
             }
         }
 
-        private void EndBattle()
-        {
-        }
-
-        void LaunchAttack()
-        {
-        }
-
         void lineSort()
         {
             battleActors.Sort();
@@ -99,43 +80,6 @@ namespace RPGGame {
         //IEnumerator WaitForTakeDamage()
         //{
         //}
-    }
-
-    public class BattleRoundStartState : FsmState<BattleMgr>
-    {
-        protected override void OnEnter(IFsm<BattleMgr> fsm)
-        {
-            base.OnEnter(fsm); 
-            
-        }
-
-        protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)
-        {
-            base.OnLeave(fsm, isShutdown);
-        }
-    }
-
-    public class BattleRoundDoState : FsmState<BattleMgr>
-    {
-        protected override void OnEnter(IFsm<BattleMgr> fsm)
-        {
-            base.OnEnter(fsm);
-        }
-    }
-
-    public class BattleRoundEndState : FsmState<BattleMgr>
-    {
-        protected override void OnEnter(IFsm<BattleMgr> fsm)
-        {
-            base.OnEnter(fsm);
-        }
-
-        protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)
-        {
-            //轮换下个角色
-            fsm.Owner.ShiftToNextActor();
-            base.OnLeave(fsm, isShutdown);
-        }
     }
 }
 

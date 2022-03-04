@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework.Event;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -20,6 +21,7 @@ namespace RPGGame
         private bool m_GotoMenu = false;
         private float m_GotoMenuDelaySeconds = 0f;
 
+        private MainCityForm m_MainCityForm = null;
         public override bool UseNativeDialog
         {
             get
@@ -37,7 +39,7 @@ namespace RPGGame
         {
             base.OnInit(procedureOwner);
 
-            m_Games.Add(GameMode.Survival, new SurvivalGame());
+            m_Games.Add(GameMode.Story, new StoryGame());
         }
 
         protected override void OnDestroy(ProcedureOwner procedureOwner)
@@ -50,6 +52,9 @@ namespace RPGGame
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
             base.OnEnter(procedureOwner);
+
+            GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
+            GameEntry.UI.OpenUIForm(UIFormId.MainCityForm, this);
 
             m_GotoMenu = false;
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
@@ -90,6 +95,17 @@ namespace RPGGame
                 procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
+        }
+
+        private void OnOpenUIFormSuccess(object sender, GameEventArgs e)
+        {
+            OpenUIFormSuccessEventArgs ne = (OpenUIFormSuccessEventArgs)e;
+            if (ne.UserData != this)
+            {
+                return;
+            }
+
+            m_MainCityForm = (MainCityForm)ne.UIForm.Logic;
         }
     }
 }

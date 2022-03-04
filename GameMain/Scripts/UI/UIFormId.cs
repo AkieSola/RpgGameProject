@@ -33,5 +33,10 @@ namespace RPGGame
         /// 关于。
         /// </summary>
         AboutForm = 102,
+
+        /// <summary>
+        /// 主场景 
+        /// </summary>
+        MainCityForm = 103,
     }
 }

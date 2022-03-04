@@ -8,9 +8,9 @@ namespace RPGGame
     public abstract class ActorData : EntityData
     {
         [SerializeField]                                
-        private int m_HP = 0;                           //生命值
-        [SerializeField]
-        private int m_SP = 0;                           //行动值
+        private int m_HP = 1;                           //生命值
+        [SerializeField]   
+        private int m_SP = 1;                           //行动值
         [SerializeField]
         private float m_Priority = 0;                   //先攻值
         [SerializeField]
