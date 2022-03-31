@@ -32,9 +32,8 @@ namespace RPGGame
         [SerializeField]
         private int m_SpellDfs = 0;                     //∑® ı∑¿”˘
 
-        public ActorData(int entityId, int typeId, CampType camp) : base(entityId, typeId)
+        public ActorData(int entityId, int typeId) : base(entityId, typeId)
         {
-            m_Camp = camp;
             m_HP = 0;
             m_SP = 0;
         }

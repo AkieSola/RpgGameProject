@@ -1,3 +1,4 @@
+using GameFramework;
 using GameFramework.Event;
 using System;
 using System.Collections;
@@ -108,6 +109,16 @@ namespace RPGGame
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
+
+            m_ActorData = userData as ActorData;
+            if(m_ActorData == null)
+            {
+                Log.Error("Actor data is invalid");
+            }
+
+            Name = Utility.Text.Format("Actor ({0})", Id);
+
+            
         }
 
         protected virtual void OnDead(Entity attacker)

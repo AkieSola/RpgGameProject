@@ -17,7 +17,7 @@ namespace RPGGame
         [SerializeField]
         private int m_ExpReward = 0;                //»÷É±¾­Ñé½±ÀøÖµ
 
-        public NPCData(int entityId, int typeId, CampType camp) : base(entityId, typeId, camp)
+        public NPCData(int entityId, int typeId) : base(entityId, typeId)
         {
         }
 

@@ -1,10 +1,10 @@
 {
   "GameVersion": "0.1.0",
   "InternalGameVersion": 0,
-  "CheckVersionUrl": "https://10.83.179.59/version.txt",
-  "WindowsAppUrl": "https://10.83.179.59/Windows",
-  "MacOSAppUrl": "https://10.83.179.59/Windows",
-  "IOSAppUrl": "https://10.83.179.59/Windows",
-  "AndroidAppUrl": "https://10.83.179.59/Windows",
+  "CheckVersionUrl": "http://10.83.179.61:80/version.txt",
+  "WindowsAppUrl": "http://10.83.179.61:80/Windows",
+  "MacOSAppUrl": "http://10.83.179.61:80/Windows",
+  "IOSAppUrl": "http://10.83.179.61:80/Windows",
+  "AndroidAppUrl": "http://10.83.179.61:80/Windows",
   "END_OF_JSON": ""
 }

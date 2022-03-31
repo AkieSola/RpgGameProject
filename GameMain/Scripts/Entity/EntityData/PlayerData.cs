@@ -10,10 +10,11 @@ namespace RPGGame {
         private ActorEquips actorEquips = null;
         [SerializeField]
         private string m_Name;
-        public PlayerData(int entityId, int typeId, CampType camp) 
-            : base(entityId, typeId, camp)
+
+        
+        public PlayerData(int entityId, int typeId) 
+            : base(entityId, typeId)
         {
-            
         }
 
         public override int MaxHP => throw new System.NotImplementedException();

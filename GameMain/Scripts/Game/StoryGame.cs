@@ -13,7 +13,5 @@ namespace RPGGame
                 return GameMode.Story;
             }
         }
-
-
     }
 }

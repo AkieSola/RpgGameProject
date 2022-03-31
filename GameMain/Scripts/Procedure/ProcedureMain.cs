@@ -53,8 +53,12 @@ namespace RPGGame
         {
             base.OnEnter(procedureOwner);
 
+            GameEntry.Entity.ShowPlayer(new PlayerData(10000, 10000));
+
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             GameEntry.UI.OpenUIForm(UIFormId.MainCityForm, this);
+
+            
 
             m_GotoMenu = false;
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;

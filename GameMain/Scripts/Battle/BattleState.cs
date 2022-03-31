@@ -9,38 +9,45 @@ namespace RPGGame
 {
     public class BattleState : FsmState<BattleMgr>
     {
-        private List<Actor> m_battleActors;
+        private List<Actor> m_battleActors = new List<Actor>();
         private Dictionary<int, Actor> camp1Dic;  //单机模式下通常指玩家阵营
         private Dictionary<int, Actor> camp2Dic;  //单机模式下通常指npc敌人阵营
 
-        private int m_CurActorIndex;
+        private int m_CurActorIndex = 0;
         private Actor m_CurActor => m_battleActors[m_CurActorIndex];
         public Actor CurActor => m_CurActor;
         
 
         IFsm<BattleMgr> fsm;
+        IFsm<BattleState> battleStateFsm;
 
-
-        protected override void OnEnter(IFsm<BattleMgr> fsm)
+        protected override void OnInit(IFsm<BattleMgr> fsm)
         {
-            base.OnEnter(fsm);
             m_battleActors = fsm.Owner.battleActors;
             m_battleActors.Sort();
 
+            camp1Dic = new Dictionary<int, Actor>();
+            camp2Dic = new Dictionary<int, Actor>();
+        }
+        protected override void OnEnter(IFsm<BattleMgr> fsm)
+        {
+            base.OnEnter(fsm);
+         
             foreach (var a in m_battleActors)
             {
-                if (a.ActorData.Camp == CampType.Player)
+                if (a.tag == "Player")
                 {
-                    a.gameObject.tag = "Player";
-                    camp1Dic.Add(a.ActorData.Id, a);
+                    //a.gameObject.tag = "Player";
+                    camp1Dic.Add(1, a);
                 }
-                else if (a.ActorData.Camp == CampType.Enemy)
+                else if(a.tag == "Enemy")
                 {
-                    a.gameObject.tag = "Enemy";
-                    camp2Dic.Add(a.ActorData.Id, a);
+                    //a.gameObject.tag = "Enemy";
+                    camp2Dic.Add(2, a);
                 }
             }
-
+            battleStateFsm = GameEntry.Fsm.CreateFsm<BattleState>(this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
+            battleStateFsm.Start<BattleRoundStartState>();
             this.fsm = fsm;
         }
 
@@ -117,13 +124,13 @@ namespace RPGGame
         protected override void OnInit(IFsm<BattleState> fsm)
         {
             base.OnInit(fsm);
-            GameEntry.Event.Fire(this, ActorRoundStartEventArgs.Create(fsm.Owner.CurActor.ActorData.Id));
+            //GameEntry.Event.Fire(this, ActorRoundStartEventArgs.Create(fsm.Owner.CurActor.ActorData.Id));
         }
         protected override void OnEnter(IFsm<BattleState> fsm)
         {
             base.OnEnter(fsm);
 #if UNITY_EDITOR
-            Log.Info($"Actor {fsm.Owner.CurActor.ActorData.Id} Round Start!");
+            Log.Info("Actor Round Start!");
 #endif
         }
         protected override void OnUpdate(IFsm<BattleState> fsm, float elapseSeconds, float realElapseSeconds)
@@ -167,10 +174,11 @@ namespace RPGGame
 
         private void OnActorRoundFinish(object sender, GameEventArgs e)
         {
-            ChangeState<BattleRoundEndState>(fsm);
+            if (fsm != null)
+            {
+                ChangeState<BattleRoundEndState>(fsm);
+            }
         }
-
- 
     }
 
     /// <summary>
