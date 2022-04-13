@@ -47,12 +47,6 @@ namespace RPGGame
             }
             SceneBackground.VisibleBoundary.gameObject.GetOrAddComponent<HideByBoundary>();*/
 
-            GameEntry.Entity.ShowPlayer(new PlayerData(GameEntry.Entity.GenerateSerialId(), 10000)
-            {
-                Name = "Player",
-                Position = Vector3.zero,
-            });
-
             GameOver = false;
         }
 

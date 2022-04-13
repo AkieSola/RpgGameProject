@@ -5,103 +5,53 @@ using UnityEngine;
 
 namespace RPGGame
 {
+    /// <summary>
+    /// Player通过属性点（二级属性）+装备映射到ActorData的基础属性
+    /// NPC和Enemy通过配表来决定这些ActorData的基础属性
+    /// </summary>
     public abstract class ActorData : EntityData
     {
-        [SerializeField]                                
+        [SerializeField]
+        private int m_Id;       
+        [SerializeField]
         private int m_HP = 1;                           //生命值
-        [SerializeField]   
+        [SerializeField]
+        private int m_MaxHP = 1;                        //最大生命
+        [SerializeField]
         private int m_SP = 1;                           //行动值
+        [SerializeField]
+        private int m_MaxSp = 1;                        //最大行动
         [SerializeField]
         private float m_Priority = 0;                   //先攻值
         [SerializeField]
+        private float m_Atk = 1;                        //攻击力
+        [SerializeField]
+        private float m_SpellAtk = 1;                   //法术强度
+        [SerializeField]
+        private float m_AtkDistance = 1;                //攻击距离
+        [SerializeField]
+        private float m_PhysicsDfs = 0;                 //物理抗性
+        [SerializeField]
+        private float m_SpellDfs = 0;                   //魔法抗性
+        [SerializeField]
         private CampType m_Camp = CampType.Unknown;     //阵营
-        [SerializeField]
-        private int m_Power = 0;                        //力量
-        [SerializeField]
-        private int m_Agile = 0;                        //敏捷
-        [SerializeField]
-        private int m_Intelligence = 0;                 //智力
-        [SerializeField]
-        private int m_Luck = 0;                         //运气
-        [SerializeField]
-        private int m_PhysicalAtk = 0;                  //物理攻击
-        [SerializeField]
-        private int m_SpellAtk = 0;                     //法术强度
-        [SerializeField]
-        private int m_PhysicalDfs = 0;                  //物理防御
-        [SerializeField]
-        private int m_SpellDfs = 0;                     //法术防御
 
         public ActorData(int entityId, int typeId) : base(entityId, typeId)
         {
-            m_HP = 0;
-            m_SP = 0;
         }
-
-        /// <summary>
-        /// 生命值
-        /// </summary>
-        public int HP { get => m_HP; set => m_HP = Math.Max(0, value); }
-
-        /// <summary>
-        /// 最大生命
-        /// </summary>
-        public abstract int MaxHP
-        {
-            get;
-        }
-
-        /// <summary>
-        /// 生命百分比
-        /// </summary>
-        public float HPRatio
-        { 
-            get
-            {
-                return MaxHP > 0 ? (float)HP / MaxHP : 0f;
-            }
-        }
-
-        /// <summary>
-        /// 行动值
-        /// </summary>
-        public int SP { get => m_SP; set => m_SP = Math.Max(0, value); }
-
-        /// <summary>
-        /// 最大行动值
-        /// </summary>
-        public abstract int MaxSP
-        {
-            get;
-        }
-
-        /// <summary>
-        /// 每回合SP的恢复量
-        /// </summary>
-        public int SPRecovery
-        {
-            get => MaxSP >> 1 + 2;
-        }
-
-        /// <summary>
-        /// 行动值百分比
-        /// </summary>
-        public float SPRatio
-        {
-            get
-            {
-                return MaxSP > 0 ? (float)SP / MaxSP : 0f;
-            }
-        }
-
-        /// <summary>
-        /// 先攻
-        /// </summary>
+        public int ActorId { get => m_Id; set => m_Id = value; }
+        public int HP { get => m_HP; set => m_HP = Math.Min(Math.Max(0, value), MaxHP); }
+        public int MaxHP { get => m_MaxHP; set => m_MaxHP = value; }
+        public int SP { get => m_SP; set => m_SP = Math.Min(Math.Max(0, value), MaxSP); }
+        public int MaxSP { get => m_MaxSp; set => m_MaxSp = value; }
         public float Priority { get => m_Priority; set => m_Priority = value; }
-
-        /// <summary>
-        /// 阵营
-        /// </summary>
-        public CampType Camp { get => m_Camp;}
+        public float Atk { get => m_Atk; set => m_Atk = Math.Max(0, value); }
+        public float SpellAtk { get => m_SpellAtk; set => m_SpellAtk = value; }
+        public float AtkDistance { get => m_AtkDistance; set => m_AtkDistance = Math.Max(0, value); }
+        public float PhysicsDfs { get => m_PhysicsDfs; set => m_PhysicsDfs = value; }
+        public float SpellDfs { get => m_SpellDfs; set => m_SpellDfs = value; }
+        //角色是否死亡
+        public bool IsDead { get => m_HP <= 0; }
+       
     }
 }

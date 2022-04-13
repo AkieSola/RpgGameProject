@@ -11,11 +11,6 @@ namespace RPGGame
         [SerializeField]
         private PlayerData m_PlayerData = null;
 
-        public override ImpactData GetImpactData()
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -28,8 +23,6 @@ namespace RPGGame
             }
 
             Name = Utility.Text.Format("Player ({0})", Id);
-
-            //GameEntry.Entity.ShowPlayer(m_PlayerData);
         }
     }
 }

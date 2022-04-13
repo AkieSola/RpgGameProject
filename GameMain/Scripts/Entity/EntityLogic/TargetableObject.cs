@@ -51,7 +51,7 @@ namespace RPGGame
 #endif
         {
             base.OnInit(userData);
-            gameObject.SetLayerRecursively(Constant.Layer.TargetableObjectLayerId);
+           // gameObject.SetLayerRecursively(Constant.Layer.TargetableObjectLayerId);
         }
 
 #if UNITY_2017_3_OR_NEWER

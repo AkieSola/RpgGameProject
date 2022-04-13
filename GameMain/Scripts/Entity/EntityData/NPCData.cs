@@ -20,9 +20,5 @@ namespace RPGGame
         public NPCData(int entityId, int typeId) : base(entityId, typeId)
         {
         }
-
-        public override int MaxHP => throw new System.NotImplementedException();
-
-        public override int MaxSP => throw new System.NotImplementedException();    
     }
 }

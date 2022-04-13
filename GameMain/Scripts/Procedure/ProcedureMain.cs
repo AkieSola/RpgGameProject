@@ -5,8 +5,11 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework;
+using GameFramework.DataTable;
 using GameFramework.Event;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
@@ -53,12 +56,29 @@ namespace RPGGame
         {
             base.OnEnter(procedureOwner);
 
-            GameEntry.Entity.ShowPlayer(new PlayerData(10000, 10000));
+            DRPlayer dRPlayer;
+            if (GameEntry.Setting.HasSetting("Player"))
+            {
+                dRPlayer = GameEntry.Setting.GetObject<DRPlayer>("Player");
+            }
+            else
+            {
+                IDataTable<DRPlayer> dtPlayer = GameEntry.DataTable.GetDataTable<DRPlayer>();
+                dRPlayer = dtPlayer.GetDataRow(10001);
+                if (dRPlayer != null)
+                {
+                    GameEntry.Setting.SetObject<DRPlayer>("Player", dRPlayer);
+                }
+                GameEntry.Setting.Save();
+            }
+
+            GameEntry.Entity.ShowPlayer(new PlayerData(null,GameEntry.Entity.GenerateSerialId(), 10000)
+            {
+                Position = new Vector3(48.1300011f, 9.73999977f, 1f), 
+            });
 
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             GameEntry.UI.OpenUIForm(UIFormId.MainCityForm, this);
-
-            
 
             m_GotoMenu = false;
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;

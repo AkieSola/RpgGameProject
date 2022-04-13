@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace RPGGame
 {
-    public class NPC : Actor
+    public class EquipWeapon : Equip
     {
-        [SerializeField]
-        private NPCData m_npcData = null;
+        
     }
 }
