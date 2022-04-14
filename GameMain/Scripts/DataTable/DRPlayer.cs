@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-04-13 19:01:52.168
+// 生成时间：2022-04-14 16:38:55.698
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,7 +19,7 @@ using UnityGameFramework.Runtime;
 namespace RPGGame
 {
     /// <summary>
-    /// 玩家表。
+    /// 战机表。
     /// </summary>
     public class DRPlayer : DataRowBase
     {
@@ -76,6 +76,15 @@ namespace RPGGame
         /// 获取智力。
         /// </summary>
         public int Wisdom
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取保留的能力点。
+        /// </summary>
+        public int AbilityPoint
         {
             get;
             private set;
@@ -152,6 +161,7 @@ namespace RPGGame
             Power = int.Parse(columnStrings[index++]);
             Agile = int.Parse(columnStrings[index++]);
             Wisdom = int.Parse(columnStrings[index++]);
+            AbilityPoint = int.Parse(columnStrings[index++]);
             Equip1Id = int.Parse(columnStrings[index++]);
             Equip2Id = int.Parse(columnStrings[index++]);
             Equip3Id = int.Parse(columnStrings[index++]);
@@ -175,6 +185,7 @@ namespace RPGGame
                     Power = binaryReader.Read7BitEncodedInt32();
                     Agile = binaryReader.Read7BitEncodedInt32();
                     Wisdom = binaryReader.Read7BitEncodedInt32();
+                    AbilityPoint = binaryReader.Read7BitEncodedInt32();
                     Equip1Id = binaryReader.Read7BitEncodedInt32();
                     Equip2Id = binaryReader.Read7BitEncodedInt32();
                     Equip3Id = binaryReader.Read7BitEncodedInt32();

@@ -36,8 +36,10 @@ namespace RPGGame
         [SerializeField]
         private CampType m_Camp = CampType.Unknown;     //ÕóÓª
 
+
         public ActorData(int entityId, int typeId) : base(entityId, typeId)
         {
+
         }
         public int ActorId { get => m_Id; set => m_Id = value; }
         public int HP { get => m_HP; set => m_HP = Math.Min(Math.Max(0, value), MaxHP); }

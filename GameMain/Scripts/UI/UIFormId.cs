@@ -38,5 +38,10 @@ namespace RPGGame
         /// 主场景 
         /// </summary>
         MainCityForm = 103,
+
+        /// <summary>
+        /// 角色属性面板
+        /// </summary>
+        PlayerPropFrom = 104,
     }
 }

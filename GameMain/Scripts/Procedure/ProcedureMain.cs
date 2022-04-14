@@ -72,7 +72,7 @@ namespace RPGGame
                 GameEntry.Setting.Save();
             }
 
-            GameEntry.Entity.ShowPlayer(new PlayerData(null,GameEntry.Entity.GenerateSerialId(), 10000)
+            GameEntry.Entity.ShowPlayer(new PlayerData(dRPlayer,GameEntry.Entity.GenerateSerialId(), 10000)
             {
                 Position = new Vector3(48.1300011f, 9.73999977f, 1f), 
             });

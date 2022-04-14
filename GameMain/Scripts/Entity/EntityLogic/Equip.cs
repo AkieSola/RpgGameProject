@@ -16,6 +16,7 @@ namespace RPGGame
     }
     public abstract class Equip : Entity
     {
+        protected int m_id;
         protected EquipType m_EquipType;
     }
 }

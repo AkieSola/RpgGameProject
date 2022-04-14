@@ -16,6 +16,8 @@ namespace RPGGame
         private Slider m_SPSlider = null;
         [SerializeField]
         private SkillList m_SkillList = null;
+        [SerializeField]
+        private Button m_PropBtn = null;
 
         private ProcedureMain m_ProcedureMain = null;
         protected override void OnOpen(object userData)
@@ -27,6 +29,8 @@ namespace RPGGame
                 Log.Warning("ProcedureMain is invalid when open MainCityForm.");
                 return;
             }
+
+            m_PropBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.PlayerPropFrom); });
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

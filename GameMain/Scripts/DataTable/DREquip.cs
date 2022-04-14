@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-04-13 19:01:52.174
+// 生成时间：2022-04-14 16:38:55.703
 //------------------------------------------------------------
 
 using GameFramework;
@@ -100,7 +100,34 @@ namespace RPGGame
         }
 
         /// <summary>
-        /// 获取装备等级。
+        /// 获取力量补正.* 10。
+        /// </summary>
+        public int PowerAdd
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取敏捷补正 * 10。
+        /// </summary>
+        public int AgileAdd
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取智力补正 *10。
+        /// </summary>
+        public int WisdomAdd
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取装备等级要求。
         /// </summary>
         public int Level
         {
@@ -154,6 +181,9 @@ namespace RPGGame
             SpellAttack = int.Parse(columnStrings[index++]);
             PhysicsDefense = int.Parse(columnStrings[index++]);
             SpellDefense = int.Parse(columnStrings[index++]);
+            PowerAdd = int.Parse(columnStrings[index++]);
+            AgileAdd = int.Parse(columnStrings[index++]);
+            WisdomAdd = int.Parse(columnStrings[index++]);
             Level = int.Parse(columnStrings[index++]);
             EquipType = int.Parse(columnStrings[index++]);
             SubEquipType = int.Parse(columnStrings[index++]);
@@ -177,6 +207,9 @@ namespace RPGGame
                     SpellAttack = binaryReader.Read7BitEncodedInt32();
                     PhysicsDefense = binaryReader.Read7BitEncodedInt32();
                     SpellDefense = binaryReader.Read7BitEncodedInt32();
+                    PowerAdd = binaryReader.Read7BitEncodedInt32();
+                    AgileAdd = binaryReader.Read7BitEncodedInt32();
+                    WisdomAdd = binaryReader.Read7BitEncodedInt32();
                     Level = binaryReader.Read7BitEncodedInt32();
                     EquipType = binaryReader.Read7BitEncodedInt32();
                     SubEquipType = binaryReader.Read7BitEncodedInt32();
