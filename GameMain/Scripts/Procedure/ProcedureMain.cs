@@ -25,6 +25,8 @@ namespace RPGGame
         private float m_GotoMenuDelaySeconds = 0f;
 
         private MainCityForm m_MainCityForm = null;
+
+        private PlayerData playerData;
         public override bool UseNativeDialog
         {
             get
@@ -32,6 +34,8 @@ namespace RPGGame
                 return false;
             }
         }
+
+        public PlayerData PlayerData { get => playerData; }
 
         public void GotoMenu()
         {
@@ -57,26 +61,29 @@ namespace RPGGame
             base.OnEnter(procedureOwner);
 
             DRPlayer dRPlayer;
-            if (GameEntry.Setting.HasSetting("Player"))
+            PlayerDataSource pdSource;
+            //第一次进入之后读持久化数据
+            if (GameEntry.Setting.HasSetting("PlayerDataSource"))
             {
-                dRPlayer = GameEntry.Setting.GetObject<DRPlayer>("Player");
+                pdSource = GameEntry.Setting.GetObject<PlayerDataSource>("PlayerDataSource");
             }
+            //第一次进入读表，之后达成playerDataSource存盘
             else
             {
                 IDataTable<DRPlayer> dtPlayer = GameEntry.DataTable.GetDataTable<DRPlayer>();
                 dRPlayer = dtPlayer.GetDataRow(10001);
+                pdSource = new PlayerDataSource(dRPlayer);
                 if (dRPlayer != null)
                 {
-                    GameEntry.Setting.SetObject<DRPlayer>("Player", dRPlayer);
+                    GameEntry.Setting.SetObject<PlayerDataSource>("PlayerDataSource", pdSource);
                 }
                 GameEntry.Setting.Save();
             }
 
-            GameEntry.Entity.ShowPlayer(new PlayerData(dRPlayer,GameEntry.Entity.GenerateSerialId(), 10000)
-            {
-                Position = new Vector3(48.1300011f, 9.73999977f, 1f), 
-            });
+            playerData = new PlayerData(pdSource, GameEntry.Entity.GenerateSerialId(), 10000);
 
+            GameEntry.Entity.ShowPlayer(playerData);
+        
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             GameEntry.UI.OpenUIForm(UIFormId.MainCityForm, this);
 

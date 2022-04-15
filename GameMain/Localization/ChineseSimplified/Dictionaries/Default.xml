@@ -25,5 +25,18 @@
     <String Key="Setting.UISound" Value="界面音效" />
     <String Key="Setting.Language" Value="语言" />
     <String Key="Setting.LanguageTips" Value="更改语言需要重启游戏" />
+	<String Key="Prop.Name" Value="名字:" />
+	<String Key="Prop.LV" Value="等级：" />
+	<String Key="Prop.Power" Value="力量:" />
+	<String Key="Prop.Agile" Value="敏捷:" />
+	<String Key="Prop.Wisdom" Value="智慧:" />
+	<String Key="Prop.AbilityPoint" Value="可用属性点： " />
+	<String Key="Prop.ATK" Value="物理攻击： " />
+	<String Key="Prop.SpellATK" Value="法术强度： " />
+	<String Key="Prop.MaxHP" Value="最大生命： " />
+	<String Key="Prop.MaxSP" Value="最大行动值： " />
+	<String Key="Prop.PhysicsDfs" Value="物理抗性： " />
+	<String Key="Prop.SpellDfs" Value="魔法抗性： " />
+	<String Key="Prop.Priority" Value="先攻： " />
   </Dictionary>
 </Dictionaries>
