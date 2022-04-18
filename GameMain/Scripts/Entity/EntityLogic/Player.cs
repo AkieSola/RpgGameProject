@@ -11,6 +11,7 @@ namespace RPGGame
         [SerializeField]
         private PlayerData m_PlayerData = null;
 
+
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -23,6 +24,7 @@ namespace RPGGame
             }
 
             Name = Utility.Text.Format("Player ({0})", Id);
+            GameEntry.HPBar.ShowHPBar(this, (m_PlayerData as ActorData).HPRatio, (m_PlayerData as ActorData).HPRatio);
         }
     }
 }

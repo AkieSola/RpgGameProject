@@ -52,7 +52,26 @@ namespace RPGGame
         public float AtkDistance { get => m_AtkDistance; set => m_AtkDistance = Math.Max(0, value); }
         public float PhysicsDfs { get => m_PhysicsDfs; set => m_PhysicsDfs = value; }
         public float SpellDfs { get => m_SpellDfs; set => m_SpellDfs = value; }
-        //角色是否死亡
+
+        /// <summary>
+        /// 生命值百分比
+        /// </summary>
+        public float HPRatio { get => Math.Max(0, (float)m_HP / (float)m_MaxHP); }
+        /// <summary>
+        /// SP值百分比
+        /// </summary>
+        public float SPRatio { get => Math.Max(0, (float)m_SP / (float)m_MaxSp); }
+        /// <summary>
+        /// 物抗百分比
+        /// </summary>
+        public float PhysicsDfsRatio { get => (float)PhysicsDfs / (float)(100 + PhysicsDfs); }
+        /// <summary>
+        /// 魔抗百分比
+        /// </summary>
+        public float SpellDfsRatio { get => (float)SpellDfs / (float)(100 + SpellDfs); }
+        /// <summary>
+        /// 角色是否死亡
+        /// </summary>
         public bool IsDead { get => m_HP <= 0; }
        
     }

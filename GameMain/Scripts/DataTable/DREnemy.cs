@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-04-18 16:11:36.270
+// 生成时间：2022-04-18 16:11:36.296
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace RPGGame
 {
     /// <summary>
-    /// 声音配置表。
+    /// Enemy表。
     /// </summary>
-    public class DRSound : DataRowBase
+    public class DREnemy : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取声音编号。
+        /// 获取Enemy编号。
         /// </summary>
         public override int Id
         {
@@ -37,16 +37,61 @@ namespace RPGGame
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取姓名。
         /// </summary>
-        public string AssetName
+        public string Name
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取优先级（默认0，128最高，-128最低）。
+        /// 获取等级。
+        /// </summary>
+        public int Lv
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取掉落Id。
+        /// </summary>
+        public int DropId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取AIId。
+        /// </summary>
+        public int AIId
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取最大生命。
+        /// </summary>
+        public int MaxHp
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取最大Sp。
+        /// </summary>
+        public int MaxSp
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取先攻。
         /// </summary>
         public int Priority
         {
@@ -55,36 +100,45 @@ namespace RPGGame
         }
 
         /// <summary>
-        /// 获取是否循环。
+        /// 获取攻击力。
         /// </summary>
-        public bool Loop
+        public int Atk
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取音量（0~1）。
+        /// 获取法术强度。
         /// </summary>
-        public float Volume
+        public int SpellAtk
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取声音空间混合量（0为2D，1为3D，中间值混合效果）。
+        /// 获取攻击距离。
         /// </summary>
-        public float SpatialBlend
+        public int AtkDistance
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取声音最大距离。
+        /// 获取物抗。
         /// </summary>
-        public float MaxDistance
+        public int PhysicsDfs
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取魔抗。
+        /// </summary>
+        public int SpellDfs
         {
             get;
             private set;
@@ -102,12 +156,18 @@ namespace RPGGame
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            AssetName = columnStrings[index++];
+            Name = columnStrings[index++];
+            Lv = int.Parse(columnStrings[index++]);
+            DropId = int.Parse(columnStrings[index++]);
+            AIId = int.Parse(columnStrings[index++]);
+            MaxHp = int.Parse(columnStrings[index++]);
+            MaxSp = int.Parse(columnStrings[index++]);
             Priority = int.Parse(columnStrings[index++]);
-            Loop = bool.Parse(columnStrings[index++]);
-            Volume = float.Parse(columnStrings[index++]);
-            SpatialBlend = float.Parse(columnStrings[index++]);
-            MaxDistance = float.Parse(columnStrings[index++]);
+            Atk = int.Parse(columnStrings[index++]);
+            SpellAtk = int.Parse(columnStrings[index++]);
+            AtkDistance = int.Parse(columnStrings[index++]);
+            PhysicsDfs = int.Parse(columnStrings[index++]);
+            SpellDfs = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -120,12 +180,18 @@ namespace RPGGame
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
+                    Name = binaryReader.ReadString();
+                    Lv = binaryReader.Read7BitEncodedInt32();
+                    DropId = binaryReader.Read7BitEncodedInt32();
+                    AIId = binaryReader.Read7BitEncodedInt32();
+                    MaxHp = binaryReader.Read7BitEncodedInt32();
+                    MaxSp = binaryReader.Read7BitEncodedInt32();
                     Priority = binaryReader.Read7BitEncodedInt32();
-                    Loop = binaryReader.ReadBoolean();
-                    Volume = binaryReader.ReadSingle();
-                    SpatialBlend = binaryReader.ReadSingle();
-                    MaxDistance = binaryReader.ReadSingle();
+                    Atk = binaryReader.Read7BitEncodedInt32();
+                    SpellAtk = binaryReader.Read7BitEncodedInt32();
+                    AtkDistance = binaryReader.Read7BitEncodedInt32();
+                    PhysicsDfs = binaryReader.Read7BitEncodedInt32();
+                    SpellDfs = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

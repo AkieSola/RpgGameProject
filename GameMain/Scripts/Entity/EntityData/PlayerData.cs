@@ -24,7 +24,7 @@ namespace RPGGame
         [SerializeField]
         private int m_Agile;        //敏捷 = 增加先攻,  增加MaxSP, 补正敏捷型武器
         [SerializeField]
-        private int m_Wisdom;       //智力 = 增加法强， 增加魔抗,  补正魔法型武器
+        private int m_Wisdom;       //智力 = 增加MaxSP， 增加魔抗,  补正魔法型武器
         //[SerializeField]
         //private int m_Faith;      
         [SerializeField]
@@ -49,6 +49,7 @@ namespace RPGGame
             Power = pdSource.Power;
             Agile = pdSource.Agile;
             Wisdom = pdSource.Wisdom;
+            AbilityAddPoint = pdSource.AbilityPoint;
 
             IDataTable<DREquip> dtEquip = GameEntry.DataTable.GetDataTable<DREquip>();
             PlayerEquips = new Dictionary<EquipType, DREquip>()
@@ -63,15 +64,15 @@ namespace RPGGame
 
             base.ActorId = Id1;
             base.MaxHP = (int)(baseMaxHP * Mathf.Pow(m_LvPowAddHP, LvPowAddHP) + Power * 20); //+装备加成
-            base.HP = MaxHP;
-            base.SP = MaxSP;
-            base.Priority = 5;
-            base.MaxSP = baseMaxHP;
+            base.Priority = 5 + Agile;
+            base.MaxSP = baseMaxHP + (int)(Agile*0.33);
             base.Atk = baseATK;
             base.SpellAtk = 0;
             base.AtkDistance = 10.0f;
-            base.PhysicsDfs = 0;
-            base.SpellDfs = 0;
+            base.PhysicsDfs = 0 + Power;
+            base.SpellDfs = 0 + Wisdom;
+            base.HP = MaxHP;
+            base.SP = MaxSP;
 
             GameEntry.Event.Subscribe(PlayerAddAbilityPointDataEventArgs.EventId, OnPointAdd);
         }
@@ -101,6 +102,7 @@ namespace RPGGame
             Power = pdSource.Power;
             Agile = pdSource.Agile;
             Wisdom = pdSource.Wisdom;
+            AbilityAddPoint = pdSource.AbilityPoint;
 
             IDataTable<DREquip> dtEquip = GameEntry.DataTable.GetDataTable<DREquip>();
             PlayerEquips = new Dictionary<EquipType, DREquip>()
@@ -115,15 +117,13 @@ namespace RPGGame
 
             base.ActorId = Id1;
             base.MaxHP = (int)(baseMaxHP * Mathf.Pow(m_LvPowAddHP, LvPowAddHP) + Power * 20); //+装备加成
-            base.HP = MaxHP;
-            base.SP = MaxSP;
-            base.Priority = 5;
-            base.MaxSP = baseMaxHP;
+            base.Priority = 5 + Agile;
+            base.MaxSP = baseMaxHP + (int)(Agile * 0.33);
             base.Atk = baseATK;
             base.SpellAtk = 0;
             base.AtkDistance = 10.0f;
-            base.PhysicsDfs = 0;
-            base.SpellDfs = 0;
+            base.PhysicsDfs = 0 + Power;
+            base.SpellDfs = 0 + Wisdom;
 
             GameEntry.Event.Fire(this, PlayerAddAbilityPointFormEventArgs.Create(this));
         }
