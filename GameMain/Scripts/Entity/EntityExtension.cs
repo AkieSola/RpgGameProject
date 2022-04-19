@@ -84,6 +84,12 @@ namespace RPGGame
         {
             entityComponent.ShowEntity(typeof(Player), "Player", Constant.AssetPriority.PlayerAsset, data);
         }
+
+        public static void ShowEnemy(this EntityComponent entityComponent, EnemyData data) 
+        {
+            entityComponent.ShowEntity(typeof(Enemy), "Enemy", Constant.AssetPriority.EnemyAsset, data);
+        }
+
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

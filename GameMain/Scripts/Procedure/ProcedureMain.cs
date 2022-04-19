@@ -62,6 +62,8 @@ namespace RPGGame
 
             DRPlayer dRPlayer;
             PlayerDataSource pdSource;
+
+
             //第一次进入之后读持久化数据
             if (GameEntry.Setting.HasSetting("PlayerDataSource"))
             {
@@ -83,7 +85,15 @@ namespace RPGGame
             playerData = new PlayerData(pdSource, GameEntry.Entity.GenerateSerialId(), 10000);
 
             GameEntry.Entity.ShowPlayer(playerData);
-        
+
+            IDataTable<DREnemy> dtEmemy = GameEntry.DataTable.GetDataTable<DREnemy>();
+
+            if (dtEmemy != null) 
+            {
+                EnemyData enemyData = new EnemyData(dtEmemy.GetDataRow(10000), GameEntry.Entity.GenerateSerialId(), 10001);
+                GameEntry.Entity.ShowEnemy(enemyData);
+            }
+
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
             GameEntry.UI.OpenUIForm(UIFormId.MainCityForm, this);
 

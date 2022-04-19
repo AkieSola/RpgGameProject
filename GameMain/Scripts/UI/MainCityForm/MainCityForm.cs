@@ -32,6 +32,8 @@ namespace RPGGame
                 return;
             }
             playerData = userData as PlayerData;
+            m_HPSlider.value = playerData.HPRatio;
+            m_SPSlider.value = playerData.SPRatio;
             m_PropBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.PlayerPropFrom, m_ProcedureMain.PlayerData); });
         }
 

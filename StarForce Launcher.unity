@@ -568,7 +568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_EntityGroups.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_EntityGroups.Array.data[0].m_Name
@@ -603,6 +603,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_EntityGroups.Array.data[8].m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_EntityGroups.Array.data[0].m_InstanceCapacity
       value: 16
       objectReference: {fileID: 0}
@@ -632,6 +636,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_EntityGroups.Array.data[7].m_InstanceCapacity
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_EntityGroups.Array.data[8].m_InstanceCapacity
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
@@ -667,6 +675,10 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_EntityGroups.Array.data[8].m_InstanceExpireTime
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_EntityGroups.Array.data[0].m_InstanceAutoReleaseInterval
       value: 60
       objectReference: {fileID: 0}
@@ -696,6 +708,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
       propertyPath: m_EntityGroups.Array.data[7].m_InstanceAutoReleaseInterval
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 11494652, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
+      propertyPath: m_EntityGroups.Array.data[8].m_InstanceAutoReleaseInterval
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 11497722, guid: adb3eb1c35fcff14f89fba7b05c9d71c, type: 3}
@@ -1092,6 +1108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852670053}
   - component: {fileID: 1852670054}
+  - component: {fileID: 1852670055}
   m_Layer: 0
   m_Name: Game Framework
   m_TagString: Untagged
@@ -1127,3 +1144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d09b8a3e8c0e7e4dbcfd2fa52bf69ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1852670055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852670052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 879e921586721514f9f85de777050af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HPBarItemTemplate: {fileID: 11414536, guid: 96d2e77dd9853514da336717bd5627c0, type: 3}
+  m_HPBarInstanceRoot: {fileID: 1576232203}
+  m_InstancePoolCapacity: 16
