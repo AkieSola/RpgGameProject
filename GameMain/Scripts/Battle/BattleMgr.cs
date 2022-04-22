@@ -30,33 +30,8 @@ namespace RPGGame {
         private void Start()
         {
             battleActors = new List<Actor>();
-            battleMgrFsm = GameEntry.Fsm.CreateFsm<BattleMgr>(this,new BattleState(),new NormalState());
+            battleMgrFsm = GameEntry.Fsm.CreateFsm<BattleMgr>(this, new NormalState(),new BattleState());
             battleMgrFsm.Start<NormalState>();
-        }
-
-        private void Update() 
-        {
-            timer += Time.deltaTime;
-            if (timer > 1) 
-            {
-                Collider[] colliders = Physics.OverlapSphere(this.transform.position, 10);
-                foreach (var collider in colliders)
-                {
-                    Actor a;
-                    if (collider.TryGetComponent<Actor>(out a))
-                    {
-                        if (a != null)
-                        {
-                            battleActors.Add(a);
-                        }
-                    }
-                }
-
-                if (battleActors != null)
-                {
-     
-                }
-            }
         }
     }
 

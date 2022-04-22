@@ -51,6 +51,11 @@ namespace RPGGame
             this.fsm = fsm;
         }
 
+        protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+            Log.Debug(fsm.CurrentState);
+        }
 
         protected override void OnDestroy(IFsm<BattleMgr> fsm)
         {

@@ -9,30 +9,45 @@ namespace RPGGame
     public class NormalState : FsmState<BattleMgr>
     {
         public List<Actor> battleActors;
-        public Player player;
+        private float timer;
         protected override void OnInit(IFsm<BattleMgr> fsm)
         {
             base.OnInit(fsm);
             battleActors = new List<Actor>();
-            player = fsm.Owner.player;
+        }
+
+        protected override void OnEnter(IFsm<BattleMgr> fsm)
+        {
+            base.OnEnter(fsm);
         }
 
         protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            Log.Debug("NormalState OnUpdate");
-            if (player != null)
+            timer += Time.deltaTime;
+            if (timer >= 1f)
             {
-                Collider[] colliders = Physics.OverlapSphere(player.transform.position, 10);
-                foreach (var collider in colliders)
+                timer = 0;
+                if (fsm.Owner.player != null)
                 {
-                    Actor a;
-                    if (collider.TryGetComponent<Actor>(out a))
+                    Collider[] colliders = Physics.OverlapSphere(fsm.Owner.player.transform.position, 10);
+                    battleActors.Clear();
+                    foreach (var collider in colliders)
                     {
-                        if (a != null)
+                        Actor a;
+                        if (collider.TryGetComponent<Actor>(out a))
                         {
-                            battleActors.Add(a);
+                            if (a != null)
+                            {
+                                Log.Debug(fsm.CurrentState);
+                                battleActors.Add(a);
+                            }
                         }
+                    }
+
+                    if (battleActors.Count > 1)
+                    {
+                        ChangeState<BattleState>(fsm);
                     }
                 }
             }
