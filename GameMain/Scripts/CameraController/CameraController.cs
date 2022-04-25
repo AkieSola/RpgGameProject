@@ -16,7 +16,9 @@ public class CameraController : MonoBehaviour
     int height = Screen.height;
     Vector3 tmpPos;
 
-
+    Ray ray;
+    RaycastHit hit;
+    public Material mat;
     private void Start()
     {
         cameraTrans = this.transform;
@@ -25,9 +27,14 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit,1000, LayerMask.GetMask("Enemy")))
         {
-            if (Player == null) 
+            hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0] = mat;        
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Player == null)
             {
                 Player = GameObject.FindGameObjectWithTag("Player");
             }

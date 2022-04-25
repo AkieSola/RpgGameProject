@@ -49,12 +49,9 @@ namespace RPGGame
             for (int i = m_ActiveHPBarItems.Count - 1; i >= 0; i--)
             {
                 HPBarItem hpBarItem = m_ActiveHPBarItems[i];
-                if (hpBarItem.Refresh())
-                {
-                    continue;
-                }
+                hpBarItem.Refresh();
 
-                HideHPBar(hpBarItem);
+                //HideHPBar(hpBarItem);
             }
         }
 
@@ -72,7 +69,7 @@ namespace RPGGame
                 hpBarItem = CreateHPBarItem(entity);
                 m_ActiveHPBarItems.Add(hpBarItem);
             }
-
+          
             hpBarItem.Init(entity, m_CachedCanvas, fromHPRatio, toHPRatio);
         }
 

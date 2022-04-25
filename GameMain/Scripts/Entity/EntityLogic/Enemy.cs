@@ -16,6 +16,9 @@ namespace RPGGame
             base.OnShow(userData);
 
             m_EnemyData = userData as EnemyData;
+
+            GameEntry.HPBar.ShowHPBar(this, 1, this.m_EnemyData.HPRatio);
+      
             if(m_EnemyData == null)
             {
                 Log.Error("EnemyData is invalid.");

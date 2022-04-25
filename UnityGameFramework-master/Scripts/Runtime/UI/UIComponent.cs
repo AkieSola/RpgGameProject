@@ -58,6 +58,8 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private Transform m_InstanceRoot = null;
 
+        private Canvas m_InstanceCanvas;
+
         [SerializeField]
         private string m_UIFormHelperTypeName = "UnityGameFramework.Runtime.DefaultUIFormHelper";
 
@@ -73,6 +75,14 @@ namespace UnityGameFramework.Runtime
         [SerializeField]
         private UIGroup[] m_UIGroups = null;
 
+
+        public Canvas InstanceCanvas 
+        {
+            get 
+            {
+                return m_InstanceRoot.GetComponent<Canvas>();
+            }
+        }
         /// <summary>
         /// 获取界面组数量。
         /// </summary>

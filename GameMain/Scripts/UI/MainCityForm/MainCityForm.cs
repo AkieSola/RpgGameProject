@@ -20,8 +20,6 @@ namespace RPGGame
         private Button m_PropBtn = null;
 
         private ProcedureMain m_ProcedureMain = null;
-
-        private PlayerData playerData = null;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -31,9 +29,9 @@ namespace RPGGame
                 Log.Warning("ProcedureMain is invalid when open MainCityForm.");
                 return;
             }
-            playerData = userData as PlayerData;
-            m_HPSlider.value = playerData.HPRatio;
-            m_SPSlider.value = playerData.SPRatio;
+
+            m_HPSlider.value = m_ProcedureMain.PlayerData.HPRatio;
+            m_SPSlider.value = m_ProcedureMain.PlayerData.SPRatio;
             m_PropBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.PlayerPropFrom, m_ProcedureMain.PlayerData); });
         }
 

@@ -18,19 +18,25 @@ Shader "Custom/OutlineShading"
 
             CGPROGRAM
 
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+                float3 normal : NORMAL;
+            };
+
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+            };
+
             #pragma vertex vert
             #pragma fragment frag
 
-            float4 vert(float4 v:POSITION) : SV_POSITION
+            v2f vert(appdata v)
             {
-                return UnityObjectToClipPos(v);
+                v2f o;
             }
-
-            float4 frag() : SV_Target
-            {
-                return float4(1, 1, 1, 1);
-            }
-
             ENDCG
         }
 

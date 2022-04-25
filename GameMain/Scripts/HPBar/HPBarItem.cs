@@ -57,8 +57,7 @@ namespace RPGGame
             }
 
             Refresh();
-
-            StartCoroutine(HPBarCo(toHPRatio, AnimationSeconds, KeepSeconds, FadeOutSeconds));
+            //StartCoroutine(HPBarCo(toHPRatio, AnimationSeconds, KeepSeconds, FadeOutSeconds));
         }
 
         public bool Refresh()
@@ -70,7 +69,7 @@ namespace RPGGame
 
             if (m_Owner != null && Owner.Available && Owner.Id == m_OwnerId)
             {
-                Vector3 worldPosition = m_Owner.CachedTransform.position + Vector3.forward;
+                Vector3 worldPosition = m_Owner.CachedTransform.position;
                 Vector3 screenPosition = GameEntry.Scene.MainCamera.WorldToScreenPoint(worldPosition);
 
                 Vector2 position;

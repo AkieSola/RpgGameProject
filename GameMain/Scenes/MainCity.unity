@@ -322,6 +322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleActors: []
+  timer: 0
+  player: {fileID: 0}
 --- !u!4 &1652354782
 Transform:
   m_ObjectHideFlags: 0
@@ -432,3 +434,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44d180d28e9f71418d857e00d75445e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
+  mat: {fileID: 2100000, guid: 1cbb2b643130fbf48b20ec8a5026e92c, type: 2}

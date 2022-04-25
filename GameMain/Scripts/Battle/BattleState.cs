@@ -14,8 +14,18 @@ namespace RPGGame
         private Dictionary<int, Actor> camp2Dic;  //单机模式下通常指npc敌人阵营
 
         private int m_CurActorIndex = 0;
-        private Actor m_CurActor => m_battleActors[m_CurActorIndex];
-        public Actor CurActor => m_CurActor;
+        public Actor CurActor
+        {
+            get
+            {
+                if (m_CurActorIndex < m_battleActors.Count)
+                {
+                    return m_battleActors[m_CurActorIndex];
+                }
+
+                return null;
+            }
+        }
         
 
         IFsm<BattleMgr> fsm;
@@ -32,7 +42,7 @@ namespace RPGGame
         protected override void OnEnter(IFsm<BattleMgr> fsm)
         {
             base.OnEnter(fsm);
-         
+            m_CurActorIndex = 0;
             foreach (var a in m_battleActors)
             {
                 if (a.tag == "Player")
@@ -45,6 +55,8 @@ namespace RPGGame
                     //a.gameObject.tag = "Enemy";
                     camp2Dic.Add(2, a);
                 }
+
+                m_battleActors.Add(a);
             }
             battleStateFsm = GameEntry.Fsm.CreateFsm<BattleState>(this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
             battleStateFsm.Start<BattleRoundStartState>();
@@ -135,7 +147,10 @@ namespace RPGGame
         {
             base.OnEnter(fsm);
 #if UNITY_EDITOR
-            Log.Info("Actor Round Start!");
+            if (fsm.Owner.CurActor != null)
+            {
+                Log.Info(fsm.Owner.CurActor + "：的回合");
+            }
 #endif
         }
         protected override void OnUpdate(IFsm<BattleState> fsm, float elapseSeconds, float realElapseSeconds)
@@ -171,7 +186,6 @@ namespace RPGGame
         protected override void OnEnter(IFsm<BattleState> fsm)
         {
             base.OnEnter(fsm);
-
 #if UNITY_EDITOR
             Log.Info($"Actor {fsm.Owner.CurActor.ActorData.Id} Round Do!");
 #endif
