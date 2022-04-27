@@ -17,22 +17,22 @@ namespace RPGGame {
             }
         }
 
-        public int ActorId
+        public Actor actor
         {
             get;
             private set;
         }
 
-        public static ActorRoundFinishEventArgs Create(int id)
+        public static ActorRoundFinishEventArgs Create(Actor actor)
         {
             ActorRoundFinishEventArgs e = ReferencePool.Acquire<ActorRoundFinishEventArgs>();
-            e.ActorId = id;
+            e.actor = actor;
             return e;
         }
 
         public override void Clear()
         {
-            ActorId = -1;
+            actor = null;
         }
     }
 }

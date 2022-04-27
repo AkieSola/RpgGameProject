@@ -30,7 +30,7 @@ namespace RPGGame {
         private void Start()
         {
             battleActors = new List<Actor>();
-            battleMgrFsm = GameEntry.Fsm.CreateFsm<BattleMgr>(this, new NormalState(),new BattleState());
+            battleMgrFsm = GameEntry.Fsm.CreateFsm(this, new NormalState(),new BattleState());
             battleMgrFsm.Start<NormalState>();
         }
     }

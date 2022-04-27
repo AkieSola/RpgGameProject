@@ -3,6 +3,7 @@ using GameFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityGameFramework.Runtime;
 
 namespace RPGGame
@@ -11,8 +12,9 @@ namespace RPGGame
     {
         [SerializeField]
         private PlayerData m_PlayerData = null;
+        private NavMeshAgent nav;
 
-
+        public bool canMove;
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -20,17 +22,35 @@ namespace RPGGame
             EventComponent eventComponent = GameEntry.Event;
 
             eventComponent.Fire(this, PlayerShowEventArgs.Create());
+
+            canMove = true;
+
             m_PlayerData = userData as PlayerData;
-            if(m_PlayerData == null)
+            if (m_PlayerData == null)
             {
                 Log.Error("Player data is invalid.");
                 return;
             }
 
+            nav = GetComponent<NavMeshAgent>();
+
             Name = Utility.Text.Format("Player ({0})", Id);
             //GameEntry.HPBar.ShowHPBar(this, (m_PlayerData as ActorData).HPRatio, (m_PlayerData as ActorData).HPRatio);
         }
 
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Input.GetMouseButtonDown(1) && canMove)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    nav.SetDestination(hit.point);
+                }
+            }
+        }
     }
 
     public class PlayerShowEventArgs : GameEventArgs
@@ -39,20 +59,20 @@ namespace RPGGame
 
         public override int Id
         {
-            get 
+            get
             {
                 return EventId;
             }
         }
 
-        public static PlayerShowEventArgs Create() 
+        public static PlayerShowEventArgs Create()
         {
             PlayerShowEventArgs e = ReferencePool.Acquire<PlayerShowEventArgs>();
             return e;
         }
         public override void Clear()
         {
- 
+
         }
     }
 

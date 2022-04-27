@@ -10,15 +10,22 @@ namespace RPGGame
     {
         public List<Actor> battleActors;
         private float timer;
+
+        private Player player;
         protected override void OnInit(IFsm<BattleMgr> fsm)
         {
             base.OnInit(fsm);
             battleActors = new List<Actor>();
+            player = fsm.Owner.player;
         }
 
         protected override void OnEnter(IFsm<BattleMgr> fsm)
         {
             base.OnEnter(fsm);
+            if (player != null)
+            {
+                player.canMove = true;
+            }
         }
 
         protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
@@ -47,6 +54,7 @@ namespace RPGGame
 
                     if (battleActors.Count > 1)
                     {
+                        fsm.Owner.battleActors = battleActors;
                         ChangeState<BattleState>(fsm);
                     }
                 }

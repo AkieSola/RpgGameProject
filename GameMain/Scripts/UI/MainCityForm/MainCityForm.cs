@@ -1,3 +1,6 @@
+using GameFramework;
+using GameFramework.Event;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,21 +21,46 @@ namespace RPGGame
         private SkillList m_SkillList = null;
         [SerializeField]
         private Button m_PropBtn = null;
+        [SerializeField]
+        private Button m_TurnEndBtn = null; 
 
         private ProcedureMain m_ProcedureMain = null;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
             m_ProcedureMain = (ProcedureMain)userData;
+
+            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, ShowTurnEndBtn);
+
             if(m_ProcedureMain == null)
             {
                 Log.Warning("ProcedureMain is invalid when open MainCityForm.");
                 return;
             }
 
+            m_TurnEndBtn.gameObject.SetActive(false);
             m_HPSlider.value = m_ProcedureMain.PlayerData.HPRatio;
             m_SPSlider.value = m_ProcedureMain.PlayerData.SPRatio;
             m_PropBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.PlayerPropFrom, m_ProcedureMain.PlayerData); });
+            m_TurnEndBtn.onClick.AddListener(() => { 
+                GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(null));
+            });
+        }
+
+        private void ShowTurnEndBtn(object sender, GameEventArgs e)
+        {
+            if(e is ActorRoundStartEventArgs)
+            {
+                if((e as ActorRoundStartEventArgs).actor is Player)
+                {
+                    m_TurnEndBtn.gameObject.SetActive(true);
+                    m_TurnEndBtn.enabled = true;
+                }
+                else
+                {
+                    m_TurnEndBtn.gameObject.SetActive(false);
+                }
+            }
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)

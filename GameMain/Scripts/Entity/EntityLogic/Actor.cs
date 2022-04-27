@@ -118,11 +118,6 @@ namespace RPGGame
 
         private void OnActorRoundStart(object sender, GameEventArgs e)
         {
-            ActorRoundStartEventArgs ne = (ActorRoundStartEventArgs)e;
-            if (ne.ActorId != this.ActorData.Id)
-            {
-                return;
-            }
 
             RestoreSP();
         }

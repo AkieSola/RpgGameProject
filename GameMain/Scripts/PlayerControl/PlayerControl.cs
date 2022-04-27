@@ -3,25 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerControl : MonoBehaviour
+namespace RPGGame
 {
-    private NavMeshAgent nav;
-
-    private void Start()
+    public class PlayerControl : MonoBehaviour
     {
-        nav = this.GetComponent<NavMeshAgent>();    
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray,out hit))
-            {
-                nav.SetDestination(hit.point);
-            }
-        }
+     
     }
 }

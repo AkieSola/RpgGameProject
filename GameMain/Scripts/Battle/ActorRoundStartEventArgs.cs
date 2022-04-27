@@ -16,23 +16,19 @@ namespace RPGGame
                 return EventId;
             }
         }
-        
-        public int ActorId
-        {
-            get;
-            private set;
-        }
 
-        public static ActorRoundStartEventArgs Create(int id)
+        public Actor actor;
+
+        public static ActorRoundStartEventArgs Create(Actor actor)
         {
             ActorRoundStartEventArgs e = ReferencePool.Acquire<ActorRoundStartEventArgs>();
-            e.ActorId = id;
+            e.actor = actor;
             return e;
         } 
 
         public override void Clear()
         {
-            ActorId = -1;
+            actor = null;
         }
     }
 }

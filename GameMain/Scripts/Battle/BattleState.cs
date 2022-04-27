@@ -9,7 +9,7 @@ namespace RPGGame
 {
     public class BattleState : FsmState<BattleMgr>
     {
-        private List<Actor> m_battleActors = new List<Actor>();
+        private List<Actor> m_battleActors;
         private Dictionary<int, Actor> camp1Dic;  //单机模式下通常指玩家阵营
         private Dictionary<int, Actor> camp2Dic;  //单机模式下通常指npc敌人阵营
 
@@ -26,22 +26,23 @@ namespace RPGGame
                 return null;
             }
         }
-        
+
 
         IFsm<BattleMgr> fsm;
         IFsm<BattleState> battleStateFsm;
+        public Player player;
 
         protected override void OnInit(IFsm<BattleMgr> fsm)
         {
-            m_battleActors = fsm.Owner.battleActors;
-            m_battleActors.Sort();
-
             camp1Dic = new Dictionary<int, Actor>();
             camp2Dic = new Dictionary<int, Actor>();
         }
         protected override void OnEnter(IFsm<BattleMgr> fsm)
         {
             base.OnEnter(fsm);
+            player = fsm.Owner.player;
+            m_battleActors = fsm.Owner.battleActors;
+            m_battleActors.Sort();
             m_CurActorIndex = 0;
             foreach (var a in m_battleActors)
             {
@@ -50,13 +51,11 @@ namespace RPGGame
                     //a.gameObject.tag = "Player";
                     camp1Dic.Add(1, a);
                 }
-                else if(a.tag == "Enemy")
+                else if (a.tag == "Enemy")
                 {
                     //a.gameObject.tag = "Enemy";
                     camp2Dic.Add(2, a);
                 }
-
-                m_battleActors.Add(a);
             }
             battleStateFsm = GameEntry.Fsm.CreateFsm<BattleState>(this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
             battleStateFsm.Start<BattleRoundStartState>();
@@ -66,20 +65,14 @@ namespace RPGGame
         protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            Log.Debug(fsm.CurrentState);
         }
 
         protected override void OnDestroy(IFsm<BattleMgr> fsm)
         {
             base.OnDestroy(fsm);
             m_battleActors.Clear();
-            m_battleActors = null;
             camp1Dic.Clear();
-            camp1Dic = null;
             camp2Dic.Clear();
-            camp2Dic = null;
-
-            fsm = null;
         }
 
 
@@ -122,6 +115,7 @@ namespace RPGGame
 
         public void ShiftToNextActor()
         {
+            Debug.LogWarning("Shift To Next!");
             if (m_CurActorIndex == m_battleActors.Count - 1)
             {
                 m_CurActorIndex = 0;
@@ -138,6 +132,7 @@ namespace RPGGame
     /// </summary>
     public class BattleRoundStartState : FsmState<BattleState>
     {
+        float timer = 0;
         protected override void OnInit(IFsm<BattleState> fsm)
         {
             base.OnInit(fsm);
@@ -146,6 +141,17 @@ namespace RPGGame
         protected override void OnEnter(IFsm<BattleState> fsm)
         {
             base.OnEnter(fsm);
+            GameEntry.Event.Fire(this, ActorRoundStartEventArgs.Create(fsm.Owner.CurActor));
+            timer = 0;
+            if (fsm.Owner.CurActor.tag != "Player")
+            {
+                fsm.Owner.player.canMove = false;
+            }
+            else
+            {
+                fsm.Owner.player.canMove = true;
+            }
+
 #if UNITY_EDITOR
             if (fsm.Owner.CurActor != null)
             {
@@ -156,17 +162,21 @@ namespace RPGGame
         protected override void OnUpdate(IFsm<BattleState> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+
+            //Log.Debug("回合开始");
             //when round start animation play over then change state
-            if (elapseSeconds > 2f)
+            timer += elapseSeconds;
+            if (timer > 2f)
             {
                 ChangeState<BattleRoundDoState>(fsm);
             }
+
         }
 
         protected override void OnLeave(IFsm<BattleState> fsm, bool isShutdown)
         {
             base.OnLeave(fsm, isShutdown);
-            
+          
         }
     }
 
@@ -176,6 +186,7 @@ namespace RPGGame
     public class BattleRoundDoState : FsmState<BattleState>
     {
         IFsm<BattleState> fsm;
+        float timer = 0;
         protected override void OnInit(IFsm<BattleState> fsm)
         {
             base.OnInit(fsm);
@@ -186,9 +197,28 @@ namespace RPGGame
         protected override void OnEnter(IFsm<BattleState> fsm)
         {
             base.OnEnter(fsm);
+            timer = 0;
 #if UNITY_EDITOR
             Log.Info($"Actor {fsm.Owner.CurActor.ActorData.Id} Round Do!");
 #endif
+        }
+
+        protected override void OnUpdate(IFsm<BattleState> fsm, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+
+            //Enemy执行AI逻辑，执行结束后进入回合结束状态
+            if (fsm.Owner.CurActor.tag == "Enemy")
+            {
+                timer += realElapseSeconds;
+
+                if (timer > 2)
+                {
+                    ChangeState<BattleRoundEndState>(fsm);
+                }
+            }
+            //玩家
+
         }
 
         private void OnActorRoundFinish(object sender, GameEventArgs e)
@@ -203,14 +233,23 @@ namespace RPGGame
     /// <summary>
     /// 回合结束
     /// </summary>
-    public class BattleRoundEndState: FsmState<BattleState>
+    public class BattleRoundEndState : FsmState<BattleState>
     {
+        float timer = 0;
+        protected override void OnEnter(IFsm<BattleState> fsm)
+        {
+            base.OnEnter(fsm);
+            timer = 0;
+            Log.Debug(fsm.Owner.CurActor.tag + "：回合结束");
+        }
+
         protected override void OnUpdate(IFsm<BattleState> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
 
+            timer += elapseSeconds;
             //等待回合结束动画播放
-            if (elapseSeconds > 2f)
+            if (timer > 2f)
             {
                 ChangeState<BattleRoundStartState>(fsm);
             }
@@ -218,6 +257,7 @@ namespace RPGGame
 
         protected override void OnLeave(IFsm<BattleState> fsm, bool isShutdown)
         {
+            Debug.LogWarning("OnLeave");
             //切换到下一个Actor
             fsm.Owner.ShiftToNextActor();
             base.OnLeave(fsm, isShutdown);
