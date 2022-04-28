@@ -13,10 +13,6 @@ namespace RPGGame
         [SerializeField]
         private ActorData m_ActorData = null;
 
-        public virtual void Awake()
-        {
-            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, OnActorRoundStart);
-        }
         public ActorData ActorData
         {
             get
@@ -111,15 +107,15 @@ namespace RPGGame
         /// <summary>
         /// 每回合开始恢复SP
         /// </summary>
-        private void RestoreSP()
+        public void RestoreSP()
         {
-          
+            m_ActorData.SP += (int)(0.6 * m_ActorData.MaxSP);
+            GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
         }
 
-        private void OnActorRoundStart(object sender, GameEventArgs e)
-        {
-
-            RestoreSP();
-        }
+        //private void OnActorRoundStart(object sender, GameEventArgs e)
+        //{
+        //    RestoreSP();
+        //}
     }
 }

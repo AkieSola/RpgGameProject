@@ -31,6 +31,7 @@ namespace RPGGame
             m_ProcedureMain = (ProcedureMain)userData;
 
             GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, ShowTurnEndBtn);
+            GameEntry.Event.Subscribe(UpdateActorFormInfoArgs.EventId, UpdateActorInfo);
 
             if(m_ProcedureMain == null)
             {
@@ -45,6 +46,16 @@ namespace RPGGame
             m_TurnEndBtn.onClick.AddListener(() => { 
                 GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(null));
             });
+        }
+
+        private void UpdateActorInfo(object sender, GameEventArgs e)
+        {
+            UpdateActorFormInfoArgs ue = e as UpdateActorFormInfoArgs;
+            if (ue != null && (sender as Actor).gameObject.tag == "Player") {
+                Player player = sender as Player;
+                m_SPSlider.value = player.ActorData.SPRatio;
+                m_HPSlider.value = player.ActorData.HPRatio;
+            }
         }
 
         private void ShowTurnEndBtn(object sender, GameEventArgs e)
@@ -73,6 +84,29 @@ namespace RPGGame
             m_ProcedureMain = null;
 
             base.OnClose(isShutdown, userData);
+        }
+    }
+
+    public class UpdateActorFormInfoArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(UpdateActorFormInfoArgs).GetHashCode();
+
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public static UpdateActorFormInfoArgs Create()
+        {
+            UpdateActorFormInfoArgs e = ReferencePool.Acquire<UpdateActorFormInfoArgs>();
+            return e;
+        }
+
+        public override void Clear()
+        {
         }
     }
 }

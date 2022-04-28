@@ -65,7 +65,7 @@ namespace RPGGame
             base.ActorId = Id1;
             base.MaxHP = (int)(baseMaxHP * Mathf.Pow(m_LvPowAddHP, LvPowAddHP) + Power * 20); //+装备加成
             base.Priority = 5 + Agile;
-            base.MaxSP = baseMaxHP + (int)(Agile*0.33);
+            base.MaxSP = baseMaxSP + (int)(Agile*0.33);
             base.Atk = baseATK;
             base.SpellAtk = 0;
             base.AtkDistance = 10.0f;

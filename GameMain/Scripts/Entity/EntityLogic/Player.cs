@@ -15,6 +15,8 @@ namespace RPGGame
         private NavMeshAgent nav;
 
         public bool canMove;
+        public bool inPlayerTurn;
+        float pedometer = 0;
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -38,16 +40,30 @@ namespace RPGGame
             //GameEntry.HPBar.ShowHPBar(this, (m_PlayerData as ActorData).HPRatio, (m_PlayerData as ActorData).HPRatio);
         }
 
+        [System.Obsolete]
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (Input.GetMouseButtonDown(1) && canMove)
+            if (Input.GetMouseButtonDown(1) && canMove && m_PlayerData.SP > 0)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
                     nav.SetDestination(hit.point);
+                }
+            }
+
+            if (inPlayerTurn)
+            {
+                //ÒÆ¶¯SPÏûºÄ
+                pedometer += Time.deltaTime * nav.velocity.magnitude;
+                if(pedometer > 2.5f)
+                {
+                    pedometer = 0;
+                    m_PlayerData.SP -= 1;
+                    //Debug.Log(m_PlayerData.SP);
+                    GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
                 }
             }
         }

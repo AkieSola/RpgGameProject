@@ -32,7 +32,8 @@ namespace RPGGame
             "Weapon",
             "Player",
             "Equip",
-            "Enemy"
+            "Enemy",
+            "SkillConfig"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

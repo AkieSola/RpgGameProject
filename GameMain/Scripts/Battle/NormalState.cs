@@ -25,6 +25,7 @@ namespace RPGGame
             if (player != null)
             {
                 player.canMove = true;
+                player.inPlayerTurn = false;
             }
         }
 

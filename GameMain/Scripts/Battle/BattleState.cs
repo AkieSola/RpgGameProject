@@ -143,18 +143,22 @@ namespace RPGGame
             base.OnEnter(fsm);
             GameEntry.Event.Fire(this, ActorRoundStartEventArgs.Create(fsm.Owner.CurActor));
             timer = 0;
+            //非角色回合角色不能走路
             if (fsm.Owner.CurActor.tag != "Player")
             {
                 fsm.Owner.player.canMove = false;
+                fsm.Owner.player.inPlayerTurn = false;
             }
             else
             {
                 fsm.Owner.player.canMove = true;
+                fsm.Owner.player.inPlayerTurn = true;
             }
 
 #if UNITY_EDITOR
             if (fsm.Owner.CurActor != null)
             {
+                fsm.Owner.CurActor.RestoreSP();
                 Log.Info(fsm.Owner.CurActor + "：的回合");
             }
 #endif
@@ -179,6 +183,7 @@ namespace RPGGame
           
         }
     }
+
 
     /// <summary>
     /// 回合进行
@@ -217,7 +222,6 @@ namespace RPGGame
                     ChangeState<BattleRoundEndState>(fsm);
                 }
             }
-            //玩家
 
         }
 
@@ -229,6 +233,7 @@ namespace RPGGame
             }
         }
     }
+
 
     /// <summary>
     /// 回合结束
