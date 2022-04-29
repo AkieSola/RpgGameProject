@@ -6,9 +6,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     Vector3 cameraMoveDir = Vector3.zero;
-    float cameraMoveSpeed = 50f;
+    float cameraMoveSpeed = 10f;
     [SerializeField]
-    private GameObject Player; 
+    private GameObject Player;
 
     Transform cameraTrans;
 
@@ -28,9 +28,9 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit,1000, LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Enemy")))
         {
-            hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0] = mat;        
+            hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0] = mat;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -38,30 +38,22 @@ public class CameraController : MonoBehaviour
             {
                 Player = GameObject.FindGameObjectWithTag("Player");
             }
-            if (Player != null) 
+            if (Player != null)
             {
                 float y = cameraTrans.position.y;
                 tmpPos = new Vector3(Player.transform.position.x, y, Player.transform.position.z);
+                StartCoroutine(CameraSmoothMoveToPlayer(tmpPos));
             }
-        }
-
-        if (Vector3.Distance(tmpPos, cameraTrans.position) > 0.1f) 
-        {
-            cameraTrans.position = Vector3.Lerp(cameraTrans.position, tmpPos, 0.2f);
-        }
-        else
-        {
-            tmpPos = cameraTrans.position;
         }
 
         if (Input.mousePosition.x <= 0)
         {
-            Input.mousePosition.Set(0, Input.mousePosition.y, Input.mousePosition.z);
+            //Input.mousePosition.Set(0, Input.mousePosition.y, Input.mousePosition.z);
             cameraMoveDir.x = -1;
         }
         else if (Input.mousePosition.x >= width)
         {
-            Input.mousePosition.Set(width, Input.mousePosition.y, Input.mousePosition.z);
+            //Input.mousePosition.Set(width, Input.mousePosition.y, Input.mousePosition.z);
             cameraMoveDir.x = 1;
         }
         else
@@ -71,12 +63,12 @@ public class CameraController : MonoBehaviour
 
         if (Input.mousePosition.y <= 0)
         {
-            Input.mousePosition.Set(Input.mousePosition.x, 0, Input.mousePosition.z);
+            //Input.mousePosition.Set(Input.mousePosition.x, 0, Input.mousePosition.z);
             cameraMoveDir.z = -1;
         }
         else if (Input.mousePosition.y >= height)
         {
-            Input.mousePosition.Set(Input.mousePosition.x, height, Input.mousePosition.z);
+            //Input.mousePosition.Set(Input.mousePosition.x, height, Input.mousePosition.z);
             cameraMoveDir.z = 1;
         }
         else
@@ -84,10 +76,15 @@ public class CameraController : MonoBehaviour
             cameraMoveDir.z = 0;
         }
 
+        this.transform.position += cameraMoveDir * cameraMoveSpeed * Time.deltaTime;
+    }
 
-        if (cameraMoveDir.magnitude != 0)
+    IEnumerator CameraSmoothMoveToPlayer(Vector3 pos)
+    {
+        while (Vector3.Distance(pos, this.transform.position) > 0.3f)
         {
-            cameraTrans.position = Vector3.Lerp(cameraTrans.position, cameraTrans.position + cameraMoveDir.normalized * cameraMoveSpeed * Time.deltaTime, 0.1f);
+            this.transform.position = Vector3.Lerp(this.transform.position, pos, 0.2f);
+            yield return null;
         }
     }
 }
