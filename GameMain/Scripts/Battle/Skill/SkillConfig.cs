@@ -2,20 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillConfig
+
+namespace RPGGame
 {
-    public int SkillId { get; set; }
-    public int SkillType { get; set; }
-    public int AnimationId { get; set; }
-    public string IconName { get; set; }
-    public string EffectName { get; set; }
-    public float Distance { get; set; }
-    public int BaseDamage1 { get; set; }
-    public int BaseDamage2 { get; set; }
-    public float Damage1SpellAtkAdd { get; set; }
-    public float Damage2SpellAtkAdd { get; set; }
-    public float Damage1AtkAdd { get; set; }
-    public float Damage2AtkAdd { get; set; }
-    public int HpConsume;
-    public int SpConsume;
+    public class SkillConfig
+    {
+        public int SkillId { private set; get; }
+        public string SkillName { private set; get; }
+        public int Damage01 { private set; get; }
+        public int Damage02 { private set; get; }
+        public float Distance { private set; get; }
+        public Actor Launcher { private set; get; }
+        public int SPConsume { private set; get; }
+
+        public SkillConfig(DRSkillConfig dRSkillConfig, Actor Launcher)
+        {
+            this.Launcher = Launcher;
+            SkillId = dRSkillConfig.Id;
+            SkillName = dRSkillConfig.Name;
+            Damage01 = dRSkillConfig.BaseDamage1 + 
+                (int)((dRSkillConfig.Damage1AtkAdd * Launcher.ActorData.Atk) / 100) + 
+                (int)((dRSkillConfig.Damage1SpellAtkAdd * Launcher.ActorData.SpellAtk) / 100);
+            Damage02 = dRSkillConfig.BaseDamage2 + 
+                (int)((dRSkillConfig.Damage2AtkAdd * Launcher.ActorData.Atk) / 100) + 
+                (int)((dRSkillConfig.Damage2SpellAtkAdd * Launcher.ActorData.SpellAtk) / 100);
+            Distance = dRSkillConfig.Distance;
+            SPConsume = dRSkillConfig.SpConsume;
+        }
+    }
 }

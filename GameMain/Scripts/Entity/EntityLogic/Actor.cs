@@ -8,7 +8,7 @@ using UnityGameFramework.Runtime;
 
 namespace RPGGame
 {
-    public abstract class Actor : Entity,IComparable
+    public abstract class Actor : Entity, IComparable
     {
         [SerializeField]
         private ActorData m_ActorData = null;
@@ -20,15 +20,6 @@ namespace RPGGame
                 return m_ActorData;
             }
         }
-
-        public int ATK
-        {
-            get
-            {
-                return 100;
-            }
-        }
-
         public bool IsDead
         {
             get
@@ -37,9 +28,20 @@ namespace RPGGame
             }
         }
 
-        public void ApplyDamage(Entity attacker, int damageHP)
+        public void ApplyDamage(Actor attacker, int damage, E_DamageType damageType)
         {
-            m_ActorData.HP -= damageHP;
+            int netDamage = 0;
+            switch (damageType)
+            {
+                case E_DamageType.Physics:
+                    netDamage = damage - (int)(damage * m_ActorData.PhysicsDfsRatio);
+                    break;
+                case E_DamageType.Spell:
+                    netDamage = damage - (int)(damage * m_ActorData.SpellDfsRatio);
+                    break;
+            }
+
+            m_ActorData.HP -= netDamage;
             if (m_ActorData.HP <= 0)
             {
                 OnDead(attacker);
@@ -65,14 +67,14 @@ namespace RPGGame
             base.OnShow(userData);
 
             m_ActorData = userData as ActorData;
-            if(m_ActorData == null)
+            if (m_ActorData == null)
             {
                 Log.Error("Actor data is invalid");
             }
 
             Name = Utility.Text.Format("Actor ({0})", Id);
 
-            
+
         }
 
         protected virtual void OnDead(Entity attacker)
@@ -113,9 +115,42 @@ namespace RPGGame
             GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
         }
 
-        //private void OnActorRoundStart(object sender, GameEventArgs e)
-        //{
-        //    RestoreSP();
-        //}
+        /// <summary>
+        /// 消耗SP
+        /// </summary>
+        /// <param name="SP"></param>
+        public bool ConsumeSP(int SP)
+        {
+            if(m_ActorData.SP < SP)
+            {
+                return false;
+            }
+
+            m_ActorData.SP -= SP;
+            GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
+            return true;
+        }
+
+        /// <summary>
+        /// Actor执行技能时的操作
+        /// </summary>
+        public bool DoSkill(SkillConfig skillConfig)
+        {
+            //消耗SP
+            if (ConsumeSP(skillConfig.SPConsume))
+            {
+                //执行动画
+                DoAnimation();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public void DoAnimation()
+        {
+
+        }
     }
 }

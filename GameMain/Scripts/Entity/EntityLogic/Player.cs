@@ -14,6 +14,9 @@ namespace RPGGame
         private PlayerData m_PlayerData = null;
         private NavMeshAgent nav;
 
+        private List<ISkillLogic> skills;
+        private ISkillLogic SelectedSkill;
+
         public bool canMove;
         public bool inPlayerTurn;
         float pedometer = 0;
@@ -61,9 +64,7 @@ namespace RPGGame
                 if(pedometer > 2.5f)
                 {
                     pedometer = 0;
-                    m_PlayerData.SP -= 1;
-                    //Debug.Log(m_PlayerData.SP);
-                    GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
+                    base.ConsumeSP(1);
                 }
             }
         }

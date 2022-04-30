@@ -22,11 +22,23 @@ public enum E_SkillType
     Normal = 4
 }
 
-namespace RPGGame {
-    public interface ISkill
-    {
-        public int SkillId { get; set; }
+public enum E_DamageType
+{
+    /// <summary>
+    /// 物理
+    /// </summary>
+    Physics = 1,
+    /// <summary>
+    /// 法术
+    /// </summary>
+    Spell = 2,
 
-        public int Init(DRSkillConfig dRSkillConfig);
+}
+
+namespace RPGGame {
+    public interface ISkillLogic
+    {
+        public void Launch(SkillConfig skillConfig, Actor Target, Vector3 poa);
+        public void Clear(SkillConfig skillConfig, Actor Target, Vector3 poa);
     }
 }
