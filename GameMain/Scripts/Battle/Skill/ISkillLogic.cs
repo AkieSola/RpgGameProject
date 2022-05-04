@@ -38,7 +38,7 @@ public enum E_DamageType
 namespace RPGGame {
     public interface ISkillLogic
     {
-        public void Launch(SkillConfig skillConfig, Actor Target, Vector3 poa);
-        public void Clear(SkillConfig skillConfig, Actor Target, Vector3 poa);
+        public void Launch(Actor Target, Vector3 Position, Vector3 ForwardDir);
+        public void Clear();
     }
 }

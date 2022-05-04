@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-04-28 10:18:15.758
+// 生成时间：2022-05-01 22:44:58.447
 //------------------------------------------------------------
 
 using GameFramework;
@@ -46,9 +46,45 @@ namespace RPGGame
         }
 
         /// <summary>
+        /// 获取技能类型（1.TargetSkill）。
+        /// </summary>
+        public int Type
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取技能描述。
+        /// </summary>
+        public string Description
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 获取图标名。
         /// </summary>
         public string Icon
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取动画名。
+        /// </summary>
+        public string AnimationName
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取动画事件触发时机(s)。
+        /// </summary>
+        public float AnimationEventTiming
         {
             get;
             private set;
@@ -157,7 +193,11 @@ namespace RPGGame
             m_Id = int.Parse(columnStrings[index++]);
             index++;
             Name = columnStrings[index++];
+            Type = int.Parse(columnStrings[index++]);
+            Description = columnStrings[index++];
             Icon = columnStrings[index++];
+            AnimationName = columnStrings[index++];
+            AnimationEventTiming = float.Parse(columnStrings[index++]);
             EffectName = columnStrings[index++];
             Distance = float.Parse(columnStrings[index++]);
             BaseDamage1 = int.Parse(columnStrings[index++]);
@@ -181,7 +221,11 @@ namespace RPGGame
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
                     Name = binaryReader.ReadString();
+                    Type = binaryReader.Read7BitEncodedInt32();
+                    Description = binaryReader.ReadString();
                     Icon = binaryReader.ReadString();
+                    AnimationName = binaryReader.ReadString();
+                    AnimationEventTiming = binaryReader.ReadSingle();
                     EffectName = binaryReader.ReadString();
                     Distance = binaryReader.ReadSingle();
                     BaseDamage1 = binaryReader.Read7BitEncodedInt32();

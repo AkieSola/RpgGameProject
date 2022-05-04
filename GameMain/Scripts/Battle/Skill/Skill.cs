@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace RPGGame
 {
-    public abstract class TargetSkillLogic
+    public abstract class Skill : ISkillLogic
     {
         public SkillConfig Config { get; set; }
         public Actor Target { get; set; }
+        public Vector3 TargetPosition { get; set; }
+        public Vector3 ForwardDir { get; set; }
+
         /// <summary>
         /// 初始化时，主要进行一些事件的订阅
         /// </summary>
@@ -39,15 +43,22 @@ namespace RPGGame
         /// <param name="Target"></param>
         public virtual void OnEnd() { }
 
-        public void Clear(SkillConfig skillConfig, Actor Target, Vector3 poa)
+        public void Clear()
         {
             throw new System.NotImplementedException();
         }
-
-        public void Launch(SkillConfig skillConfig, Actor Target, Vector3 poa)
+        
+        public void Init(DRSkillConfig drSkillConfig, Actor Launcher)
         {
-            Config = skillConfig;
+            Config = new SkillConfig(drSkillConfig, Launcher); 
+            OnInit();
+        }
+
+        public void Launch(Actor Target, Vector3 Position, Vector3 ForwardDir)
+        {
             this.Target = Target;
+            this.TargetPosition = Position;
+            this.ForwardDir = ForwardDir;
             OnLaunch();
         }
     }

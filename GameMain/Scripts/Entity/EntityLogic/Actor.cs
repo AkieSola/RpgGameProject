@@ -12,7 +12,18 @@ namespace RPGGame
     {
         [SerializeField]
         private ActorData m_ActorData = null;
+        [SerializeField]
+        private Animator m_Animator = null;
+        [SerializeField]
+        protected List<int> m_ActorSkillIdList = null;
+        [SerializeField]
+        protected int m_CurrentSelectedSkillIndex = -1;
 
+        AnimationClip clip;
+
+        AnimationEvent animEvent;
+
+        public bool canMove;
         public ActorData ActorData
         {
             get
@@ -53,7 +64,8 @@ namespace RPGGame
         {
             m_ActorData = userData as ActorData;
 
-            m_ActorData.HP = 100;
+            m_Animator = GetComponent<Animator>();
+            m_ActorSkillIdList = new List<int>(8);
 
             if (m_ActorData == null)
             {
@@ -121,7 +133,7 @@ namespace RPGGame
         /// <param name="SP"></param>
         public bool ConsumeSP(int SP)
         {
-            if(m_ActorData.SP < SP)
+            if (m_ActorData.SP < SP)
             {
                 return false;
             }
@@ -140,17 +152,58 @@ namespace RPGGame
             if (ConsumeSP(skillConfig.SPConsume))
             {
                 //Ö´ÐÐ¶¯»­
-                DoAnimation();
-
+                DoAnimation(skillConfig.AnimationName, skillConfig.AnimationEventTiming);
+                canMove = false;
                 return true;
             }
 
             return false;
         }
 
-        public void DoAnimation()
+        protected void DoAnimation(string AnimationName, float AnimationEventTiming)
         {
+            if (m_Animator != null)
+            {
+                m_Animator.Play(AnimationName);
+                StartCoroutine(WaitForAnimationPlay(AnimationEventTiming));
+            }
+        }
 
+        IEnumerator WaitForAnimationPlay(float AnimationEventTiming)
+        {
+            yield return null;
+            animEvent = new AnimationEvent();
+            animEvent.functionName = "SkillFire";
+            animEvent.time = AnimationEventTiming;
+            clip = m_Animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+            clip.AddEvent(animEvent);
+        }
+
+        private void SkillFire()
+        {
+            GameEntry.Event.Fire(this, SkillFireEventArgs.Create());
+        }
+    }
+
+    public class SkillFireEventArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(SkillFireEventArgs).GetHashCode();
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public static SkillFireEventArgs Create()
+        {
+            SkillFireEventArgs e = ReferencePool.Acquire<SkillFireEventArgs>();
+            return e;
+        }
+
+        public override void Clear()
+        {
         }
     }
 }

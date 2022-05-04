@@ -32,8 +32,10 @@ namespace RPGGame
 
             GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, ShowTurnEndBtn);
             GameEntry.Event.Subscribe(UpdateActorFormInfoArgs.EventId, UpdateActorInfo);
+            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, UpdateSkillShowInfo);
+            GameEntry.Event.Subscribe(UpdateSkillInfoEventArges.EventId, UpdateSkillShowInfo);
 
-            if(m_ProcedureMain == null)
+            if (m_ProcedureMain == null)
             {
                 Log.Warning("ProcedureMain is invalid when open MainCityForm.");
                 return;
@@ -56,6 +58,11 @@ namespace RPGGame
                 m_SPSlider.value = player.ActorData.SPRatio;
                 m_HPSlider.value = player.ActorData.HPRatio;
             }
+        }
+
+        private void UpdateSkillShowInfo(object sender, GameEventArgs e)
+        {
+            //m_SkillList.UpdateInfo((e as UpdateSkillInfoEventArges).SkillIdList);
         }
 
         private void ShowTurnEndBtn(object sender, GameEventArgs e)
@@ -107,6 +114,32 @@ namespace RPGGame
 
         public override void Clear()
         {
+        }
+    }
+
+    public class UpdateSkillInfoEventArges : GameEventArgs
+    {
+        public static readonly int EventId = typeof(UpdateSkillInfoEventArges).GetHashCode();
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public List<Skill> SkillList;
+
+        public override void Clear()
+        {
+            SkillList.Clear();
+        }
+
+        public static UpdateSkillInfoEventArges Create(List<Skill> SkillList)
+        {
+            UpdateSkillInfoEventArges e = ReferencePool.Acquire<UpdateSkillInfoEventArges>();
+            e.SkillList = SkillList;
+            return e;
         }
     }
 }

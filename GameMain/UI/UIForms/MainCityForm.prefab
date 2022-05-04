@@ -1783,6 +1783,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1973b7ac04acec4693ac22fa68e7b9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Skill1: {fileID: 5472103475988318453}
+  Skill2: {fileID: 5472103474856566725}
+  Skill3: {fileID: 5472103475994858028}
+  Skill4: {fileID: 5472103476120472118}
+  Skill5: {fileID: 5472103474889343932}
+  Skill6: {fileID: 5472103475277050673}
+  Skill7: {fileID: 5472103474773222157}
+  Skill8: {fileID: 5472103475483183707}
 --- !u!1 &5472103475366755966
 GameObject:
   m_ObjectHideFlags: 0

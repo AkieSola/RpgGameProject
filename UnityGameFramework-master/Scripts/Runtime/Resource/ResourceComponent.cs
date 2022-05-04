@@ -31,6 +31,7 @@ namespace UnityGameFramework.Runtime
         private bool m_EditorResourceMode = false;
         private bool m_ForceUnloadUnusedAssets = false;
         private bool m_PreorderUnloadUnusedAssets = false;
+
         private bool m_PerformGCCollect = false;
         private AsyncOperation m_AsyncOperation = null;
         private float m_LastUnloadUnusedAssetsOperationElapseSeconds = 0f;

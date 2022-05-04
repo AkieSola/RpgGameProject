@@ -14,12 +14,17 @@ namespace RPGGame
         private PlayerData m_PlayerData = null;
         private NavMeshAgent nav;
 
-        private List<ISkillLogic> skills;
-        private ISkillLogic SelectedSkill;
+        private List<Skill> SkillList;
+        private Skill SelectedSkill;
 
-        public bool canMove;
         public bool inPlayerTurn;
         float pedometer = 0;
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            SkillList = new List<Skill>(8) { null, null, null, null, null, null, null, null };
+        }
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -27,7 +32,10 @@ namespace RPGGame
             EventComponent eventComponent = GameEntry.Event;
 
             eventComponent.Fire(this, PlayerShowEventArgs.Create());
+            eventComponent.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
 
+            //读取角色技能数据id
+            //通过id拼类
             canMove = true;
 
             m_PlayerData = userData as PlayerData;
@@ -61,11 +69,36 @@ namespace RPGGame
             {
                 //移动SP消耗
                 pedometer += Time.deltaTime * nav.velocity.magnitude;
-                if(pedometer > 2.5f)
+                if (pedometer > 2f)
                 {
                     pedometer = 0;
                     base.ConsumeSP(1);
                 }
+            }
+
+           
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (SelectedSkill != null)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
+                    {
+                        Actor Target = hit.collider.gameObject.GetComponent<Actor>();
+                        Vector3 Position = hit.point;
+                        Position.y = this.transform.position.y;
+                        Vector3 ForwordDir = (Position - this.transform.position).normalized;
+
+                        SelectedSkill.Launch(Target, Position, ForwordDir);
+                    }
+                }
+            }
+
+            ///Test
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                DoAnimation("ReleaseSkill", 0.14f);
             }
         }
     }
