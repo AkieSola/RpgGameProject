@@ -1,5 +1,6 @@
 using GameFramework;
 using GameFramework.Event;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +16,32 @@ namespace RPGGame
         private NavMeshAgent nav;
 
         private List<Skill> SkillList;
-        private Skill SelectedSkill;
+        private int SelectedSkillIdx;   //-1 未选中， >=0 <= 8 选中
+
+        public const int MaxSkillCount = 8;
+        private Skill SelectedSkill 
+        {
+            get
+            {
+                if(SelectedSkillIdx >= 0 || SelectedSkillIdx < MaxSkillCount)
+                {
+                    return SkillList[SelectedSkillIdx];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public bool inPlayerTurn;
         float pedometer = 0;
 
+     
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            SkillList = new List<Skill>(8) { null, null, null, null, null, null, null, null };
+            SkillList = new List<Skill>(MaxSkillCount) { null, null, null, null, null, null, null, null };
         }
         protected override void OnShow(object userData)
         {
@@ -33,9 +51,8 @@ namespace RPGGame
 
             eventComponent.Fire(this, PlayerShowEventArgs.Create());
             eventComponent.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
-
-            //读取角色技能数据id
-            //通过id拼类
+            eventComponent.Subscribe(SelectedSkillEventArgs.EventId, SelectSkill);
+    
             canMove = true;
 
             m_PlayerData = userData as PlayerData;
@@ -45,13 +62,28 @@ namespace RPGGame
                 return;
             }
 
+            //读取角色技能数据id
+            //通过id拼类
+            for (int i = 0; i < MaxSkillCount; i++)
+            {
+                SkillList[i] = SkillFactor.CreateSkill(m_PlayerData.SkillIdList[i], this);
+            }
+
             nav = GetComponent<NavMeshAgent>();
 
             Name = Utility.Text.Format("Player ({0})", Id);
-            //GameEntry.HPBar.ShowHPBar(this, (m_PlayerData as ActorData).HPRatio, (m_PlayerData as ActorData).HPRatio);
         }
 
-        [System.Obsolete]
+
+        private void SelectSkill(object sender, GameEventArgs e)
+        {
+            if (e != null)
+            {
+                SelectedSkillEventArgs ea = e as SelectedSkillEventArgs;
+                SelectedSkillIdx = ea.SkillIdx;
+            } 
+        }
+
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
@@ -95,11 +127,11 @@ namespace RPGGame
                 }
             }
 
-            ///Test
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                DoAnimation("ReleaseSkill", 0.14f);
-            }
+            /////Test
+            //if (Input.GetKeyDown(KeyCode.F))
+            //{
+            //    DoAnimation("ReleaseSkill", 0.14f);
+            //}
         }
     }
 
@@ -120,9 +152,9 @@ namespace RPGGame
             PlayerShowEventArgs e = ReferencePool.Acquire<PlayerShowEventArgs>();
             return e;
         }
+
         public override void Clear()
         {
-
         }
     }
 

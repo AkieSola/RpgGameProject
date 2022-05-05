@@ -6,15 +6,22 @@ using UnityEngine;
 
 namespace RPGGame
 {
-    public class SkillController
+    public class SkillFactor
     {
-
         public static Skill CreateSkill(int SkillId, Actor Launcher)
         {
+            if(SkillId <= 0)
+            {
+                return null;
+            }
+
             //取得Skill数据，得到类型
             DRSkillConfig dRSkillConfig = GameEntry.DataTable.GetDataTable<DRSkillConfig>().GetDataRow(SkillId);
+
             Assembly assembly = Assembly.GetExecutingAssembly();
             Skill skill = assembly.CreateInstance("Skill00" + SkillId) as Skill;
+            
+            //技能初始化
             skill.Init(dRSkillConfig, Launcher);
             return skill;
         }

@@ -136,6 +136,78 @@ namespace RPGGame
             get;
             private set;
         }
+
+        /// <summary>
+        /// 获取携带技能1Id。
+        /// </summary>
+        public int Skill1Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能2Id。
+        /// </summary>
+        public int Skill2Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能3Id。
+        /// </summary>
+        public int Skill3Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能4Id。
+        /// </summary>
+        public int Skill4Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能5Id。
+        /// </summary>
+        public int Skill5Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能6Id。
+        /// </summary>
+        public int Skill6Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能7Id。
+        /// </summary>
+        public int Skill7Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能8Id。
+        /// </summary>
+        public int Skill8Id
+        {
+            get;
+            private set;
+        }
         public PlayerDataSource() 
         {
         }
@@ -154,6 +226,14 @@ namespace RPGGame
             Equip4Id = dRPlayer.Equip4Id;
             Equip5Id = dRPlayer.Equip5Id;
             Equip6Id = dRPlayer.Equip6Id;
+            Skill1Id = dRPlayer.Skill1Id;
+            Skill2Id = dRPlayer.Skill2Id;
+            Skill3Id = dRPlayer.Skill3Id;
+            Skill4Id = dRPlayer.Skill4Id;
+            Skill5Id = dRPlayer.Skill5Id;
+            Skill6Id = dRPlayer.Skill6Id;
+            Skill7Id = dRPlayer.Skill7Id;
+            Skill8Id = dRPlayer.Skill8Id;
         }
 
         public void AddPoint(E_AddPointType pointType, int addValue = 1)

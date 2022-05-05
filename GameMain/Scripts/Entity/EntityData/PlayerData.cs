@@ -31,7 +31,8 @@ namespace RPGGame
         private int m_AbilityAddPoint;
         [SerializeField]
         private Dictionary<EquipType, DREquip> m_PlayerEquips;       //角色的装备
-
+        [SerializeField]
+        private List<int> m_SkillIdList;
 
         private int baseMaxHP = 100;
         private int baseMaxSP = 10;
@@ -60,6 +61,12 @@ namespace RPGGame
                 {EquipType.gardebras, dtEquip.GetDataRow(pdSource.Equip4Id) },
                 {EquipType.cuisse, dtEquip.GetDataRow(pdSource.Equip5Id) },
                 {EquipType.ring, dtEquip.GetDataRow(pdSource.Equip6Id) }
+            };
+
+            SkillIdList = new List<int>() 
+            {
+                pdSource.Skill1Id, pdSource.Skill2Id, pdSource.Skill3Id, pdSource.Skill4Id, 
+                pdSource.Skill5Id, pdSource.Skill6Id, pdSource.Skill7Id, pdSource.Skill8Id 
             };
 
             base.ActorId = Id1;
@@ -140,6 +147,7 @@ namespace RPGGame
         public int Wisdom { get => m_Wisdom; set => m_Wisdom = value; }
         public int AbilityAddPoint { get => m_AbilityAddPoint; set => m_AbilityAddPoint = value; }
         public Dictionary<EquipType, DREquip> PlayerEquips { get => m_PlayerEquips; set => m_PlayerEquips = value; }
+        public List<int> SkillIdList { get => m_SkillIdList; set => m_SkillIdList = value; }
 
         ~PlayerData()
         {

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-01 22:44:58.441
+// 生成时间：2022-05-05 10:54:34.944
 //------------------------------------------------------------
 
 using GameFramework;
@@ -144,6 +144,78 @@ namespace RPGGame
             private set;
         }
 
+        /// <summary>
+        /// 获取携带技能1Id。
+        /// </summary>
+        public int Skill1Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能2Id。
+        /// </summary>
+        public int Skill2Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能3Id。
+        /// </summary>
+        public int Skill3Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能4Id。
+        /// </summary>
+        public int Skill4Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能5Id。
+        /// </summary>
+        public int Skill5Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能6Id。
+        /// </summary>
+        public int Skill6Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能7Id。
+        /// </summary>
+        public int Skill7Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取携带技能8Id。
+        /// </summary>
+        public int Skill8Id
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -168,6 +240,14 @@ namespace RPGGame
             Equip4Id = int.Parse(columnStrings[index++]);
             Equip5Id = int.Parse(columnStrings[index++]);
             Equip6Id = int.Parse(columnStrings[index++]);
+            Skill1Id = int.Parse(columnStrings[index++]);
+            Skill2Id = int.Parse(columnStrings[index++]);
+            Skill3Id = int.Parse(columnStrings[index++]);
+            Skill4Id = int.Parse(columnStrings[index++]);
+            Skill5Id = int.Parse(columnStrings[index++]);
+            Skill6Id = int.Parse(columnStrings[index++]);
+            Skill7Id = int.Parse(columnStrings[index++]);
+            Skill8Id = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -192,6 +272,14 @@ namespace RPGGame
                     Equip4Id = binaryReader.Read7BitEncodedInt32();
                     Equip5Id = binaryReader.Read7BitEncodedInt32();
                     Equip6Id = binaryReader.Read7BitEncodedInt32();
+                    Skill1Id = binaryReader.Read7BitEncodedInt32();
+                    Skill2Id = binaryReader.Read7BitEncodedInt32();
+                    Skill3Id = binaryReader.Read7BitEncodedInt32();
+                    Skill4Id = binaryReader.Read7BitEncodedInt32();
+                    Skill5Id = binaryReader.Read7BitEncodedInt32();
+                    Skill6Id = binaryReader.Read7BitEncodedInt32();
+                    Skill7Id = binaryReader.Read7BitEncodedInt32();
+                    Skill8Id = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

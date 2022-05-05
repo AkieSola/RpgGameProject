@@ -1,3 +1,5 @@
+using GameFramework;
+using GameFramework.Event;
 using GameFramework.Resource;
 using System;
 using System.Collections;
@@ -15,6 +17,8 @@ namespace RPGGame
         private Text nameText;
         [SerializeField]
         private Image icon;
+        [SerializeField]
+        private int Index;
 
         public const String SkillIconNamePerfix = "SkillIcon";
         public void UpdateInfo(Skill skill)
@@ -33,8 +37,10 @@ namespace RPGGame
                 nameText.text = skill.Config.SkillName;
                 button.enabled = true;
                 button.onClick.RemoveAllListeners();
-                //button.onClick.AddListener();
-                
+                button.onClick.AddListener(() =>
+                {
+                    GameEntry.Event.Fire(this, SelectedSkillEventArgs.Create(Index));
+                });
             }
         }
 
@@ -52,4 +58,31 @@ namespace RPGGame
             }
         }
     }
+
+    public class SelectedSkillEventArgs : GameEventArgs
+    {
+        public static int EventId = typeof(SelectedSkillEventArgs).GetHashCode();
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public int SkillIdx;
+
+        public static SelectedSkillEventArgs Create(int skillIdx)
+        {
+            SelectedSkillEventArgs e = ReferencePool.Acquire<SelectedSkillEventArgs>();
+            e.SkillIdx = skillIdx;
+            return e;
+        }
+
+        public override void Clear()
+        {
+            SkillIdx = -1;
+        }
+    }
+
 }

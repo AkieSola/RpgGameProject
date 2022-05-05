@@ -62,7 +62,7 @@ namespace RPGGame
 
         private void UpdateSkillShowInfo(object sender, GameEventArgs e)
         {
-            //m_SkillList.UpdateInfo((e as UpdateSkillInfoEventArges).SkillIdList);
+            m_SkillList.UpdateInfo((e as UpdateSkillInfoEventArges).SkillList);
         }
 
         private void ShowTurnEndBtn(object sender, GameEventArgs e)
