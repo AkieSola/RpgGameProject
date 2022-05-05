@@ -26,6 +26,7 @@ namespace RPGGame
 
             public const int EnemyAsset = 90;
             public const int PlayerAsset = 90;
+            public const int SkillBallAsset = 110;
             public const int MyAircraftAsset = 90;
             public const int AircraftAsset = 80;
             public const int ThrusterAsset = 30;

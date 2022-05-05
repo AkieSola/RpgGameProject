@@ -90,6 +90,11 @@ namespace RPGGame
             entityComponent.ShowEntity(typeof(Enemy), "Enemy", Constant.AssetPriority.EnemyAsset, data);
         }
 
+        public static void ShowSkillBall(this EntityComponent entityComponent, SkillBallObjData data)
+        {
+            entityComponent.ShowEntity(typeof(SkillBallObj), "SkillBall", Constant.AssetPriority.SkillBallAsset, data);
+        }
+
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {
             if (data == null)

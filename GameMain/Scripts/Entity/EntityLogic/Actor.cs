@@ -169,9 +169,15 @@ namespace RPGGame
             }
         }
 
+        /// <summary>
+        /// 动画播放时设置动画事件
+        /// </summary>
+        /// <param name="AnimationEventTiming">事件延迟时间</param>
+        /// <returns></returns>
         IEnumerator WaitForAnimationPlay(float AnimationEventTiming)
         {
             yield return null;
+            /// 设置动画事件
             animEvent = new AnimationEvent();
             animEvent.functionName = "SkillFire";
             animEvent.time = AnimationEventTiming;

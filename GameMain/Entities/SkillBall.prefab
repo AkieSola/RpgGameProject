@@ -11,7 +11,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 136: {fileID: 13636178}
   m_Layer: 0
-  m_Name: Asteroid01
+  m_Name: SkillBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

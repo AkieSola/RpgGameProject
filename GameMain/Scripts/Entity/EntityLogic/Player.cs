@@ -19,11 +19,11 @@ namespace RPGGame
         private int SelectedSkillIdx;   //-1 未选中， >=0 <= 8 选中
 
         public const int MaxSkillCount = 8;
-        private Skill SelectedSkill 
+        private Skill SelectedSkill
         {
             get
             {
-                if(SelectedSkillIdx >= 0 || SelectedSkillIdx < MaxSkillCount)
+                if (SelectedSkillIdx >= 0 || SelectedSkillIdx < MaxSkillCount)
                 {
                     return SkillList[SelectedSkillIdx];
                 }
@@ -37,7 +37,7 @@ namespace RPGGame
         public bool inPlayerTurn;
         float pedometer = 0;
 
-     
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -48,11 +48,6 @@ namespace RPGGame
             base.OnShow(userData);
 
             EventComponent eventComponent = GameEntry.Event;
-
-            eventComponent.Fire(this, PlayerShowEventArgs.Create());
-            eventComponent.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
-            eventComponent.Subscribe(SelectedSkillEventArgs.EventId, SelectSkill);
-    
             canMove = true;
 
             m_PlayerData = userData as PlayerData;
@@ -62,16 +57,25 @@ namespace RPGGame
                 return;
             }
 
+
             //读取角色技能数据id
             //通过id拼类
+            m_PlayerData.SkillIdList = new List<int> { 1, 0, 0, 0, 0, 0, 0, 0 };    //Test
+   
             for (int i = 0; i < MaxSkillCount; i++)
             {
                 SkillList[i] = SkillFactor.CreateSkill(m_PlayerData.SkillIdList[i], this);
             }
 
+      
             nav = GetComponent<NavMeshAgent>();
 
             Name = Utility.Text.Format("Player ({0})", Id);
+
+            eventComponent.Fire(this, PlayerShowEventArgs.Create());
+            eventComponent.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
+            eventComponent.Subscribe(SelectedSkillEventArgs.EventId, SelectSkill);
+
         }
 
 
@@ -81,7 +85,7 @@ namespace RPGGame
             {
                 SelectedSkillEventArgs ea = e as SelectedSkillEventArgs;
                 SelectedSkillIdx = ea.SkillIdx;
-            } 
+            }
         }
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -108,7 +112,7 @@ namespace RPGGame
                 }
             }
 
-           
+
             if (Input.GetMouseButtonDown(0))
             {
                 if (SelectedSkill != null)

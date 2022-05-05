@@ -1,3 +1,4 @@
+using GameFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace RPGGame
         /// </summary>
         /// <param name="skillConfig"></param>
         /// <param name="Target"></param>
-        public virtual void OnFire() { }
+        public virtual void OnFire(object sender, GameEventArgs e) { }
         /// <summary>
         /// 技能对象碰撞到目标单位时
         /// </summary>
