@@ -20,7 +20,8 @@ namespace RPGGame
         public int SPConsume { private set; get; }
         public int CoolDown { private set; get; }
         public int RestCoolDown { private set; get; }
-
+        public int Buff1Time { private set; get; }
+        public int Buff2Time { private set; get; }
         public DRSkillConfig DRSkillConfig { private set; get; }
 
         public bool CanUse 
@@ -48,6 +49,8 @@ namespace RPGGame
             Distance = dRSkillConfig.Distance;
             SPConsume = dRSkillConfig.SpConsume;
             CoolDown = dRSkillConfig.CoolDown;
+            Buff1Time = dRSkillConfig.Buff1Time;
+            Buff2Time = dRSkillConfig.Buff2Time;
             RestCoolDown = 0;
         }
 

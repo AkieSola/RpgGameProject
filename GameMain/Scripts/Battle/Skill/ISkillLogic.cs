@@ -32,7 +32,10 @@ public enum E_DamageType
     /// ∑® ı
     /// </summary>
     Spell = 2,
-
+    /// <summary>
+    /// ’Ê…À/ª÷∏¥
+    /// </summary>
+    Pure = 3,
 }
 
 namespace RPGGame {

@@ -16,23 +16,10 @@ namespace RPGGame
         private NavMeshAgent nav;
 
         private List<Skill> SkillList;
-        private int SelectedSkillIdx;   //-1 未选中， >=0 <= 8 选中
 
         public const int MaxSkillCount = 8;
-        private Skill SelectedSkill
-        {
-            get
-            {
-                if (SelectedSkillIdx >= 0 || SelectedSkillIdx < MaxSkillCount)
-                {
-                    return SkillList[SelectedSkillIdx];
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+ 
+      
 
         public bool inPlayerTurn;
         float pedometer = 0;
@@ -60,7 +47,7 @@ namespace RPGGame
 
             //读取角色技能数据id
             //通过id拼类
-            m_PlayerData.SkillIdList = new List<int> { 1, 0, 0, 0, 0, 0, 0, 0 };    //Test
+            m_PlayerData.SkillIdList = new List<int> { 1, 2, 0, 0, 0, 0, 0, 0 };    //Test
    
             for (int i = 0; i < MaxSkillCount; i++)
             {
@@ -83,8 +70,8 @@ namespace RPGGame
         {
             if (e != null)
             {
-                SelectedSkillEventArgs ea = e as SelectedSkillEventArgs;
-                SelectedSkillIdx = ea.SkillIdx;
+                 SelectedSkillEventArgs ea = e as SelectedSkillEventArgs;
+                SelectedSkill = ea.skill;
             }
         }
 
@@ -117,15 +104,15 @@ namespace RPGGame
             {
                 if (SelectedSkill != null)
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
+                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
                     {
                         Actor Target = hit.collider.gameObject.GetComponent<Actor>();
                         Vector3 Position = hit.point;
                         Position.y = this.transform.position.y;
                         Vector3 ForwordDir = (Position - this.transform.position).normalized;
-
+                        this.transform.LookAt(new Vector3(ForwordDir.x, this.transform.position.y, ForwordDir.z));
                         SelectedSkill.Launch(Target, Position, ForwordDir);
                     }
                 }
@@ -136,7 +123,7 @@ namespace RPGGame
             //{
             //    DoAnimation("ReleaseSkill", 0.14f);
             //}
-        }
+         }
     }
 
     public class PlayerShowEventArgs : GameEventArgs

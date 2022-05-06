@@ -43,5 +43,10 @@ namespace RPGGame
         /// 角色属性面板
         /// </summary>
         PlayerPropFrom = 104,
+
+        /// <summary>
+        /// 伤害显示面板
+        /// </summary>
+        DamageTextForm = 201,
     }
 }

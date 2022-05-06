@@ -32,51 +32,53 @@ public class CameraController : MonoBehaviour
         {
             hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0] = mat;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+    
+        if (Player == null)
         {
-            if (Player == null)
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+        if (Player != null)
+        {
+            float y = cameraTrans.position.y;
+            tmpPos = new Vector3(Player.transform.position.x, y, Player.transform.position.z);
+            while (Vector3.Distance(tmpPos, this.transform.position) > 0.3f)
             {
-                Player = GameObject.FindGameObjectWithTag("Player");
-            }
-            if (Player != null)
-            {
-                float y = cameraTrans.position.y;
-                tmpPos = new Vector3(Player.transform.position.x, y, Player.transform.position.z);
-                StartCoroutine(CameraSmoothMoveToPlayer(tmpPos));
+                this.transform.position = Vector3.Lerp(this.transform.position, tmpPos, 0.2f);
             }
         }
+        
 
-        if (Input.mousePosition.x <= 0)
-        {
-            //Input.mousePosition.Set(0, Input.mousePosition.y, Input.mousePosition.z);
-            cameraMoveDir.x = -1;
-        }
-        else if (Input.mousePosition.x >= width)
-        {
-            //Input.mousePosition.Set(width, Input.mousePosition.y, Input.mousePosition.z);
-            cameraMoveDir.x = 1;
-        }
-        else
-        {
-            cameraMoveDir.x = 0;
-        }
+        //if (Input.mousePosition.x <= 0)
+        //{
+        //    //Input.mousePosition.Set(0, Input.mousePosition.y, Input.mousePosition.z);
+        //    cameraMoveDir.x = -1;
+        //}
+        //else if (Input.mousePosition.x >= width)
+        //{
+        //    //Input.mousePosition.Set(width, Input.mousePosition.y, Input.mousePosition.z);
+        //    cameraMoveDir.x = 1;
+        //}
+        //else
+        //{
+        //    cameraMoveDir.x = 0;
+        //}
 
-        if (Input.mousePosition.y <= 0)
-        {
-            //Input.mousePosition.Set(Input.mousePosition.x, 0, Input.mousePosition.z);
-            cameraMoveDir.z = -1;
-        }
-        else if (Input.mousePosition.y >= height)
-        {
-            //Input.mousePosition.Set(Input.mousePosition.x, height, Input.mousePosition.z);
-            cameraMoveDir.z = 1;
-        }
-        else
-        {
-            cameraMoveDir.z = 0;
-        }
+        //if (Input.mousePosition.y <= 0)
+        //{
+        //    //Input.mousePosition.Set(Input.mousePosition.x, 0, Input.mousePosition.z);
+        //    cameraMoveDir.z = -1;
+        //}
+        //else if (Input.mousePosition.y >= height)
+        //{
+        //    //Input.mousePosition.Set(Input.mousePosition.x, height, Input.mousePosition.z);
+        //    cameraMoveDir.z = 1;
+        //}
+        //else
+        //{
+        //    cameraMoveDir.z = 0;
+        //}
 
-        this.transform.position += cameraMoveDir * cameraMoveSpeed * Time.deltaTime;
+        //this.transform.position += cameraMoveDir * cameraMoveSpeed * Time.deltaTime;
     }
 
     IEnumerator CameraSmoothMoveToPlayer(Vector3 pos)

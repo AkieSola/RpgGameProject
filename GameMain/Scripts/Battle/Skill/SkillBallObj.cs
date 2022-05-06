@@ -21,15 +21,9 @@ namespace RPGGame
             }
         }
 
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         void Update()
         {
-
+            transform.position += skillObjData.Speed * skillObjData.Skill.ForwardDir * Time.deltaTime;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -63,8 +57,6 @@ public class SkillBumpEventArgs : GameEventArgs
             return EventId;
         }
     }
-
-
 
     public static SkillBumpEventArgs Create()
     {

@@ -32,7 +32,6 @@ namespace RPGGame
 
             GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, ShowTurnEndBtn);
             GameEntry.Event.Subscribe(UpdateActorFormInfoArgs.EventId, UpdateActorInfo);
-            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, UpdateSkillShowInfo);
             GameEntry.Event.Subscribe(UpdateSkillInfoEventArges.EventId, UpdateSkillShowInfo);
 
             if (m_ProcedureMain == null)

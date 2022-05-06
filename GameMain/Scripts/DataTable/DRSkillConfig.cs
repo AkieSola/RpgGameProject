@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-05 10:54:34.955
+// 生成时间：2022-05-06 15:43:29.540
 //------------------------------------------------------------
 
 using GameFramework;
@@ -180,6 +180,24 @@ namespace RPGGame
             private set;
         }
 
+        /// <summary>
+        /// 获取施加的Buff1持续回合数。
+        /// </summary>
+        public int Buff1Time
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取施加的Buff2持续回合数。
+        /// </summary>
+        public int Buff2Time
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -208,6 +226,8 @@ namespace RPGGame
             Damage2AtkAdd = int.Parse(columnStrings[index++]);
             SpConsume = int.Parse(columnStrings[index++]);
             CoolDown = int.Parse(columnStrings[index++]);
+            Buff1Time = int.Parse(columnStrings[index++]);
+            Buff2Time = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -236,6 +256,8 @@ namespace RPGGame
                     Damage2AtkAdd = binaryReader.Read7BitEncodedInt32();
                     SpConsume = binaryReader.Read7BitEncodedInt32();
                     CoolDown = binaryReader.Read7BitEncodedInt32();
+                    Buff1Time = binaryReader.Read7BitEncodedInt32();
+                    Buff2Time = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

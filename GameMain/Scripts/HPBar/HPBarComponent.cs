@@ -5,7 +5,9 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework.Event;
 using GameFramework.ObjectPool;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -50,7 +52,6 @@ namespace RPGGame
             {
                 HPBarItem hpBarItem = m_ActiveHPBarItems[i];
                 hpBarItem.Refresh();
-
                 //HideHPBar(hpBarItem);
             }
         }
@@ -69,7 +70,7 @@ namespace RPGGame
                 hpBarItem = CreateHPBarItem(entity);
                 m_ActiveHPBarItems.Add(hpBarItem);
             }
-          
+
             hpBarItem.Init(entity, m_CachedCanvas, fromHPRatio, toHPRatio);
         }
 

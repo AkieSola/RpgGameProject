@@ -26,7 +26,9 @@ namespace RPGGame
             m_AIId = dREnemy.AIId;
 
             base.MaxHP = dREnemy.MaxHp;
+            HP = MaxHP;
             base.MaxSP = dREnemy.MaxSp;
+            SP = MaxSP;
             base.Priority = dREnemy.Priority;
             base.Atk = dREnemy.Atk;
             base.SpellAtk = dREnemy.SpellAtk;

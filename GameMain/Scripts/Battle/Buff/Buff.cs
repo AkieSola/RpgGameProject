@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Buff
+namespace RPGGame
 {
-    public abstract int duringTurn { get; set; }
+    public abstract class Buff
+    {
+        public abstract int duringTurn { get; set; }
 
-    public virtual void BuffStart() { }
+        public virtual void BuffStart() { }
 
-    public abstract void BuffEffect();
+        public abstract void BuffEffect(Actor Owner);
 
-    public virtual void BuffFinish() { }
+        public virtual void BuffFinish() { }
+    }
 }

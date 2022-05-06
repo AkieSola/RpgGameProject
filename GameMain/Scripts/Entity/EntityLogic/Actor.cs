@@ -15,9 +15,9 @@ namespace RPGGame
         [SerializeField]
         private Animator m_Animator = null;
         [SerializeField]
-        protected List<int> m_ActorSkillIdList = null;
+        protected Skill SelectedSkill = null;
         [SerializeField]
-        protected int m_CurrentSelectedSkillIndex = -1;
+        private BuffContainer m_BuffContainer = null;
 
         AnimationClip clip;
 
@@ -39,6 +39,8 @@ namespace RPGGame
             }
         }
 
+        public BuffContainer BuffContainer { get => m_BuffContainer; private set { m_BuffContainer = value; } }
+
         public void ApplyDamage(Actor attacker, int damage, E_DamageType damageType)
         {
             int netDamage = 0;
@@ -50,9 +52,16 @@ namespace RPGGame
                 case E_DamageType.Spell:
                     netDamage = damage - (int)(damage * m_ActorData.SpellDfsRatio);
                     break;
+                case E_DamageType.Pure:
+                    netDamage = damage;
+                    break;
             }
 
             m_ActorData.HP -= netDamage;
+            DamageData damageData = new DamageData(netDamage, transform.position, damageType);
+            GameEntry.UI.OpenUIForm(UIFormId.DamageTextForm, damageData);
+            GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
+
             if (m_ActorData.HP <= 0)
             {
                 OnDead(attacker);
@@ -65,7 +74,8 @@ namespace RPGGame
             m_ActorData = userData as ActorData;
 
             m_Animator = GetComponent<Animator>();
-            m_ActorSkillIdList = new List<int>(8);
+
+            m_BuffContainer = new BuffContainer(this);
 
             if (m_ActorData == null)
             {
@@ -86,13 +96,21 @@ namespace RPGGame
 
             Name = Utility.Text.Format("Actor ({0})", Id);
 
+            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, BuffEffect);
+        }
 
+        private void BuffEffect(object sender, GameEventArgs e)
+        {
+            ActorRoundStartEventArgs ae = e as ActorRoundStartEventArgs;
+            if (ae != null && ae.actor == this)
+            {
+                BuffContainer.BuffContainerEffect();
+            }
         }
 
         protected virtual void OnDead(Entity attacker)
         {
         }
-
 
         //actor之间的大小比较按各自数据的先攻值来比较
         public int CompareTo(object obj)
@@ -167,6 +185,11 @@ namespace RPGGame
                 m_Animator.Play(AnimationName);
                 StartCoroutine(WaitForAnimationPlay(AnimationEventTiming));
             }
+        }
+
+        public void EndDoSkill()
+        {
+            SelectedSkill = null;
         }
 
         /// <summary>

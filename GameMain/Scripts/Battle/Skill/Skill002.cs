@@ -1,16 +1,11 @@
 using GameFramework.Event;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGGame
 {
-    /// <summary>
-    /// 小火球
-    /// 对目标单位造成伤害，之后会施加一层燃烧的buff，每回合造成伤害
-    /// </summary>
-    public class Skill001 : Skill
+    public class Skill002 : Skill
     {
         public override void OnInit()
         {
@@ -25,7 +20,7 @@ namespace RPGGame
         public override void OnFire(object sender, GameEventArgs e)
         {
             base.OnFire(sender, e);
-            GameEntry.Entity.ShowSkillBall(new SkillBallObjData(GameEntry.Entity.GenerateSerialId(), 60001, 5f, this)
+            GameEntry.Entity.ShowSkillBall(new SkillBallObjData(GameEntry.Entity.GenerateSerialId(), 60001, 10f, this)
             {
                 Position = Config.Launcher.transform.position
             });
@@ -43,6 +38,7 @@ namespace RPGGame
         public override void OnEnd()
         {
             Config.Launcher.EndDoSkill();
+            Target.BuffContainer.AddBuff(new ChangeHPBuff(Config.Damage02, Config.Buff1Time, E_DamageType.Spell));
             GameEntry.Event.Unsubscribe(SkillFireEventArgs.EventId, OnFire);
             base.OnEnd();
         }

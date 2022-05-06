@@ -2,53 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffContainer : MonoBehaviour
+namespace RPGGame
 {
-    LinkedList<Buff> buffList;
-    
-
-    public void BuffContainerEffect()
+    public class BuffContainer
     {
-        LinkedListNode<Buff> curNode = buffList.First;
-        while (curNode != null)
+        LinkedList<Buff> buffList;
+        Actor Owner;
+
+        public BuffContainer(Actor Owner)
         {
-            Buff buff = curNode.Value;
-            buff.BuffEffect();
-            buff.duringTurn -= 1;
-            if (buff.duringTurn <= 0)
+            buffList = new LinkedList<Buff>();
+            this.Owner = Owner;
+        }
+
+
+        public void BuffContainerEffect()
+        {
+            LinkedListNode<Buff> curNode = buffList.First;
+            while (curNode != null)
             {
-                LinkedListNode<Buff> nextNode = curNode.Next;
-                buff.BuffFinish();
-                buffList.Remove(curNode);
-                curNode = nextNode;
-            }
-            else
-            {
-                curNode = curNode.Next;
+                Buff buff = curNode.Value;
+                buff.BuffEffect(Owner);
+                buff.duringTurn -= 1;
+                if (buff.duringTurn <= 0)
+                {
+                    LinkedListNode<Buff> nextNode = curNode.Next;
+                    buff.BuffFinish();
+                    buffList.Remove(curNode);
+                    curNode = nextNode;
+                }
+                else
+                {
+                    curNode = curNode.Next;
+                }
             }
         }
-    }
-    public void AddBuff(Buff buff)
-    {
-        buffList.AddFirst(buff);
-    }
 
-    public void RemoveBuff(Buff buff)
-    {
-        buffList.Remove(buff);
-    }
+        public void AddBuff(Buff buff)
+        {
+            buffList.AddFirst(buff);
+        }
 
-    public void ClearBuff()
-    {
-        buffList.Clear();
-    }
-    void Start()
-    {
-        
-    }
+        public void RemoveBuff(Buff buff)
+        {
+            buffList.Remove(buff);
+        }
 
-    void Update()
-    {
-        
+        public void ClearBuff()
+        {
+            buffList.Clear();
+        }
     }
 }

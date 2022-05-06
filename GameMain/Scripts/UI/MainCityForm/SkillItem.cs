@@ -39,7 +39,7 @@ namespace RPGGame
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() =>
                 {
-                    GameEntry.Event.Fire(this, SelectedSkillEventArgs.Create(Index));
+                    GameEntry.Event.Fire(this, SelectedSkillEventArgs.Create(skill));
                 });
             }
         }
@@ -70,18 +70,18 @@ namespace RPGGame
             }
         }
 
-        public int SkillIdx;
+        public Skill skill;
 
-        public static SelectedSkillEventArgs Create(int skillIdx)
+        public static SelectedSkillEventArgs Create(Skill skill)
         {
             SelectedSkillEventArgs e = ReferencePool.Acquire<SelectedSkillEventArgs>();
-            e.SkillIdx = skillIdx;
+            e.skill = skill;
             return e;
         }
 
         public override void Clear()
         {
-            SkillIdx = -1;
+            skill = null;
         }
     }
 

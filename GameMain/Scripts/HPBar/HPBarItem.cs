@@ -5,6 +5,8 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework.Event;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,6 +49,7 @@ namespace RPGGame
 
             gameObject.SetActive(true);
             StopAllCoroutines();
+            GameEntry.Event.Subscribe(UpdateActorFormInfoArgs.EventId, UpdateActorInfo);
 
             m_CachedCanvasGroup.alpha = 1f;
             if (m_Owner != owner || m_OwnerId != owner.Id)
@@ -58,6 +61,15 @@ namespace RPGGame
 
             Refresh();
             //StartCoroutine(HPBarCo(toHPRatio, AnimationSeconds, KeepSeconds, FadeOutSeconds));
+        }
+
+        private void UpdateActorInfo(object sender, GameEventArgs e)
+        {
+            UpdateActorFormInfoArgs ue = e as UpdateActorFormInfoArgs;
+            if (ue != null && (sender as Entity) == Owner)
+            {
+                m_HPBar.value = (sender as Actor).ActorData.HPRatio;
+            }
         }
 
         public bool Refresh()
