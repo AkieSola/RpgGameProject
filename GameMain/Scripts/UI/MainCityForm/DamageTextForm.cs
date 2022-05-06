@@ -16,6 +16,8 @@ namespace RPGGame
         private Color spellColor;
         [SerializeField]
         private Color pureColor;
+        [SerializeField]
+        private Vector3 upSpeed;
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -46,12 +48,13 @@ namespace RPGGame
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            //timer += elapseSeconds;
-            //if (timer > 0.5f)
-            //{
-            //    timer = 0;
-            //    Close();
-            //}
+            this.transform.position += upSpeed * Time.deltaTime;
+            timer += elapseSeconds;
+            if (timer > 1f)
+            {
+                timer = 0;
+                Close();
+            }
         }
     }
 }

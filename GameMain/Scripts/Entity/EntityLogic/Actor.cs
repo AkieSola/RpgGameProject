@@ -15,6 +15,10 @@ namespace RPGGame
         [SerializeField]
         private Animator m_Animator = null;
         [SerializeField]
+        protected List<Skill> SkillList = new List<Skill>() { null, null, null, null, null, null, null, null };
+
+        public const int MaxSkillCount = 8;
+        [SerializeField]
         protected Skill SelectedSkill = null;
         [SerializeField]
         private BuffContainer m_BuffContainer = null;
@@ -81,7 +85,7 @@ namespace RPGGame
             {
                 Log.Error("Actor data is invalid.");
             }
-            base.OnInit(userData);
+            base.OnInit(userData); 
         }
 
         protected override void OnShow(object userData)
@@ -96,15 +100,26 @@ namespace RPGGame
 
             Name = Utility.Text.Format("Actor ({0})", Id);
 
-            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, BuffEffect);
+            GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, WhenActorRoundStart);
         }
 
-        private void BuffEffect(object sender, GameEventArgs e)
+        private void WhenActorRoundStart(object sender, GameEventArgs e)
         {
             ActorRoundStartEventArgs ae = e as ActorRoundStartEventArgs;
             if (ae != null && ae.actor == this)
             {
                 BuffContainer.BuffContainerEffect();
+                foreach(var skill in SkillList)
+                {
+                    if(skill != null)
+                    {
+                        skill.Config.UpdateRestCoolDown();
+                    }
+                }
+                if (this is Player)
+                {
+                    GameEntry.Event.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
+                }
             }
         }
 
@@ -189,6 +204,7 @@ namespace RPGGame
 
         public void EndDoSkill()
         {
+            GameEntry.Event.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
             SelectedSkill = null;
         }
 
@@ -210,7 +226,7 @@ namespace RPGGame
 
         private void SkillFire()
         {
-            GameEntry.Event.Fire(this, SkillFireEventArgs.Create());
+            GameEntry.Event.Fire(this, SkillFireEventArgs.Create(SelectedSkill));
         }
     }
 
@@ -225,14 +241,18 @@ namespace RPGGame
             }
         }
 
-        public static SkillFireEventArgs Create()
+        public Skill skill;
+
+        public static SkillFireEventArgs Create(Skill skill)
         {
             SkillFireEventArgs e = ReferencePool.Acquire<SkillFireEventArgs>();
+            e.skill = skill;
             return e;
         }
 
         public override void Clear()
         {
+            skill = null;
         }
     }
 }

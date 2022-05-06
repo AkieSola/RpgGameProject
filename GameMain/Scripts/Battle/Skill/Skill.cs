@@ -24,7 +24,10 @@ namespace RPGGame
         /// </summary>
         /// <param name="skillConfig"></param>
         /// <param name="Target"></param>
-        public virtual void OnLaunch() { }
+        public virtual void OnLaunch() 
+        {
+            Config.EnterCoolDown();
+        }
         /// <summary>
         /// 释放出技能的时点
         /// </summary>
@@ -42,7 +45,7 @@ namespace RPGGame
         /// </summary>
         /// <param name="skillConfig"></param>
         /// <param name="Target"></param>
-        public virtual void OnEnd() { }
+        public virtual void OnEnd() {}
 
         public void Clear()
         {

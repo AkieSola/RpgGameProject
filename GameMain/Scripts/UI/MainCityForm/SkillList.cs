@@ -31,7 +31,7 @@ namespace RPGGame
         
 
         public void UpdateInfo(List<Skill> SkillList)
-        {
+         {
             Skill1.UpdateInfo(SkillList[0]);
             Skill2.UpdateInfo(SkillList[1]);
             Skill3.UpdateInfo(SkillList[2]);

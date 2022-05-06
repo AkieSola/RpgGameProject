@@ -19,16 +19,23 @@ namespace RPGGame
 
         public override void OnLaunch()
         {
+            base.OnLaunch();
             Config.Launcher.DoSkill(Config);
         }
 
         public override void OnFire(object sender, GameEventArgs e)
         {
             base.OnFire(sender, e);
-            GameEntry.Entity.ShowSkillBall(new SkillBallObjData(GameEntry.Entity.GenerateSerialId(), 60001, 5f, this)
+            
+            SkillFireEventArgs skillFireEventArgs = (SkillFireEventArgs)e;
+
+            if (skillFireEventArgs != null && skillFireEventArgs.skill == this)
             {
-                Position = Config.Launcher.transform.position
-            });
+                GameEntry.Entity.ShowSkillBall(new SkillBallObjData(GameEntry.Entity.GenerateSerialId(), 60001, 5f, this)
+                {
+                    Position = Config.Launcher.transform.position
+                });
+            }
         }
 
         public override void OnBump()

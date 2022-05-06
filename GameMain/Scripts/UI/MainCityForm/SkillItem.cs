@@ -18,6 +18,10 @@ namespace RPGGame
         [SerializeField]
         private Image icon;
         [SerializeField]
+        private Text CoolDownRestText;
+        [SerializeField]
+        private Image Mask;
+        [SerializeField]
         private int Index;
 
         public const String SkillIconNamePerfix = "SkillIcon";
@@ -28,6 +32,7 @@ namespace RPGGame
                 icon.enabled = false;
                 nameText.enabled = false;
                 button.enabled = false;
+                CoolDownRestText.enabled = false;
             }
             else
             {
@@ -41,6 +46,18 @@ namespace RPGGame
                 {
                     GameEntry.Event.Fire(this, SelectedSkillEventArgs.Create(skill));
                 });
+
+                if (skill.Config.RestCoolDown != 0)
+                {
+                    CoolDownRestText.enabled = true;
+                    CoolDownRestText.text = skill.Config.RestCoolDown.ToString();
+                    Mask.enabled = true;
+                }
+                else
+                {
+                    CoolDownRestText.enabled = false;
+                    Mask.enabled = false;
+                }
             }
         }
 

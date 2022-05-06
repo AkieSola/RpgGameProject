@@ -41,30 +41,30 @@ namespace RPGGame
 
         protected override void OnRecycle()
         {
-            base.OnRecycle();
+            skillObjData = null;
         }
     }
 }
 
-public class SkillBumpEventArgs : GameEventArgs
-{
-    public static readonly int EventId = typeof(SkillBumpEventArgs).GetHashCode();
+//public class SkillBumpEventArgs : GameEventArgs
+//{
+//    public static readonly int EventId = typeof(SkillBumpEventArgs).GetHashCode();
 
-    public override int Id
-    {
-        get
-        {
-            return EventId;
-        }
-    }
+//    public override int Id
+//    {
+//        get
+//        {
+//            return EventId;
+//        }
+//    }
 
-    public static SkillBumpEventArgs Create()
-    {
-        SkillBumpEventArgs e = ReferencePool.Acquire<SkillBumpEventArgs>();
-        return e;
-    }
+//    public static SkillBumpEventArgs Create()
+//    {
+//        SkillBumpEventArgs e = ReferencePool.Acquire<SkillBumpEventArgs>();
+//        return e;
+//    }
 
-    public override void Clear()
-    {
-    }
-}
+//    public override void Clear()
+//    {
+//    }
+//}

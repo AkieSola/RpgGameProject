@@ -75,6 +75,9 @@ namespace RPGGame
             RestCoolDown = CoolDown;
         }
 
+        /// <summary>
+        /// 冷却时间减1回合
+        /// </summary>
         public void UpdateRestCoolDown()
         {
             if(RestCoolDown > 0)
@@ -82,8 +85,6 @@ namespace RPGGame
                 RestCoolDown--;
             }
         }
-
-      
 
         public void Clear()
         {

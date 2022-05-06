@@ -15,12 +15,6 @@ namespace RPGGame
         private PlayerData m_PlayerData = null;
         private NavMeshAgent nav;
 
-        private List<Skill> SkillList;
-
-        public const int MaxSkillCount = 8;
- 
-      
-
         public bool inPlayerTurn;
         float pedometer = 0;
 
@@ -28,7 +22,6 @@ namespace RPGGame
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            SkillList = new List<Skill>(MaxSkillCount) { null, null, null, null, null, null, null, null };
         }
         protected override void OnShow(object userData)
         {
@@ -62,7 +55,6 @@ namespace RPGGame
             eventComponent.Fire(this, PlayerShowEventArgs.Create());
             eventComponent.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
             eventComponent.Subscribe(SelectedSkillEventArgs.EventId, SelectSkill);
-
         }
 
 
@@ -70,8 +62,15 @@ namespace RPGGame
         {
             if (e != null)
             {
-                 SelectedSkillEventArgs ea = e as SelectedSkillEventArgs;
-                SelectedSkill = ea.skill;
+                SelectedSkillEventArgs ea = e as SelectedSkillEventArgs;
+                if (ea.skill.Config.RestCoolDown == 0)
+                {
+                    SelectedSkill = ea.skill;
+                }
+                else
+                {
+
+                }
             }
         }
 
@@ -102,7 +101,7 @@ namespace RPGGame
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (SelectedSkill != null)
+                if (inPlayerTurn && SelectedSkill != null && this.ActorData.SP >= SelectedSkill.Config.SPConsume) 
                 {
                      Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                      RaycastHit hit;
@@ -117,13 +116,7 @@ namespace RPGGame
                     }
                 }
             }
-
-            /////Test
-            //if (Input.GetKeyDown(KeyCode.F))
-            //{
-            //    DoAnimation("ReleaseSkill", 0.14f);
-            //}
-         }
+        }
     }
 
     public class PlayerShowEventArgs : GameEventArgs

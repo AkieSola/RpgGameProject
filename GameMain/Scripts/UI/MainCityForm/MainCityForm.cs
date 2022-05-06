@@ -129,16 +129,16 @@ namespace RPGGame
 
         public List<Skill> SkillList;
 
-        public override void Clear()
-        {
-            SkillList.Clear();
-        }
-
         public static UpdateSkillInfoEventArges Create(List<Skill> SkillList)
         {
             UpdateSkillInfoEventArges e = ReferencePool.Acquire<UpdateSkillInfoEventArges>();
             e.SkillList = SkillList;
             return e;
+        }
+
+        public override void Clear()
+        {
+            SkillList = null;
         }
     }
 }
