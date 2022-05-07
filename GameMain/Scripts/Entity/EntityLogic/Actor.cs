@@ -28,6 +28,8 @@ namespace RPGGame
         AnimationEvent animEvent;
 
         public bool canMove;
+
+        public Material Transparent;
         public ActorData ActorData
         {
             get
@@ -101,6 +103,15 @@ namespace RPGGame
             Name = Utility.Text.Format("Actor ({0})", Id);
 
             GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, WhenActorRoundStart);
+        }
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (gameObject.GetComponent<MeshRenderer>().materials[1] != Transparent)
+            {
+                gameObject.GetComponent<MeshRenderer>().materials[1] = Transparent;
+            }
         }
 
         private void WhenActorRoundStart(object sender, GameEventArgs e)

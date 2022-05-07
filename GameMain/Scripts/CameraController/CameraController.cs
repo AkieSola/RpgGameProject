@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
         {
             float y = cameraTrans.position.y;
             tmpPos = new Vector3(Player.transform.position.x, y, Player.transform.position.z);
-            while (Vector3.Distance(tmpPos, this.transform.position) > 0.3f)
+            while (Vector3.Distance(tmpPos, this.transform.position) > 0.1f)
             {
                 this.transform.position = Vector3.Lerp(this.transform.position, tmpPos, 0.2f);
             }

@@ -18,6 +18,7 @@ namespace RPGGame
         public bool inPlayerTurn;
         float pedometer = 0;
 
+        public Material OutLineMaterial;
 
         protected override void OnInit(object userData)
         {
@@ -77,15 +78,6 @@ namespace RPGGame
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (Input.GetMouseButtonDown(1) && canMove && m_PlayerData.SP > 0)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
-                {
-                    nav.SetDestination(hit.point);
-                }
-            }
 
             if (inPlayerTurn)
             {
@@ -98,14 +90,24 @@ namespace RPGGame
                 }
             }
 
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1) && canMove && m_PlayerData.SP > 0)
             {
-                if (inPlayerTurn && SelectedSkill != null && this.ActorData.SP >= SelectedSkill.Config.SPConsume) 
+                if (Physics.Raycast(ray, out hit))
                 {
-                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                     RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
+                    nav.SetDestination(hit.point);
+                }
+            }
+
+            if (Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
+            {
+                hit.collider.gameObject.GetComponent<MeshRenderer>().materials[1] = OutLineMaterial;
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (inPlayerTurn && SelectedSkill != null && this.ActorData.SP >= SelectedSkill.Config.SPConsume)
                     {
                         Actor Target = hit.collider.gameObject.GetComponent<Actor>();
                         Vector3 Position = hit.point;
