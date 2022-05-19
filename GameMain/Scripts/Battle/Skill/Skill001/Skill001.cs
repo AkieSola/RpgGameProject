@@ -14,7 +14,7 @@ namespace RPGGame
     {
         public override void OnInit()
         {
-            GameEntry.Event.Subscribe(SkillFireEventArgs.EventId, OnFire);
+           
         }
 
         public override void OnLaunch()
@@ -45,13 +45,6 @@ namespace RPGGame
             //‘Ï≥……À∫¶
             Target.ApplyDamage(Config.Launcher, Config.Damage01, E_DamageType.Spell);
             OnEnd();
-        }
-
-        public override void OnEnd()
-        {
-            Config.Launcher.EndDoSkill();
-            GameEntry.Event.Unsubscribe(SkillFireEventArgs.EventId, OnFire);
-            base.OnEnd();
         }
     }
 }

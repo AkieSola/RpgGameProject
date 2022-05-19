@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-06 15:43:29.501
+// 生成时间：2022-05-19 19:05:39.772
 //------------------------------------------------------------
 
 using GameFramework;
@@ -85,6 +85,15 @@ namespace RPGGame
         /// 获取保留的能力点。
         /// </summary>
         public int AbilityPoint
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取移动速度。
+        /// </summary>
+        public float MoveSpeed
         {
             get;
             private set;
@@ -234,6 +243,7 @@ namespace RPGGame
             Agile = int.Parse(columnStrings[index++]);
             Wisdom = int.Parse(columnStrings[index++]);
             AbilityPoint = int.Parse(columnStrings[index++]);
+            MoveSpeed = float.Parse(columnStrings[index++]);
             Equip1Id = int.Parse(columnStrings[index++]);
             Equip2Id = int.Parse(columnStrings[index++]);
             Equip3Id = int.Parse(columnStrings[index++]);
@@ -266,6 +276,7 @@ namespace RPGGame
                     Agile = binaryReader.Read7BitEncodedInt32();
                     Wisdom = binaryReader.Read7BitEncodedInt32();
                     AbilityPoint = binaryReader.Read7BitEncodedInt32();
+                    MoveSpeed = binaryReader.ReadSingle();
                     Equip1Id = binaryReader.Read7BitEncodedInt32();
                     Equip2Id = binaryReader.Read7BitEncodedInt32();
                     Equip3Id = binaryReader.Read7BitEncodedInt32();

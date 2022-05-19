@@ -16,7 +16,11 @@ namespace RPGGame
         [SerializeField]
         private Slider m_HPSlider = null;
         [SerializeField]
+        private Text m_HPText = null;
+        [SerializeField]
         private Slider m_SPSlider = null;
+        [SerializeField]
+        private Text m_SPText = null;
         [SerializeField]
         private SkillList m_SkillList = null;
         [SerializeField]
@@ -41,9 +45,17 @@ namespace RPGGame
             }
 
             m_TurnEndBtn.gameObject.SetActive(false);
+
             m_HPSlider.value = m_ProcedureMain.PlayerData.HPRatio;
+            m_HPText.text = "生命值";
+
             m_SPSlider.value = m_ProcedureMain.PlayerData.SPRatio;
+            m_SPText.text = "行动值";
+
+            m_PropBtn.GetComponentInChildren<Text>().text = "属性";
             m_PropBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.PlayerPropFrom, m_ProcedureMain.PlayerData); });
+            
+            m_TurnEndBtn.GetComponentInChildren<Text>().text = "回合结束";
             m_TurnEndBtn.onClick.AddListener(() => { 
                 GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(null));
             });

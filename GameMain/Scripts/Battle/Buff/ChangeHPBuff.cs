@@ -21,5 +21,13 @@ namespace RPGGame {
         {
             Owner.ApplyDamage(null, m_Value, e_DamageType);
         }
+
+        public override void BuffStart(Actor Owner)
+        {
+        }
+
+        public override void BuffFinish(Actor Owner)
+        {
+        }
     }
 }

@@ -16,10 +16,9 @@ namespace RPGGame
         private NavMeshAgent nav;
 
         public bool inPlayerTurn;
-        float pedometer = 0;
+        float walkTimer = 0;
 
-        public Material OutLineMaterial;
-
+        Material material;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -38,17 +37,17 @@ namespace RPGGame
                 return;
             }
 
-
+            nav.speed = ActorData.Speed;
             //读取角色技能数据id
             //通过id拼类
-            m_PlayerData.SkillIdList = new List<int> { 1, 2, 0, 0, 0, 0, 0, 0 };    //Test
-   
+            m_PlayerData.SkillIdList = new List<int> { 1, 2, 3, 0, 0, 0, 0, 0 };    //Test
+
             for (int i = 0; i < MaxSkillCount; i++)
             {
                 SkillList[i] = SkillFactor.CreateSkill(m_PlayerData.SkillIdList[i], this);
             }
 
-      
+
             nav = GetComponent<NavMeshAgent>();
 
             Name = Utility.Text.Format("Player ({0})", Id);
@@ -56,8 +55,13 @@ namespace RPGGame
             eventComponent.Fire(this, PlayerShowEventArgs.Create());
             eventComponent.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
             eventComponent.Subscribe(SelectedSkillEventArgs.EventId, SelectSkill);
+            eventComponent.Subscribe(ActorPropChangeEventArgs.EventId, UpdateProp);
         }
 
+        private void UpdateProp(object sender, GameEventArgs e)
+        {
+            nav.speed = ActorData.Speed;
+        }
 
         private void SelectSkill(object sender, GameEventArgs e)
         {
@@ -79,13 +83,13 @@ namespace RPGGame
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-            if (inPlayerTurn)
+            if (inPlayerTurn && nav.velocity != Vector3.zero)
             {
                 //移动SP消耗
-                pedometer += Time.deltaTime * nav.velocity.magnitude;
-                if (pedometer > 2f)
+                walkTimer += Time.deltaTime;
+                if (walkTimer >= 1f)
                 {
-                    pedometer = 0;
+                    walkTimer = 0;
                     base.ConsumeSP(1);
                 }
             }
@@ -101,26 +105,64 @@ namespace RPGGame
                 }
             }
 
+            if (material != null)
+            {
+                material.SetFloat("_OutlineLenth", 0f);
+            }
+
             if (Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
             {
-                hit.collider.gameObject.GetComponent<MeshRenderer>().materials[1] = OutLineMaterial;
+                material = hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0];
+                if (material != null)
+                {
+                    material.SetFloat("_OutlineLenth", 0.05f);
+                }
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if (inPlayerTurn && SelectedSkill != null && this.ActorData.SP >= SelectedSkill.Config.SPConsume)
+                    if (inPlayerTurn && SelectedSkill != null)
                     {
-                        Actor Target = hit.collider.gameObject.GetComponent<Actor>();
-                        Vector3 Position = hit.point;
-                        Position.y = this.transform.position.y;
-                        Vector3 ForwordDir = (Position - this.transform.position).normalized;
-                        this.transform.LookAt(new Vector3(ForwordDir.x, this.transform.position.y, ForwordDir.z));
-                        SelectedSkill.Launch(Target, Position, ForwordDir);
+                        if (SelectedSkill.Config.DRSkillConfig.Type == 1)
+                        {
+                            Actor Target = hit.collider.gameObject.GetComponent<Actor>();
+                            Vector3 Position = hit.point;
+                            Position.y = this.transform.position.y;
+                            Vector3 ForwordDir = (Position - this.transform.position).normalized;
+                            this.transform.LookAt(new Vector3(ForwordDir.x, this.transform.position.y, ForwordDir.z));
+                            SelectedSkill.Launch(Target, Position, ForwordDir);
+                        }
+                        if(SelectedSkill.Config.DRSkillConfig.Type == 2) 
+                        {
+                            SelectedSkill.Launch(this, this.transform.position, this.transform.forward);
+                        }
                     }
                 }
             }
         }
     }
 
+    public class ActorPropChangeEventArgs : GameEventArgs 
+    {
+        public static readonly int EventId = typeof(PlayerShowEventArgs).GetHashCode();
+
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public static ActorPropChangeEventArgs Create()
+        {
+            ActorPropChangeEventArgs e = ReferencePool.Acquire<ActorPropChangeEventArgs>();
+            return e;
+        }
+
+        public override void Clear()
+        {
+        }
+    }
     public class PlayerShowEventArgs : GameEventArgs
     {
         public static readonly int EventId = typeof(PlayerShowEventArgs).GetHashCode();
@@ -143,5 +185,4 @@ namespace RPGGame
         {
         }
     }
-
 }

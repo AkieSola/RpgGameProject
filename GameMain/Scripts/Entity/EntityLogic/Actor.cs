@@ -28,8 +28,6 @@ namespace RPGGame
         AnimationEvent animEvent;
 
         public bool canMove;
-
-        public Material Transparent;
         public ActorData ActorData
         {
             get
@@ -108,10 +106,6 @@ namespace RPGGame
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
-            if (gameObject.GetComponent<MeshRenderer>().materials[1] != Transparent)
-            {
-                gameObject.GetComponent<MeshRenderer>().materials[1] = Transparent;
-            }
         }
 
         private void WhenActorRoundStart(object sender, GameEventArgs e)
@@ -238,6 +232,9 @@ namespace RPGGame
         private void SkillFire()
         {
             GameEntry.Event.Fire(this, SkillFireEventArgs.Create(SelectedSkill));
+            clip = m_Animator.GetCurrentAnimatorClipInfo(0)[0].clip;
+            clip.events = default(AnimationEvent[]);
+
         }
     }
 

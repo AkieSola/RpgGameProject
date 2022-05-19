@@ -32,7 +32,6 @@ namespace RPGGame
             {
                 if(other.GetComponent<Actor>() == skillObjData.Skill.Target)
                 {
-
                     skillObjData.Skill.OnBump();
                     GameEntry.Entity.HideEntity(this.Entity.Id);
                 }

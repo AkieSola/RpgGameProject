@@ -26,6 +26,7 @@ namespace RPGGame
         /// <param name="Target"></param>
         public virtual void OnLaunch() 
         {
+            GameEntry.Event.Subscribe(SkillFireEventArgs.EventId, OnFire);
             Config.EnterCoolDown();
         }
         /// <summary>
@@ -45,7 +46,11 @@ namespace RPGGame
         /// </summary>
         /// <param name="skillConfig"></param>
         /// <param name="Target"></param>
-        public virtual void OnEnd() {}
+        public virtual void OnEnd()
+        {
+            Config.Launcher.EndDoSkill();
+            GameEntry.Event.Unsubscribe(SkillFireEventArgs.EventId, OnFire);
+        }
 
         public void Clear()
         {

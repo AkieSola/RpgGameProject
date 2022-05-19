@@ -27,7 +27,7 @@ namespace RPGGame
                 if (buff.duringTurn <= 0)
                 {
                     LinkedListNode<Buff> nextNode = curNode.Next;
-                    buff.BuffFinish();
+                    buff.BuffFinish(Owner);
                     buffList.Remove(curNode);
                     curNode = nextNode;
                 }
@@ -40,11 +40,13 @@ namespace RPGGame
 
         public void AddBuff(Buff buff)
         {
+            buff.BuffStart(Owner);
             buffList.AddFirst(buff);
         }
 
         public void RemoveBuff(Buff buff)
         {
+            buff.BuffFinish(Owner);
             buffList.Remove(buff);
         }
 

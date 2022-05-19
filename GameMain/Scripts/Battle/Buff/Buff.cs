@@ -8,10 +8,10 @@ namespace RPGGame
     {
         public abstract int duringTurn { get; set; }
 
-        public virtual void BuffStart() { }
+        public abstract void BuffStart(Actor Owner);
 
         public abstract void BuffEffect(Actor Owner);
 
-        public virtual void BuffFinish() { }
+        public abstract void BuffFinish(Actor Owner);
     }
 }

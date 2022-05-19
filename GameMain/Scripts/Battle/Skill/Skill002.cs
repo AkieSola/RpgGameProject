@@ -10,7 +10,6 @@ namespace RPGGame
         public override void OnInit()
         {
             base.OnInit();
-            GameEntry.Event.Subscribe(SkillFireEventArgs.EventId, OnFire);
         }
 
         public override void OnLaunch()

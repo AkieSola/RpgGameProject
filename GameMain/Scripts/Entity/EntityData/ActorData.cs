@@ -41,6 +41,8 @@ namespace RPGGame
         {
 
         }
+
+        public float Speed { get; set; }
         public int ActorId { get => m_Id; set => m_Id = value; }
         public int HP { get => m_HP; set => m_HP = Math.Min(Math.Max(0, value), MaxHP); }
         public int MaxHP { get => m_MaxHP; set => m_MaxHP = value; }

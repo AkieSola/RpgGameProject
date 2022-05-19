@@ -850,7 +850,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExpSlider: {fileID: 5472103474679520801}
   m_HPSlider: {fileID: 5472103475773144683}
+  m_HPText: {fileID: 5472103474237563460}
   m_SPSlider: {fileID: 5472103475928299413}
+  m_SPText: {fileID: 5472103476035386918}
   m_SkillList: {fileID: 5472103475333284341}
   m_PropBtn: {fileID: 5724535179936341073}
   m_TurnEndBtn: {fileID: 5927598753574899280}

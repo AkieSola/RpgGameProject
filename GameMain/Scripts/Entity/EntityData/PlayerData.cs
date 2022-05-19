@@ -39,7 +39,7 @@ namespace RPGGame
         private int baseATK = 10;
         private float m_LvPowAddHP = 1.2f;
 
-        PlayerDataSource playerDataSource;
+        public PlayerDataSource playerDataSource;
         public PlayerData(PlayerDataSource pdSource, int entityId, int typeId) : base(entityId, typeId)
         {
             playerDataSource = pdSource;
