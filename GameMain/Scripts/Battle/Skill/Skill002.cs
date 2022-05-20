@@ -7,11 +7,6 @@ namespace RPGGame
 {
     public class Skill002 : Skill
     {
-        public override void OnInit()
-        {
-            base.OnInit();
-        }
-
         public override void OnLaunch()
         {
             base.OnLaunch();
@@ -37,14 +32,12 @@ namespace RPGGame
             //激发特效
             //造成伤害
             Target.ApplyDamage(Config.Launcher, Config.Damage01, E_DamageType.Spell);
-            OnEnd();
+            this.OnEnd();
         }
 
         public override void OnEnd()
         {
-            Config.Launcher.EndDoSkill();
             Target.BuffContainer.AddBuff(new ChangeHPBuff(Config.Damage02, Config.Buff1Time, E_DamageType.Spell));
-            GameEntry.Event.Unsubscribe(SkillFireEventArgs.EventId, OnFire);
             base.OnEnd();
         }
     }

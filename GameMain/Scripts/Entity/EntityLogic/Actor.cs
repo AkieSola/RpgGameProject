@@ -210,6 +210,7 @@ namespace RPGGame
         public void EndDoSkill()
         {
             GameEntry.Event.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
+            canMove = true;
             SelectedSkill = null;
         }
 

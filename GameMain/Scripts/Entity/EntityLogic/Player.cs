@@ -36,19 +36,20 @@ namespace RPGGame
                 Log.Error("Player data is invalid.");
                 return;
             }
+          
 
-            nav.speed = ActorData.Speed;
+            //
             //读取角色技能数据id
             //通过id拼类
             m_PlayerData.SkillIdList = new List<int> { 1, 2, 3, 0, 0, 0, 0, 0 };    //Test
+
+            nav = GetComponent<NavMeshAgent>();
+            nav.speed = ActorData.Speed;
 
             for (int i = 0; i < MaxSkillCount; i++)
             {
                 SkillList[i] = SkillFactor.CreateSkill(m_PlayerData.SkillIdList[i], this);
             }
-
-
-            nav = GetComponent<NavMeshAgent>();
 
             Name = Utility.Text.Format("Player ({0})", Id);
 
