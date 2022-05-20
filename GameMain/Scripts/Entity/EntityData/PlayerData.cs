@@ -148,6 +148,7 @@ namespace RPGGame
         public int AbilityAddPoint { get => m_AbilityAddPoint; set => m_AbilityAddPoint = value; }
         public Dictionary<EquipType, DREquip> PlayerEquips { get => m_PlayerEquips; set => m_PlayerEquips = value; }
         public List<int> SkillIdList { get => m_SkillIdList; set => m_SkillIdList = value; }
+        public List<int> ItemIdList { get; set; }
 
         ~PlayerData()
         {

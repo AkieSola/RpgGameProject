@@ -12,11 +12,6 @@ namespace RPGGame
     /// </summary>
     public class Skill001 : Skill
     {
-        public override void OnInit()
-        {
-           
-        }
-
         public override void OnLaunch()
         {
             base.OnLaunch();

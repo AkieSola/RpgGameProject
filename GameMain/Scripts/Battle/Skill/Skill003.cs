@@ -19,7 +19,7 @@ namespace RPGGame
         public override void OnFire(object sender, GameEventArgs e)
         {
             base.OnFire(sender, e);
-            Target.BuffContainer.AddBuff(new ChangePropBuff(3f, 2, E_PropType.speed));
+            Target.BuffContainer.AddBuff(new ChangePropBuff(5f, 2, E_PropType.speed));
             OnEnd();
         }
     }

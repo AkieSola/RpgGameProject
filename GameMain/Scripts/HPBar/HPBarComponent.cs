@@ -74,11 +74,24 @@ namespace RPGGame
             hpBarItem.Init(entity, m_CachedCanvas, fromHPRatio, toHPRatio);
         }
 
-        private void HideHPBar(HPBarItem hpBarItem)
+        public void HideHPBar(HPBarItem hpBarItem)
         {
             hpBarItem.Reset();
             m_ActiveHPBarItems.Remove(hpBarItem);
             m_HPBarItemObjectPool.Unspawn(hpBarItem);
+        }
+
+        public void ClearHP() 
+        {
+            if (m_ActiveHPBarItems != null) 
+            {
+                foreach(var item in m_ActiveHPBarItems) 
+                {
+                    HideHPBar(item);
+                }
+
+                m_ActiveHPBarItems.Clear();
+            }
         }
 
         private HPBarItem GetActiveHPBarItem(Entity entity)

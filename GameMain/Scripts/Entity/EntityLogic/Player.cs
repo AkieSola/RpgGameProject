@@ -13,8 +13,6 @@ namespace RPGGame
     {
         [SerializeField]
         private PlayerData m_PlayerData = null;
-        private NavMeshAgent nav;
-
         public bool inPlayerTurn;
         float walkTimer = 0;
 
@@ -36,15 +34,12 @@ namespace RPGGame
                 Log.Error("Player data is invalid.");
                 return;
             }
-          
-
-            //
+            
             //读取角色技能数据id
             //通过id拼类
             m_PlayerData.SkillIdList = new List<int> { 1, 2, 3, 0, 0, 0, 0, 0 };    //Test
 
-            nav = GetComponent<NavMeshAgent>();
-            nav.speed = ActorData.Speed;
+            m_PlayerData.ItemIdList = new List<int> { 1, 2, 3, 4 };
 
             for (int i = 0; i < MaxSkillCount; i++)
             {

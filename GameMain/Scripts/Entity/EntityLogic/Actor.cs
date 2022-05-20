@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityGameFramework.Runtime;
 
 namespace RPGGame
@@ -27,7 +28,17 @@ namespace RPGGame
 
         AnimationEvent animEvent;
 
+        protected NavMeshAgent nav;
+
         public bool canMove;
+
+        public bool isMoving 
+        { 
+            get
+            { 
+                return nav.velocity.magnitude > 0.1f;
+            }
+        }
         public ActorData ActorData
         {
             get
@@ -77,6 +88,7 @@ namespace RPGGame
         {
             m_ActorData = userData as ActorData;
 
+            nav = GetComponent<NavMeshAgent>();
             m_Animator = GetComponent<Animator>();
 
             m_BuffContainer = new BuffContainer(this);
@@ -98,6 +110,9 @@ namespace RPGGame
                 Log.Error("Actor data is invalid");
             }
 
+            nav = GetComponent<NavMeshAgent>();
+            nav.speed = ActorData.Speed;
+
             Name = Utility.Text.Format("Actor ({0})", Id);
 
             GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, WhenActorRoundStart);
@@ -106,6 +121,15 @@ namespace RPGGame
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+
+            if (isMoving)
+            {
+                m_Animator.SetFloat("Speed", 1);
+            }
+            else
+            {
+                m_Animator.SetFloat("Speed", 0);
+            }
         }
 
         private void WhenActorRoundStart(object sender, GameEventArgs e)
@@ -130,6 +154,8 @@ namespace RPGGame
 
         protected virtual void OnDead(Entity attacker)
         {
+            GameEntry.Entity.HideEntity(this);
+            GameEntry.HPBar.ClearHP();
         }
 
         //actor之间的大小比较按各自数据的先攻值来比较

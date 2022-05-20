@@ -82,7 +82,10 @@ namespace RPGGame
                 GameEntry.Setting.Save();
             }
 
-            playerData = new PlayerData(pdSource, GameEntry.Entity.GenerateSerialId(), 10000);
+            playerData = new PlayerData(pdSource, GameEntry.Entity.GenerateSerialId(), 10000)
+            {
+                Position = new Vector3(10, 0.8f, -7)
+            };
 
             GameEntry.Entity.ShowPlayer(playerData);
 
