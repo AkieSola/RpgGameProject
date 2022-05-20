@@ -26,6 +26,8 @@ namespace RPGGame
         [SerializeField]
         private Button m_PropBtn = null;
         [SerializeField]
+        private Button m_BagBtn = null;
+        [SerializeField]
         private Button m_TurnEndBtn = null; 
 
         private ProcedureMain m_ProcedureMain = null;
@@ -54,7 +56,10 @@ namespace RPGGame
 
             m_PropBtn.GetComponentInChildren<Text>().text = "属性";
             m_PropBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.PlayerPropFrom, m_ProcedureMain.PlayerData); });
-            
+
+            m_BagBtn.GetComponentInChildren<Text>().text = "背包";
+            m_BagBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.BagFrom, m_ProcedureMain.PlayerData.ItemDic); });
+
             m_TurnEndBtn.GetComponentInChildren<Text>().text = "回合结束";
             m_TurnEndBtn.onClick.AddListener(() => { 
                 GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(null));

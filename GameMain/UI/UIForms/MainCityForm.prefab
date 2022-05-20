@@ -855,6 +855,7 @@ MonoBehaviour:
   m_SPText: {fileID: 5472103476035386918}
   m_SkillList: {fileID: 5472103475333284341}
   m_PropBtn: {fileID: 5724535179936341073}
+  m_BagBtn: {fileID: 1001055812959604343}
   m_TurnEndBtn: {fileID: 5927598753574899280}
 --- !u!1 &5472103474566624284
 GameObject:

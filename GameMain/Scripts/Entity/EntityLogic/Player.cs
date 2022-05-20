@@ -17,6 +17,8 @@ namespace RPGGame
         float walkTimer = 0;
 
         Material material;
+
+        
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -34,12 +36,24 @@ namespace RPGGame
                 Log.Error("Player data is invalid.");
                 return;
             }
-            
             //读取角色技能数据id
             //通过id拼类
             m_PlayerData.SkillIdList = new List<int> { 1, 2, 3, 0, 0, 0, 0, 0 };    //Test
 
-            m_PlayerData.ItemIdList = new List<int> { 1, 2, 3, 4 };
+            m_PlayerData.ItemIdList = new List<int> { 1, 2, 3, 4, 1, 2 };
+
+            foreach (int id in m_PlayerData.ItemIdList)
+            {
+                if (m_PlayerData.ItemDic.ContainsKey(id))
+                {
+                    m_PlayerData.ItemDic[id].num += 1;
+                }
+                else
+                {
+                    Item item = new Item(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(id));
+                    m_PlayerData.ItemDic.Add(id, item);
+                }
+            }
 
             for (int i = 0; i < MaxSkillCount; i++)
             {
@@ -127,7 +141,7 @@ namespace RPGGame
                             this.transform.LookAt(new Vector3(ForwordDir.x, this.transform.position.y, ForwordDir.z));
                             SelectedSkill.Launch(Target, Position, ForwordDir);
                         }
-                        if(SelectedSkill.Config.DRSkillConfig.Type == 2) 
+                        if (SelectedSkill.Config.DRSkillConfig.Type == 2)
                         {
                             SelectedSkill.Launch(this, this.transform.position, this.transform.forward);
                         }
@@ -137,7 +151,7 @@ namespace RPGGame
         }
     }
 
-    public class ActorPropChangeEventArgs : GameEventArgs 
+    public class ActorPropChangeEventArgs : GameEventArgs
     {
         public static readonly int EventId = typeof(PlayerShowEventArgs).GetHashCode();
 

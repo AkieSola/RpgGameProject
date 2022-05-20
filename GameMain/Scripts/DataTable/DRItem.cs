@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-21 01:25:21.177
+// 生成时间：2022-05-21 01:25:21.188
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace RPGGame
 {
     /// <summary>
-    /// 武器表。
+    /// 道具表。
     /// </summary>
-    public class DRWeapon : DataRowBase
+    public class DRItem : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取武器编号。
+        /// 获取道具id。
         /// </summary>
         public override int Id
         {
@@ -37,45 +37,45 @@ namespace RPGGame
         }
 
         /// <summary>
-        /// 获取攻击力。
+        /// 获取名字。
         /// </summary>
-        public int Attack
+        public string Name
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取攻击间隔。
+        /// 获取描述。
         /// </summary>
-        public float AttackInterval
+        public string Description
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取子弹编号。
+        /// 获取图片。
         /// </summary>
-        public int BulletId
+        public int Icon
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取子弹速度。
+        /// 获取类型（消耗，装备）。
         /// </summary>
-        public float BulletSpeed
+        public int Type
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取子弹声音编号。
+        /// 获取子类型id。
         /// </summary>
-        public int BulletSoundId
+        public int SubId
         {
             get;
             private set;
@@ -93,11 +93,11 @@ namespace RPGGame
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
-            Attack = int.Parse(columnStrings[index++]);
-            AttackInterval = float.Parse(columnStrings[index++]);
-            BulletId = int.Parse(columnStrings[index++]);
-            BulletSpeed = float.Parse(columnStrings[index++]);
-            BulletSoundId = int.Parse(columnStrings[index++]);
+            Name = columnStrings[index++];
+            Description = columnStrings[index++];
+            Icon = int.Parse(columnStrings[index++]);
+            Type = int.Parse(columnStrings[index++]);
+            SubId = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -110,11 +110,11 @@ namespace RPGGame
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    Attack = binaryReader.Read7BitEncodedInt32();
-                    AttackInterval = binaryReader.ReadSingle();
-                    BulletId = binaryReader.Read7BitEncodedInt32();
-                    BulletSpeed = binaryReader.ReadSingle();
-                    BulletSoundId = binaryReader.Read7BitEncodedInt32();
+                    Name = binaryReader.ReadString();
+                    Description = binaryReader.ReadString();
+                    Icon = binaryReader.Read7BitEncodedInt32();
+                    Type = binaryReader.Read7BitEncodedInt32();
+                    SubId = binaryReader.Read7BitEncodedInt32();
                 }
             }
 
