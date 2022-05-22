@@ -45,7 +45,16 @@ namespace RPGGame
                 }
             });
 
+            tog1.GetComponentInChildren<Text>().text = "消耗道具";
+            tog2.GetComponentInChildren<Text>().text = "装备道具";
+            tog1.isOn = true;
             ShowItemByType(1);
+        }
+
+        public void UpdateItemDic(Dictionary<int, Item> dic) 
+        {
+            ItemDic.Clear();
+            ItemDic = dic;
         }
 
         public void ShowItemByType(int Type) 
@@ -103,6 +112,10 @@ namespace RPGGame
         protected override void OnClose(bool isShutdown, object userData)
         {
             ClearItem();
+            tog1.onValueChanged.RemoveAllListeners();
+            tog2.onValueChanged.RemoveAllListeners();
+            closeBtn.onClick.RemoveAllListeners();
+
             base.OnClose(isShutdown, userData);
         }
     }

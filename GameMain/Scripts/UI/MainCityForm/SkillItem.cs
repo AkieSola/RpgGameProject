@@ -37,7 +37,19 @@ namespace RPGGame
             else
             {
                 icon.enabled = true;
-                GameEntry.Resource.LoadAsset(GameEntry.Resource.ReadOnlyPath + "/" + SkillIconNamePerfix + "/" + skill.Config.SkillId, new LoadAssetCallbacks(LoadIconSuccess), icon);
+                //GameEntry.Resource.LoadAsset("SkillIcon/" + skill.Config.SkillId, new LoadAssetCallbacks(LoadIconSuccess), icon);
+                Sprite sprite = Resources.Load<Sprite>("SkillIcon/" + skill.Config.SkillId.ToString());
+                    
+                if(sprite == null) 
+                {
+                    icon.enabled = false;
+                }
+                else
+                {
+                    icon.enabled = true;
+                    icon.sprite = sprite;
+                }
+
                 nameText.enabled = true;
                 nameText.text = skill.Config.SkillName;
                 button.enabled = true;

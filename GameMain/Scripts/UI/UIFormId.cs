@@ -43,10 +43,27 @@ namespace RPGGame
         /// 角色属性面板
         /// </summary>
         PlayerPropFrom = 104,
+
         /// <summary>
         /// 背包面板 
         /// </summary>
         BagFrom = 105,
+
+        /// <summary>
+        /// 使用面板
+        /// </summary>
+        UseForm = 106,
+
+        /// <summary>
+        /// 登录面板
+        /// </summary>
+        LoginForm = 107,
+
+        /// <summary>
+        /// 注册面板
+        /// </summary>
+        RegisterForm = 108,
+
         /// <summary>
         /// 伤害显示面板
         /// </summary>

@@ -45,6 +45,22 @@ namespace RPGGame
         private Button WisdomAddBtn;
         [SerializeField]
         private Button CloseBtn;
+        [SerializeField]
+        private Text WeaponTitle;
+        [SerializeField]
+        private Image WeaponIcon;
+        [SerializeField]
+        private Text WeaponATKText;
+        [SerializeField]
+        private Text WeaponSpellText;
+        [SerializeField]
+        private Text ArmorTitle;
+        [SerializeField]
+        private Image ArmorIcon;
+        [SerializeField]
+        private Text ArmorPhysicsDfsText;
+        [SerializeField]
+        private Text ArmorSpellDfsText;
 
         private EventComponent eventComponent;
         protected override void OnInit(object userData)
@@ -52,6 +68,9 @@ namespace RPGGame
             base.OnInit(userData);
             eventComponent = GameEntry.Event;
             eventComponent.Subscribe(PlayerAddAbilityPointDataEventArgs.EventId, OnAddAbilityPoint);
+
+            WeaponTitle.text = "装备武器";
+            ArmorTitle.text = "装备护甲";
         }
 
         private void OnAddAbilityPoint(object sender, GameEventArgs e)

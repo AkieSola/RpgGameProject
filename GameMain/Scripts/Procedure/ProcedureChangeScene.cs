@@ -15,8 +15,10 @@ namespace RPGGame
     public class ProcedureChangeScene : ProcedureBase
     {
         private const int MenuSceneId = 1;
+        private const int LoginSceneId = 4;
 
         private bool m_ChangeToMenu = false;
+        private bool m_ChangeToLogin = false;
         private bool m_IsChangeSceneComplete = false;
         private int m_BackgroundMusicId = 0;
 
@@ -59,6 +61,7 @@ namespace RPGGame
 
             int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
             m_ChangeToMenu = sceneId == MenuSceneId;
+            m_ChangeToLogin = sceneId == LoginSceneId;
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(sceneId);
             if (drScene == null)
@@ -93,6 +96,10 @@ namespace RPGGame
             if (m_ChangeToMenu)
             {
                 ChangeState<ProcedureMenu>(procedureOwner);
+            }
+            else if(m_ChangeToLogin)
+            {
+                ChangeState<ProcedureLogin>(procedureOwner);
             }
             else
             {
