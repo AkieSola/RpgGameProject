@@ -1,3 +1,5 @@
+using GameFramework;
+using GameFramework.Event;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,9 +34,12 @@ namespace RPGGame
                         break;
                     case 2:
                         InfoText.text = "是否更换装备？";
+                        YesBtn.onClick.AddListener(() =>
+                            GameEntry.Event.Fire(UpdateEquipInfo.EventId, UpdateEquipInfo.Create(item.dRItem))
+                        );
                         break;
                 }
-            } 
+            }
         }
 
         protected override void OnClose(bool isShutdown, object userData)
@@ -42,6 +47,32 @@ namespace RPGGame
             YesBtn.onClick.RemoveAllListeners();
             NoBtn.onClick.RemoveAllListeners();
             base.OnClose(isShutdown, userData);
+        }
+    }
+
+    public class UpdateEquipInfo : GameEventArgs
+    {
+        public static readonly int EventId = typeof(UpdateEquipInfo).GetHashCode();
+        public override int Id 
+        {
+            get 
+            { 
+                return EventId; 
+            }
+        }
+
+        public DRItem dRItem;
+
+        public static UpdateEquipInfo Create(DRItem dRItem) 
+        {
+            UpdateEquipInfo e = ReferencePool.Acquire<UpdateEquipInfo>();
+            e.dRItem = dRItem;
+            return e;
+        }
+
+        public override void Clear()
+        {
+            dRItem = null;
         }
     }
 }

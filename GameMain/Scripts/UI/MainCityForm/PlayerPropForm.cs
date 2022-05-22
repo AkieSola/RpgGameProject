@@ -96,6 +96,13 @@ namespace RPGGame
                     PhysicsDfsText.text = GameEntry.Localization.GetString("Prop.PhysicsDfs") + " " + (pd as ActorData).PhysicsDfs;
                     SpellDfsText.text = GameEntry.Localization.GetString("Prop.SpellDfs") + " " + (pd as ActorData).SpellDfs;
                     PriorityText.text = GameEntry.Localization.GetString("Prop.Priority") + " " + (pd as ActorData).Priority;
+
+                    WeaponIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.weapon].Id);
+                    WeaponATKText.text = "ATK: " + pd.WeaponATK;
+                    WeaponSpellText.text = "Spell: " + pd.WeaponSpell;
+                    ArmorIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.breastplate].Id);
+                    ArmorPhysicsDfsText.text = "PhysicsDfs: " + pd.ArmorDfs;
+                    ArmorSpellDfsText.text = "SpellDfs: " + pd.ArmorSpellDfs;
                 }
             }
         }
@@ -121,6 +128,13 @@ namespace RPGGame
                 PhysicsDfsText.text = GameEntry.Localization.GetString("Prop.PhysicsDfs") + " " + (pd as ActorData).PhysicsDfs;
                 SpellDfsText.text = GameEntry.Localization.GetString("Prop.SpellDfs") + " " + (pd as ActorData).SpellDfs;
                 PriorityText.text = GameEntry.Localization.GetString("Prop.Priority") + " " + (pd as ActorData).Priority;
+
+                WeaponIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.weapon].Id);
+                WeaponATKText.text = "ATK: " + pd.WeaponATK;
+                WeaponSpellText.text = "Spell: " + pd.WeaponSpell;
+                ArmorIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.breastplate].Id);
+                ArmorPhysicsDfsText.text = "PhysicsDfs: " + pd.ArmorDfs;
+                ArmorSpellDfsText.text = "SpellDfs: " + pd.ArmorSpellDfs;
             }
 
             PowerAddBtn.onClick.AddListener(()=> 

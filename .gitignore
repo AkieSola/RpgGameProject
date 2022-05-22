@@ -2754,3 +2754,272 @@ PureNature/Textures/Water/Materials/WaterFall02.mat
 PureNature/Textures/Water/Materials/WaterFall02.mat.meta
 PureNature/Textures/Water/Materials/WaterFall03.mat
 PureNature/Textures/Water/Materials/WaterFall03.mat.meta
+LOWPOLY CHARACTERS.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer.meta
+LOWPOLY CHARACTERS/Aisha.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity).meta
+LOWPOLY CHARACTERS/Overview.meta
+LOWPOLY CHARACTERS/README.txt
+LOWPOLY CHARACTERS/README.txt.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Clothes.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Clothes/Important.txt
+LOWPOLY CHARACTERS/AdvancedCustomizer/Clothes/Important.txt.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/CharacterCustomizer.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/CharacterCustomizer.cs.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/CharacterGender.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/CharacterGender.cs.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Clothes.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Clothes.cs.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/ClothesType.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/ClothesType.cs.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Editor.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/SkinPart.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/SkinPart.cs.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Editor/CharacterCustomizerEditor.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Editor/CharacterCustomizerEditor.cs.meta
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Editor/ClothesCreator.cs
+LOWPOLY CHARACTERS/AdvancedCustomizer/Scripts/Editor/ClothesCreator.cs.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer.meta
+LOWPOLY CHARACTERS/Aisha/DEMO.meta
+LOWPOLY CHARACTERS/Aisha/Materials.meta
+LOWPOLY CHARACTERS/Aisha/Mesh.meta
+LOWPOLY CHARACTERS/Aisha/Prefabs.meta
+LOWPOLY CHARACTERS/Aisha/Textures.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Default Character.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/DEMO.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.000.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.000.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.003.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.003.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.004.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_BP_Backpack.004.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Eyes_Glasses.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Eyes_Glasses.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_All-star.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_All-star.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Ballet Shoes.000.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Ballet Shoes.000.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Ballet Shoes.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Ballet Shoes.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Ballet Shoes.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Ballet Shoes.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Base.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Base.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Boots.000.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Boots.000.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Boots.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Boots.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Boots.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Boots.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_High Heels.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_High Heels.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Shoes.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Feet_Shoes.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.000.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.000.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.003.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.003.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.004.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.004.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.005.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.005.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.006.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_CommonHair.006.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_StarterHair.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hair_StarterHair.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Bandage.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Bandage.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Base.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Base.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_bracelets.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_bracelets.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.000.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.000.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.003.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Glove.003.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_LongSleeve Glove.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_LongSleeve Glove.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Painted Nails.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Hand_Painted Nails.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Cap.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Cap.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Earphone.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Earphone.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Farm Hat.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Farm Hat.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Motorcycle Helmet.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Head_Motorcycle Helmet.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Base.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Base.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Pants.000.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Pants.000.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Pants.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Pants.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Pants.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Pants.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_School Uniform_Skirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_School Uniform_Skirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Shorts.001.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Shorts.001.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Shorts.002.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Shorts.002.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Shorts.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Shorts.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Skirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Legs_Skirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Mask_Badana.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Mask_Badana.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Mask_Medic Mask.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Mask_Medic Mask.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Outer_MilitaryVest.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Outer_MilitaryVest.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Base.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Base.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Cut Sweatshirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Cut Sweatshirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Dress.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Dress.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Long-Sleeve.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Long-Sleeve.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Overall And T-shirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Overall And T-shirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_School Uniform_Shirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_School Uniform_Shirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Shirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Shirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Skull Sweatshirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Skull Sweatshirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Small Tank-Top.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Small Tank-Top.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Tank-Top.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_Tank-Top.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_T-Shirt.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Clothes/Aisha_Torso_T-Shirt.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Default Character/Aisha.prefab
+LOWPOLY CHARACTERS/Aisha/advanced customizer/Default Character/Aisha.prefab.meta
+LOWPOLY CHARACTERS/Aisha/advanced customizer/DEMO/Customizer.unity
+LOWPOLY CHARACTERS/Aisha/advanced customizer/DEMO/Customizer.unity.meta
+LOWPOLY CHARACTERS/Aisha/DEMO/Overview.unity
+LOWPOLY CHARACTERS/Aisha/DEMO/Overview.unity.meta
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_MainPalette.mat
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_MainPalette.mat.meta
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_Palette_2.mat
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_Palette_2.mat.meta
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_PsicoMusic Shirt.mat
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_PsicoMusic Shirt.mat.meta
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_Torso_CutSweatshirt.mat
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_Torso_CutSweatshirt.mat.meta
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_Torso_Skull Sweatshirt.mat
+LOWPOLY CHARACTERS/Aisha/Materials/Aisha_Torso_Skull Sweatshirt.mat.meta
+LOWPOLY CHARACTERS/Aisha/Mesh/Aisha.fbx
+LOWPOLY CHARACTERS/Aisha/Mesh/Aisha.fbx.meta
+LOWPOLY CHARACTERS/Aisha/Prefabs/Aisha.prefab
+LOWPOLY CHARACTERS/Aisha/Prefabs/Aisha.prefab.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Cut Sweatshirt_Var1_Skin1.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Cut Sweatshirt_Var1_Skin1.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Cut Sweatshirt_Var1_Skin2.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Cut Sweatshirt_Var1_Skin2.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Cut Sweatshirt_Var1_Skin3.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Cut Sweatshirt_Var1_Skin3.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_MainPalette_var1_skin1.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_MainPalette_var1_skin1.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_MainPalette_var1_skin2.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_MainPalette_var1_skin2.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_MainPalette_var1_skin3.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_MainPalette_var1_skin3.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Palette_2.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_Palette_2.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_PsicoMusic Shirt_Var1_Skin1.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_PsicoMusic Shirt_Var1_Skin1.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_PsicoMusic Shirt_Var1_Skin2.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_PsicoMusic Shirt_Var1_Skin2.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_PsicoMusic Shirt_Var1_Skin3.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_PsicoMusic Shirt_Var1_Skin3.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_UB_Skull Sweatshirt_Var1_Skin1.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_UB_Skull Sweatshirt_Var1_Skin1.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_UB_Skull Sweatshirt_Var1_Skin2.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_UB_Skull Sweatshirt_Var1_Skin2.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_UB_Skull Sweatshirt_Var1_Skin3.png
+LOWPOLY CHARACTERS/Aisha/Textures/Aisha_UB_Skull Sweatshirt_Var1_Skin3.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha.png
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha.psd
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha.psd.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Cut Sweatshirt.psd
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Cut Sweatshirt.psd.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Palette_2.psd
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Palette_2.psd.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_PsicoMusic Shirt.psd
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_PsicoMusic Shirt.psd.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Skull Sweatshirt.png
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Skull Sweatshirt.png.meta
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Skull Sweatshirt.psd
+LOWPOLY CHARACTERS/Aisha/Textures/Project/PS_Aisha_Skull Sweatshirt.psd.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/Controller.controller
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/Controller.controller.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidCrouch.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidCrouch.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidIdle.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidIdle.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidIdleJumpUp.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidIdleJumpUp.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidJumpAndFall.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidJumpAndFall.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidMidAir.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidMidAir.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidRun.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidRun.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidRunTurn.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidRunTurn.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidRunTurnSharp.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidRunTurnSharp.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidStandTurn.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidStandTurn.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidWalk.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidWalk.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidWalkTurn.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidWalkTurn.fbx.meta
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidWalkTurnSharp.fbx
+LOWPOLY CHARACTERS/Basic Animations (pattern Unity)/HumanoidWalkTurnSharp.fbx.meta
+LOWPOLY CHARACTERS/Overview/Font.meta
+LOWPOLY CHARACTERS/Overview/Image.meta
+LOWPOLY CHARACTERS/Overview/Prefab.meta
+LOWPOLY CHARACTERS/Overview/Script.meta
+LOWPOLY CHARACTERS/Overview/Font/Raleway.meta
+LOWPOLY CHARACTERS/Overview/Font/Raleway/OFL.txt
+LOWPOLY CHARACTERS/Overview/Font/Raleway/OFL.txt.meta
+LOWPOLY CHARACTERS/Overview/Font/Raleway/Raleway-Regular.ttf
+LOWPOLY CHARACTERS/Overview/Font/Raleway/Raleway-Regular.ttf.meta
+LOWPOLY CHARACTERS/Overview/Image/GUI.png
+LOWPOLY CHARACTERS/Overview/Image/GUI.png.meta
+LOWPOLY CHARACTERS/Overview/Prefab/Canvas.prefab
+LOWPOLY CHARACTERS/Overview/Prefab/Canvas.prefab.meta
+LOWPOLY CHARACTERS/Overview/Prefab/color picker.prefab
+LOWPOLY CHARACTERS/Overview/Prefab/color picker.prefab.meta
+LOWPOLY CHARACTERS/Overview/Prefab/slot.prefab
+LOWPOLY CHARACTERS/Overview/Prefab/slot.prefab.meta
+LOWPOLY CHARACTERS/Overview/Script/ColorPicker.cs
+LOWPOLY CHARACTERS/Overview/Script/ColorPicker.cs.meta
+LOWPOLY CHARACTERS/Overview/Script/Customizable.cs
+LOWPOLY CHARACTERS/Overview/Script/Customizable.cs.meta
+LOWPOLY CHARACTERS/Overview/Script/CustomizableCharacter.cs
+LOWPOLY CHARACTERS/Overview/Script/CustomizableCharacter.cs.meta
+LOWPOLY CHARACTERS/Overview/Script/DragToRotate.cs
+LOWPOLY CHARACTERS/Overview/Script/DragToRotate.cs.meta
+LOWPOLY CHARACTERS/Overview/Script/test_BlendShape.cs
+LOWPOLY CHARACTERS/Overview/Script/test_BlendShape.cs.meta
