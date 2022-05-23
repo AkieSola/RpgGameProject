@@ -26,6 +26,9 @@ namespace RPGGame
 
         private MainCityForm m_MainCityForm = null;
 
+        public Vector3 PlayerPos = new Vector3(116, 0.5f, 112.5f);
+        public Vector3 EnemyPos = new Vector3(109.3f, 0, 112.4f);
+
         private PlayerData playerData;
         public override bool UseNativeDialog
         {
@@ -84,7 +87,7 @@ namespace RPGGame
 
             playerData = new PlayerData(pdSource, GameEntry.Entity.GenerateSerialId(), 10000)
             {
-                Position = new Vector3(10, 0.8f, -7)
+                Position = PlayerPos
             };
 
             GameEntry.Entity.ShowPlayer(playerData);
@@ -93,7 +96,10 @@ namespace RPGGame
 
             if (dtEmemy != null) 
             {
-                EnemyData enemyData = new EnemyData(dtEmemy.GetDataRow(10000), GameEntry.Entity.GenerateSerialId(), 10001);
+                EnemyData enemyData = new EnemyData(dtEmemy.GetDataRow(10000), GameEntry.Entity.GenerateSerialId(), 10001)
+                {
+                    Position = EnemyPos
+                };
                 GameEntry.Entity.ShowEnemy(enemyData);
             }
 

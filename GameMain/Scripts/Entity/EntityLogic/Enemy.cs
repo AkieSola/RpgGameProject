@@ -1,4 +1,5 @@
 using GameFramework;
+using GameFramework.Fsm;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,12 @@ namespace RPGGame
         {
             base.OnShow(userData);
 
+            this.ActorData.Camp = CampType.Enemy;
+
+            ActorState = GameEntry.Fsm.CreateFsm((Actor)this,new ActorNomralState(),new ActorDialogState(),new ActorBattleState());
+
+            ActorState.Start<ActorNomralState>();
+
             m_EnemyData = userData as EnemyData;
 
             GameEntry.HPBar.ShowHPBar(this, 1, this.m_EnemyData.HPRatio);
@@ -28,3 +35,5 @@ namespace RPGGame
         }
     }
 }
+
+

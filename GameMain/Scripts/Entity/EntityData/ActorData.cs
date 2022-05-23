@@ -75,6 +75,6 @@ namespace RPGGame
         /// ½ÇÉ«ÊÇ·ñËÀÍö
         /// </summary>
         public bool IsDead { get => m_HP <= 0; }
-       
+        public CampType Camp { get => m_Camp; set => m_Camp = value; }
     }
 }

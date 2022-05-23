@@ -1,5 +1,6 @@
 using GameFramework;
 using GameFramework.Event;
+using GameFramework.Fsm;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace RPGGame
         AnimationClip clip;
 
         AnimationEvent animEvent;
+
+        public IFsm<Actor> ActorState;
 
         protected NavMeshAgent nav;
 
@@ -97,6 +100,9 @@ namespace RPGGame
             {
                 Log.Error("Actor data is invalid.");
             }
+
+            //ActorState = GameEntry.Fsm.CreateFsm(this);
+
             base.OnInit(userData); 
         }
 
@@ -288,6 +294,98 @@ namespace RPGGame
         public override void Clear()
         {
             skill = null;
+        }
+    }
+
+    public class ActorNomralState : FsmState<Actor> 
+    {
+        public Transform WalkAroundStartPos;
+        public Transform WalkAroundEndPos;
+
+        private Actor actor;
+        private NavMeshAgent nav;
+
+        float waitTimer = 0;
+        float walklSpeed = 3;
+        protected override void OnInit(IFsm<Actor> fsm)
+        {
+            base.OnInit(fsm);
+            actor = fsm.Owner;
+            nav = actor.GetComponent<NavMeshAgent>();
+            if(actor.ActorData.Camp == CampType.Enemy) 
+            {
+                WalkAroundStartPos = GameObject.Find($"pos{1}start").transform;
+                WalkAroundEndPos = GameObject.Find($"pos{1}end").transform;
+            }
+        }
+
+        protected override void OnEnter(IFsm<Actor> fsm)
+        {
+            base.OnEnter(fsm);
+            if (actor.ActorData.Camp == CampType.Enemy)
+            {
+                if (nav != null) 
+                {
+                    nav.speed = walklSpeed;
+                    nav.SetDestination(WalkAroundStartPos.position);
+                }
+            }
+        }
+
+        protected override void OnUpdate(IFsm<Actor> fsm, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+            if(Vector3.Distance(WalkAroundStartPos.position,actor.transform.position) <= 0.1f) 
+            {
+                //nav.speed = 0;
+                //waitTimer += elapseSeconds;
+                //if (waitTimer > 2f)
+                //{
+                //    waitTimer = 0;
+                //    nav.speed = walklSpeed;
+                nav.SetDestination(WalkAroundEndPos.position);
+                //}
+            }
+            if(Vector3.Distance(WalkAroundEndPos.position, actor.transform.position) <= 0.1f) 
+            {
+                //nav.speed = 0;
+                //waitTimer += elapseSeconds;
+                //if (waitTimer > 1.5f)
+                //{
+                //    waitTimer = 0;
+                //    nav.speed = walklSpeed;
+                nav.SetDestination(WalkAroundStartPos.position);
+                //}
+            }
+        }
+
+        protected override void OnLeave(IFsm<Actor> fsm, bool isShutdown)
+        {
+            base.OnLeave(fsm, isShutdown);
+        }
+    }
+
+    public class ActorDialogState : FsmState<Actor> 
+    {
+        
+    }
+
+    public class ActorBattleState : FsmState<Actor> 
+    {
+        private NavMeshAgent nav;
+        private Actor actor;
+        protected override void OnInit(IFsm<Actor> fsm)
+        {
+            base.OnInit(fsm);
+            actor = fsm.Owner;
+            nav = actor.GetComponent<NavMeshAgent>();
+
+        }
+
+        protected override void OnEnter(IFsm<Actor> fsm)
+        {
+            base.OnEnter(fsm);
+            
         }
     }
 }

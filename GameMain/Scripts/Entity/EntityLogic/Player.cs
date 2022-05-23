@@ -27,6 +27,8 @@ namespace RPGGame
         {
             base.OnShow(userData);
 
+            this.ActorData.Camp = CampType.Player;
+
             EventComponent eventComponent = GameEntry.Event;
             canMove = true;
 
