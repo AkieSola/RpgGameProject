@@ -374,6 +374,7 @@ namespace RPGGame
     {
         private NavMeshAgent nav;
         private Actor actor;
+        private bool inTurn;
         protected override void OnInit(IFsm<Actor> fsm)
         {
             base.OnInit(fsm);
@@ -385,7 +386,16 @@ namespace RPGGame
         protected override void OnEnter(IFsm<Actor> fsm)
         {
             base.OnEnter(fsm);
-            
+            nav.speed = 0;
+        }
+
+        protected override void OnUpdate(IFsm<Actor> fsm, float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+            if (inTurn) 
+            {
+                
+            }
         }
     }
 }

@@ -68,5 +68,10 @@ namespace RPGGame
         /// 伤害显示面板
         /// </summary>
         DamageTextForm = 201,
+
+        /// <summary>
+        /// 信息显示面板
+        /// </summary>
+        MessageForm = 202,
     }
 }

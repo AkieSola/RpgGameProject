@@ -143,7 +143,7 @@ namespace RPGGame
             base.OnEnter(fsm);
             GameEntry.Event.Fire(this, ActorRoundStartEventArgs.Create(fsm.Owner.CurActor));
             timer = 0;
-            //非角色回合角色不能走路
+            //非角色回合玩家不能走路
             if (fsm.Owner.CurActor.tag != "Player")
             {
                 fsm.Owner.player.canMove = false;
@@ -180,7 +180,6 @@ namespace RPGGame
         protected override void OnLeave(IFsm<BattleState> fsm, bool isShutdown)
         {
             base.OnLeave(fsm, isShutdown);
-          
         }
     }
 

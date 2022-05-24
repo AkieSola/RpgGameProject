@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-21 01:25:21.183
+// 生成时间：2022-05-24 17:24:51.964
 //------------------------------------------------------------
 
 using GameFramework;
@@ -144,6 +144,42 @@ namespace RPGGame
             private set;
         }
 
+        /// <summary>
+        /// 获取技能1Id。
+        /// </summary>
+        public int Skill1Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取技能2Id。
+        /// </summary>
+        public int Skill2Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取技能3Id。
+        /// </summary>
+        public int Skill3Id
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取技能4Id。
+        /// </summary>
+        public int Skill4Id
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -168,6 +204,10 @@ namespace RPGGame
             AtkDistance = int.Parse(columnStrings[index++]);
             PhysicsDfs = int.Parse(columnStrings[index++]);
             SpellDfs = int.Parse(columnStrings[index++]);
+            Skill1Id = int.Parse(columnStrings[index++]);
+            Skill2Id = int.Parse(columnStrings[index++]);
+            Skill3Id = int.Parse(columnStrings[index++]);
+            Skill4Id = int.Parse(columnStrings[index++]);
 
             GeneratePropertyArray();
             return true;
@@ -192,6 +232,10 @@ namespace RPGGame
                     AtkDistance = binaryReader.Read7BitEncodedInt32();
                     PhysicsDfs = binaryReader.Read7BitEncodedInt32();
                     SpellDfs = binaryReader.Read7BitEncodedInt32();
+                    Skill1Id = binaryReader.Read7BitEncodedInt32();
+                    Skill2Id = binaryReader.Read7BitEncodedInt32();
+                    Skill3Id = binaryReader.Read7BitEncodedInt32();
+                    Skill4Id = binaryReader.Read7BitEncodedInt32();
                 }
             }
 

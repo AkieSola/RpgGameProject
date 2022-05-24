@@ -16,6 +16,8 @@ namespace RPGGame
         private int m_DropId;           //µÙ¬‰ID
         [SerializeField]
         private int m_AIId;              //AItable Id
+        [SerializeField]
+        private List<int> SkillIdList;
 
         public EnemyData(DREnemy dREnemy, int entityId, int typeId) : base(entityId, typeId)
         {
@@ -24,6 +26,7 @@ namespace RPGGame
             m_Lv = dREnemy.Lv;
             m_DropId = dREnemy.DropId;
             m_AIId = dREnemy.AIId;
+            SkillIdList = new List<int>() { dREnemy.Skill1Id, dREnemy.Skill2Id, dREnemy.Skill3Id, dREnemy.Skill4Id };
 
             base.MaxHP = dREnemy.MaxHp;
             HP = MaxHP;
@@ -35,6 +38,7 @@ namespace RPGGame
             base.AtkDistance = dREnemy.AtkDistance;
             base.PhysicsDfs = dREnemy.PhysicsDfs;
             base.SpellDfs = dREnemy.SpellDfs;
+            
         }
 
         public string Name { get => m_Name; set => m_Name = value; }
