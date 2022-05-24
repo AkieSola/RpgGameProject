@@ -34,9 +34,12 @@ namespace RPGGame
                         break;
                     case 2:
                         InfoText.text = "是否更换装备？";
-                        YesBtn.onClick.AddListener(() =>
-                            GameEntry.Event.Fire(UpdateEquipInfo.EventId, UpdateEquipInfo.Create(item.dRItem))
-                        );
+                        YesBtn.onClick.AddListener(() => 
+                        {
+                                GameEntry.Event.Fire(UpdateEquipInfo.EventId, UpdateEquipInfo.Create(item.dRItem));
+                                GameEntry.UI.CloseUIForm(this);
+                            }
+                        ); 
                         break;
                 }
             }
