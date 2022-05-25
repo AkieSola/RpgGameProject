@@ -17,11 +17,11 @@ namespace RPGGame
         [SerializeField]
         private Animator m_Animator = null;
         [SerializeField]
-        protected List<Skill> SkillList = new List<Skill>() { null, null, null, null, null, null, null, null };
+        public List<Skill> SkillList = new List<Skill>() { null, null, null, null, null, null, null, null };
 
         public const int MaxSkillCount = 8;
         [SerializeField]
-        protected Skill SelectedSkill = null;
+        public Skill SelectedSkill = null;
         [SerializeField]
         private BuffContainer m_BuffContainer = null;
 
@@ -42,6 +42,11 @@ namespace RPGGame
                 return nav.velocity.magnitude > 0.1f;
             }
         }
+        public bool isRealseingSkill = false;
+
+        public bool inTurn = false;
+
+        public bool battleInTurn = false;
         public ActorData ActorData
         {
             get
@@ -221,6 +226,7 @@ namespace RPGGame
             //消耗SP
             if (ConsumeSP(skillConfig.SPConsume))
             {
+                isRealseingSkill = true;
                 //执行动画
                 DoAnimation(skillConfig.AnimationName, skillConfig.AnimationEventTiming);
                 canMove = false;
@@ -243,6 +249,7 @@ namespace RPGGame
         {
             GameEntry.Event.Fire(this, UpdateSkillInfoEventArges.Create(SkillList));
             canMove = true;
+            isRealseingSkill = false;
             SelectedSkill = null;
         }
 
@@ -337,25 +344,11 @@ namespace RPGGame
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
             if(Vector3.Distance(WalkAroundStartPos.position,actor.transform.position) <= 0.1f) 
             {
-                //nav.speed = 0;
-                //waitTimer += elapseSeconds;
-                //if (waitTimer > 2f)
-                //{
-                //    waitTimer = 0;
-                //    nav.speed = walklSpeed;
                 nav.SetDestination(WalkAroundEndPos.position);
-                //}
             }
             if(Vector3.Distance(WalkAroundEndPos.position, actor.transform.position) <= 0.1f) 
             {
-                //nav.speed = 0;
-                //waitTimer += elapseSeconds;
-                //if (waitTimer > 1.5f)
-                //{
-                //    waitTimer = 0;
-                //    nav.speed = walklSpeed;
                 nav.SetDestination(WalkAroundStartPos.position);
-                //}
             }
         }
 
@@ -374,6 +367,7 @@ namespace RPGGame
     {
         private NavMeshAgent nav;
         private Actor actor;
+        private Transform PlayerTrans;
         private bool inTurn;
         protected override void OnInit(IFsm<Actor> fsm)
         {
@@ -386,15 +380,51 @@ namespace RPGGame
         protected override void OnEnter(IFsm<Actor> fsm)
         {
             base.OnEnter(fsm);
-            nav.speed = 0;
+            nav.SetDestination(actor.transform.position);
+            PlayerTrans = GameEntry.Entity.GetEntity("Player").transform;
         }
 
         protected override void OnUpdate(IFsm<Actor> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            if (inTurn) 
+            if (actor.ActorData.Camp == CampType.Enemy)
             {
-                
+                if (actor.inTurn)
+                {
+                    //角色回合时选择回合中要释放的技能
+                    for (int i = 0; i < actor.SkillList.Count; i++)
+                    {
+                        if (actor.SkillList[i].Config.SkillId != -1 && actor.SkillList[i].Config.RestCoolDown == 0 && actor.ActorData.SP>= actor.SkillList[i].Config.SPConsume)
+                        {
+                            actor.SelectedSkill = actor.SkillList[i];
+                        }
+                    }
+
+                    //当角色没事干且没有可选的技能时结束游戏
+                    if (!actor.isMoving && !actor.isRealseingSkill)
+                    {
+                        GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(actor));
+                    }
+
+                    //当选择了技能后完成技能释放
+                    if (actor.SelectedSkill != null && !actor.isRealseingSkill)
+                    {
+                        //如果距离不够则走到对应的距离
+                        if (Vector3.Distance(actor.transform.position, PlayerTrans.position) > actor.SelectedSkill.Config.Distance)
+                        {
+                            nav.SetDestination(PlayerTrans.position);
+                        }
+                        else
+                        {
+                            nav.SetDestination(actor.transform.position);
+                        }
+                        //当角色不在移动和释放技能的状态时释放技能
+                        if (!actor.isMoving && !actor.isRealseingSkill)
+                        {
+                            actor.DoSkill(actor.SelectedSkill.Config);
+                        }
+                    }
+                }
             }
         }
     }
