@@ -100,13 +100,13 @@ namespace RPGGame
 
                     if (pd.PlayerEquips[EquipType.weapon] != null)
                     {
-                        WeaponIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.weapon].Id);
+                        WeaponIcon.sprite = Resources.Load<Sprite>("EquipIcon/" + pd.PlayerEquips[EquipType.weapon].Id);
                     }
                     WeaponATKText.text = "ATK: " + pd.WeaponATK;
                     WeaponSpellText.text = "Spell: " + pd.WeaponSpell;
                     if (pd.PlayerEquips[EquipType.breastplate] != null)
                     {
-                        ArmorIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.breastplate].Id);
+                        ArmorIcon.sprite = Resources.Load<Sprite>("EquipIcon/" + pd.PlayerEquips[EquipType.breastplate].Id);
                     }
                     ArmorPhysicsDfsText.text = "PhysicsDfs: " + pd.ArmorDfs;
                     ArmorSpellDfsText.text = "SpellDfs: " + pd.ArmorSpellDfs;
@@ -138,13 +138,13 @@ namespace RPGGame
 
                 if (pd.PlayerEquips[EquipType.weapon] != null)
                 {
-                    WeaponIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.weapon].Id);
+                    WeaponIcon.sprite = Resources.Load<Sprite>("EquipIcon/" + pd.PlayerEquips[EquipType.weapon].Id);
                 }
                 WeaponATKText.text = "ATK: " + pd.WeaponATK;
                 WeaponSpellText.text = "Spell: " + pd.WeaponSpell;
                 if (pd.PlayerEquips[EquipType.breastplate] != null)
                 {
-                    ArmorIcon.sprite = Resources.Load<Sprite>("ItemIcon/" + pd.PlayerEquips[EquipType.breastplate].Id);
+                    ArmorIcon.sprite = Resources.Load<Sprite>("EquipIcon/" + pd.PlayerEquips[EquipType.breastplate].Id);
                 }
                 ArmorPhysicsDfsText.text = "PhysicsDfs: " + pd.ArmorDfs;
                 ArmorSpellDfsText.text = "SpellDfs: " + pd.ArmorSpellDfs;
