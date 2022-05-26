@@ -360,7 +360,12 @@ namespace RPGGame
 
     public class ActorDialogState : FsmState<Actor> 
     {
-        
+        protected override void OnEnter(IFsm<Actor> fsm)
+        {
+            base.OnEnter(fsm);
+            DialogueNodeGraph dialogNodeGraph = new DialogueNodeGraph();
+            
+        }
     }
 
     public class ActorBattleState : FsmState<Actor> 

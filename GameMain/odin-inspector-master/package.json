@@ -1,0 +1,24 @@
+{
+	"name": "com.sirenix.odininspector",
+	"displayName": "Odin Inspector",
+	"version": "3.0.6",
+	"unity": "2018.3",
+	"category": "Unity Odin Package",
+	"description": "Odin puts your Unity workflow on steroids, making it easy to build powerful and advanced user-friendly editors for you and your entire team. With an effortless integration that deploys perfectly into pre-existing workflows, Odin allows you to serialize anything and enjoy Unity with 80+ new inspector attributes, no boilerplate code and so much more!",
+	"keywords": [
+		"Odin Inspector"
+	], 
+  "author": {
+    "name": "Odin",
+    "email": "",
+    "url": "https://odininspector.com/tutorials"
+  },
+  "dependencies": {
+   
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitee.com:cwl72/odin-inspector.git",
+    "revision": "9e04764c9098106a83b5110923d4acf1b1a13344"
+  }
+} 
