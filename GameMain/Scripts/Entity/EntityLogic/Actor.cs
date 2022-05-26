@@ -304,6 +304,33 @@ namespace RPGGame
         }
     }
 
+    public class ActorDialogTriggerEventArgs : GameEventArgs 
+    {
+        public static readonly int EventId = typeof(ActorDialogTriggerEventArgs).GetHashCode();
+
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public int dialogGrouId;
+
+        public static ActorDialogTriggerEventArgs Create(int id) 
+        {
+            ActorDialogTriggerEventArgs actorDialogEventArgs = ReferencePool.Acquire<ActorDialogTriggerEventArgs>();
+            actorDialogEventArgs.dialogGrouId = id;
+            return actorDialogEventArgs;
+        }
+
+        public override void Clear()
+        {
+            dialogGrouId = 0;
+        }
+    }
+
     public class ActorNomralState : FsmState<Actor> 
     {
         public Transform WalkAroundStartPos;
@@ -313,6 +340,7 @@ namespace RPGGame
         private NavMeshAgent nav;
 
         float waitTimer = 0;
+        float checkTimer = 0;
         float walklSpeed = 3;
         protected override void OnInit(IFsm<Actor> fsm)
         {
@@ -342,13 +370,33 @@ namespace RPGGame
         protected override void OnUpdate(IFsm<Actor> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            if(Vector3.Distance(WalkAroundStartPos.position,actor.transform.position) <= 0.1f) 
+            if (actor.ActorData.Camp == CampType.Enemy)
             {
-                nav.SetDestination(WalkAroundEndPos.position);
-            }
-            if(Vector3.Distance(WalkAroundEndPos.position, actor.transform.position) <= 0.1f) 
-            {
-                nav.SetDestination(WalkAroundStartPos.position);
+                if (Vector3.Distance(WalkAroundStartPos.position, actor.transform.position) <= 0.1f)
+                {
+                    nav.SetDestination(WalkAroundEndPos.position);
+                }
+                if (Vector3.Distance(WalkAroundEndPos.position, actor.transform.position) <= 0.1f)
+                {
+                    nav.SetDestination(WalkAroundStartPos.position);
+                }
+
+                checkTimer += elapseSeconds;
+                if(checkTimer > 1f) 
+                {
+                    Collider[] colliders = Physics.OverlapSphere(actor.transform.position, 10f);
+                    foreach (var collider in colliders)
+                    {
+                        if(collider.gameObject.tag == "Player") 
+                        {
+                            Player player = collider.gameObject.GetComponent<Player>();
+                            ChangeState<ActorDialogState>(fsm);
+                            player.canMove = false;
+                            Vector3 position = new Vector3(player.transform.position.x, actor.transform.position.y, player.transform.position.z);
+                            actor.transform.LookAt(position);
+                        }
+                    }
+                }
             }
         }
 
@@ -360,11 +408,22 @@ namespace RPGGame
 
     public class ActorDialogState : FsmState<Actor> 
     {
+        Actor actor = null;
+        NavMeshAgent nav = null;
+        protected override void OnInit(IFsm<Actor> fsm)
+        {
+            base.OnInit(fsm);
+            actor = fsm.Owner;
+            nav = actor.GetComponent<NavMeshAgent>();
+        }
         protected override void OnEnter(IFsm<Actor> fsm)
         {
             base.OnEnter(fsm);
-            DialogueNodeGraph dialogNodeGraph = new DialogueNodeGraph();
-            
+            nav.SetDestination(actor.transform.position);
+            if (actor.ActorData.Camp == CampType.Enemy)
+            {
+                GameEntry.Event.Fire(actor, ActorDialogTriggerEventArgs.Create((actor as Enemy).EnemyData.GroupId));
+            }
         }
     }
 

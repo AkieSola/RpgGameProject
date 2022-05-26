@@ -12,6 +12,8 @@ namespace RPGGame
         [SerializeField]
         private EnemyData m_EnemyData;
 
+        public EnemyData EnemyData { get => m_EnemyData;}
+
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -24,9 +26,9 @@ namespace RPGGame
 
             m_EnemyData = userData as EnemyData;
 
-            GameEntry.HPBar.ShowHPBar(this, 1, this.m_EnemyData.HPRatio);
+            GameEntry.HPBar.ShowHPBar(this, 1, this.EnemyData.HPRatio);
       
-            if(m_EnemyData == null)
+            if(EnemyData == null)
             {
                 Log.Error("EnemyData is invalid.");
                 return;

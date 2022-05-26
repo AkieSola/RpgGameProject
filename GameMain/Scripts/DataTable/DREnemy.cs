@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-24 17:24:51.964
+// 生成时间：2022-05-26 21:44:14.745
 //------------------------------------------------------------
 
 using GameFramework;
@@ -34,6 +34,15 @@ namespace RPGGame
             {
                 return m_Id;
             }
+        }
+
+        /// <summary>
+        /// 获取组id。
+        /// </summary>
+        public int GroupId
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -192,6 +201,7 @@ namespace RPGGame
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
+            GroupId = int.Parse(columnStrings[index++]);
             Name = columnStrings[index++];
             Lv = int.Parse(columnStrings[index++]);
             DropId = int.Parse(columnStrings[index++]);
@@ -220,6 +230,7 @@ namespace RPGGame
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
+                    GroupId = binaryReader.Read7BitEncodedInt32();
                     Name = binaryReader.ReadString();
                     Lv = binaryReader.Read7BitEncodedInt32();
                     DropId = binaryReader.Read7BitEncodedInt32();

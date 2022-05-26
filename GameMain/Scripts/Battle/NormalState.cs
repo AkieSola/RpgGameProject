@@ -32,34 +32,34 @@ namespace RPGGame
         protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            timer += Time.deltaTime;
-            if (timer >= 1f)
-            {
-                timer = 0;
-                if (fsm.Owner.player != null)
-                {
-                    Collider[] colliders = Physics.OverlapSphere(fsm.Owner.player.transform.position, 10);
-                    battleActors.Clear();
-                    foreach (var collider in colliders)
-                    {
-                        Actor a;
-                        if (collider.TryGetComponent<Actor>(out a))
-                        {
-                            if (a != null)
-                            {
-                                Log.Debug(fsm.CurrentState);
-                                battleActors.Add(a);
-                            }
-                        }
-                    }
+            //timer += Time.deltaTime;
+            //if (timer >= 1f)
+            //{
+            //    timer = 0;
+            //    if (fsm.Owner.player != null)
+            //    {
+            //        Collider[] colliders = Physics.OverlapSphere(fsm.Owner.player.transform.position, 10);
+            //        battleActors.Clear();
+            //        foreach (var collider in colliders)
+            //        {
+            //            Actor a;
+            //            if (collider.TryGetComponent<Actor>(out a))
+            //            {
+            //                if (a != null)
+            //                {
+            //                    Log.Debug(fsm.CurrentState);
+            //                    battleActors.Add(a);
+            //                }
+            //            }
+            //        }
 
-                    if (battleActors.Count > 1)
-                    {
-                        fsm.Owner.battleActors = battleActors;
-                        ChangeState<BattleState>(fsm);
-                    }
-                }
-            }
+            //        if (battleActors.Count > 1)
+            //        {
+            //            fsm.Owner.battleActors = battleActors;
+            //            ChangeState<BattleState>(fsm);
+            //        }
+            //    }
+            //}
         }
     }
 }
