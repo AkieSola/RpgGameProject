@@ -42,6 +42,7 @@ namespace RPGGame
             base.OnEnter(fsm);
             player = fsm.Owner.player;
             m_battleActors = fsm.Owner.battleActors;
+            m_battleActors.Add(player);
             m_battleActors.Sort();
             m_CurActorIndex = 0;
             foreach (var a in m_battleActors)
@@ -67,14 +68,13 @@ namespace RPGGame
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
         }
 
-        protected override void OnDestroy(IFsm<BattleMgr> fsm)
+        protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)
         {
-            base.OnDestroy(fsm);
             m_battleActors.Clear();
             camp1Dic.Clear();
             camp2Dic.Clear();
+            base.OnLeave(fsm, isShutdown);
         }
-
 
         public void RemoveActor(int id, IFsm<BattleMgr> fsm)
         {
@@ -143,6 +143,8 @@ namespace RPGGame
             base.OnEnter(fsm);
             GameEntry.Event.Fire(this, ActorRoundStartEventArgs.Create(fsm.Owner.CurActor));
             timer = 0;
+            MessageData msgData = new MessageData("战斗回合开始", $"{fsm.Owner.CurActor.gameObject.name}的回合");
+            GameEntry.UI.OpenUIForm(UIFormId.MessageForm, msgData);
             //非角色回合玩家不能走路
             if (fsm.Owner.CurActor.tag != "Player")
             {
@@ -216,7 +218,7 @@ namespace RPGGame
             {
                 timer += realElapseSeconds;
 
-                if (timer > 2)
+                if (timer > 60)
                 {
                     ChangeState<BattleRoundEndState>(fsm);
                 }
@@ -244,7 +246,8 @@ namespace RPGGame
         {
             base.OnEnter(fsm);
             timer = 0;
-            Log.Debug(fsm.Owner.CurActor.tag + "：回合结束");
+            MessageData msgData = new MessageData("回合结束", "");
+            GameEntry.UI.OpenUIForm(UIFormId.MessageForm, msgData);
         }
 
         protected override void OnUpdate(IFsm<BattleState> fsm, float elapseSeconds, float realElapseSeconds)

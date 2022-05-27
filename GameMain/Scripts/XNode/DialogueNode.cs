@@ -27,7 +27,7 @@ public class DialogueNode : Node
     {
         [LabelText("对话框")] Dialogue,
         [LabelText("分支框")] Branch,
-        [LabelText("标记框")] Flag
+        [LabelText("标记框")] Flag,
     }
     //类型与名字存起来 对连接进行限制时使用
     private Dictionary<NextType, string> singleDt = new Dictionary<NextType, string>(){

@@ -78,7 +78,6 @@ namespace RPGGame
                         }
                     }
                     break;
-
                 case 2:
                     ClearItem();
                     if (ItemDic != null)

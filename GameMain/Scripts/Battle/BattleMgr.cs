@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace RPGGame {
+namespace RPGGame
+{
     public class BattleMgr : MonoBehaviour
     {
         IFsm<BattleMgr> battleMgrFsm;
@@ -22,6 +23,8 @@ namespace RPGGame {
             GameEntry.Event.Subscribe(PlayerShowEventArgs.EventId, PlayerSearch);
         }
 
+
+
         private void PlayerSearch(object sender, GameEventArgs e)
         {
             player = sender as Player;
@@ -30,10 +33,9 @@ namespace RPGGame {
         private void Start()
         {
             battleActors = new List<Actor>();
-            battleMgrFsm = GameEntry.Fsm.CreateFsm(this, new NormalState(),new BattleState());
+            battleMgrFsm = GameEntry.Fsm.CreateFsm(this, new NormalState(), new BattleState());
             battleMgrFsm.Start<NormalState>();
         }
     }
-
 }
 

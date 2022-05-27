@@ -1,3 +1,4 @@
+using GameFramework;
 using GameFramework.Event;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -24,6 +25,7 @@ namespace RPGGame
         [ShowInInspector] private List<string> contentList = new List<string>();
         [ShowInInspector] private List<Button> branchBtns = new List<Button>();
         public GameObject branchPb;
+        private Actor actor;
 
         void Start()
         {
@@ -39,7 +41,7 @@ namespace RPGGame
                 if (ae != null)
                 {
                     dialogueGraph = Resources.Load<DialogueNodeGraph>($"Dialogue/DialogGraph{ae.dialogGrouId}");
-
+                    actor = sender as Actor;
                     if (dialogueGraph!=null && currentNode == null)
                     {
                         dialogueUi.SetActive(true);
@@ -66,11 +68,6 @@ namespace RPGGame
         }
 
         #region "对话系统逻辑部分"
-
-        private void ShowDialogPanel()
-        {
-     
-        }
 
         private void UpdateDialogueUi(Node current)
         {
@@ -138,6 +135,7 @@ namespace RPGGame
                             {
                                 Debug.Log("对话流程结束！");
                                 dialogueUi.SetActive(false);
+                                actor = null;
                             }
                             break;
                     }
@@ -155,7 +153,8 @@ namespace RPGGame
         /// <param name="node"></param>
         private void TriggerEvent(EventNode node)
         {
-            Debug.Log("触发事件：" + node.eventName);
+            Debug.Log("触发事件：" + node.eventType);
+            GameEntry.Event.Fire(actor, DialogEventArgs.Create(node.eventType));
         }
 
         void AddBranchClick(BranchNode node)
@@ -188,7 +187,7 @@ namespace RPGGame
                                 UpdateDialogueUi(currentNode);
                             }
                         }
-                        //清楚所有按钮
+                        //清除所有按钮
                         for (int j = branchBtns.Count - 1; j >= 0; j--)
                         {
                             Destroy(branchBtns[j].gameObject);
@@ -201,4 +200,35 @@ namespace RPGGame
 
         #endregion
     }
+
+    public class DialogEventArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(DialogEventArgs).GetHashCode();
+
+        public override int Id 
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public DialogEventType dialogEventType;
+        //public Actor actor;
+
+        public static DialogEventArgs Create(DialogEventType type) 
+        {
+            DialogEventArgs e = ReferencePool.Acquire<DialogEventArgs>();
+            e.dialogEventType = type;
+            //e.actor = actor;
+            return e;
+        }
+
+        public override void Clear()
+        {
+            dialogEventType = DialogEventType.Nothing;
+           // actor = null;
+        }
+    }
 }
+

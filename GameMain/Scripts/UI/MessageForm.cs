@@ -21,6 +21,7 @@ namespace RPGGame
             {
                 Msg1Text.text = msgData.Message1;
                 Msg2Text.text = msgData.Message2;
+
                 Msg1Text.color = msgData.Message1Color;
                 Msg2Text.color = msgData.Message2Color;
             }
@@ -30,7 +31,7 @@ namespace RPGGame
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             timer += elapseSeconds;
-            if(timer > 1f) 
+            if(timer > 1.5f) 
             {
                 this.Close();
             }

@@ -29,16 +29,17 @@ namespace RPGGame
 
         AnimationEvent animEvent;
 
-        public IFsm<Actor> ActorState;
+        public IFsm<Actor> ActorState = null;
 
-        protected NavMeshAgent nav;
+        public NavMeshAgent nav = null;
+
+        public BattleMgr BattleMgr = null;
 
         public bool canMove;
-
-        public bool isMoving 
-        { 
+        public bool isMoving
+        {
             get
-            { 
+            {
                 return nav.velocity.magnitude > 0.1f;
             }
         }
@@ -108,7 +109,7 @@ namespace RPGGame
 
             //ActorState = GameEntry.Fsm.CreateFsm(this);
 
-            base.OnInit(userData); 
+            base.OnInit(userData);
         }
 
         protected override void OnShow(object userData)
@@ -149,9 +150,9 @@ namespace RPGGame
             if (ae != null && ae.actor == this)
             {
                 BuffContainer.BuffContainerEffect();
-                foreach(var skill in SkillList)
+                foreach (var skill in SkillList)
                 {
-                    if(skill != null)
+                    if (skill != null)
                     {
                         skill.Config.UpdateRestCoolDown();
                     }
@@ -304,7 +305,7 @@ namespace RPGGame
         }
     }
 
-    public class ActorDialogTriggerEventArgs : GameEventArgs 
+    public class ActorDialogTriggerEventArgs : GameEventArgs
     {
         public static readonly int EventId = typeof(ActorDialogTriggerEventArgs).GetHashCode();
 
@@ -318,7 +319,7 @@ namespace RPGGame
 
         public int dialogGrouId;
 
-        public static ActorDialogTriggerEventArgs Create(int id) 
+        public static ActorDialogTriggerEventArgs Create(int id)
         {
             ActorDialogTriggerEventArgs actorDialogEventArgs = ReferencePool.Acquire<ActorDialogTriggerEventArgs>();
             actorDialogEventArgs.dialogGrouId = id;
@@ -331,7 +332,7 @@ namespace RPGGame
         }
     }
 
-    public class ActorNomralState : FsmState<Actor> 
+    public class ActorNomralState : FsmState<Actor>
     {
         public Transform WalkAroundStartPos;
         public Transform WalkAroundEndPos;
@@ -346,8 +347,8 @@ namespace RPGGame
         {
             base.OnInit(fsm);
             actor = fsm.Owner;
-            nav = actor.GetComponent<NavMeshAgent>();
-            if(actor.ActorData.Camp == CampType.Enemy) 
+            nav = actor.nav;
+            if (actor.ActorData.Camp == CampType.Enemy)
             {
                 WalkAroundStartPos = GameObject.Find($"pos{1}start").transform;
                 WalkAroundEndPos = GameObject.Find($"pos{1}end").transform;
@@ -359,7 +360,7 @@ namespace RPGGame
             base.OnEnter(fsm);
             if (actor.ActorData.Camp == CampType.Enemy)
             {
-                if (nav != null) 
+                if (nav != null)
                 {
                     nav.speed = walklSpeed;
                     nav.SetDestination(WalkAroundStartPos.position);
@@ -382,12 +383,12 @@ namespace RPGGame
                 }
 
                 checkTimer += elapseSeconds;
-                if(checkTimer > 1f) 
+                if (checkTimer > 1f)
                 {
                     Collider[] colliders = Physics.OverlapSphere(actor.transform.position, 10f);
                     foreach (var collider in colliders)
                     {
-                        if(collider.gameObject.tag == "Player") 
+                        if (collider.gameObject.tag == "Player")
                         {
                             Player player = collider.gameObject.GetComponent<Player>();
                             ChangeState<ActorDialogState>(fsm);
@@ -406,15 +407,18 @@ namespace RPGGame
         }
     }
 
-    public class ActorDialogState : FsmState<Actor> 
+    public class ActorDialogState : FsmState<Actor>
     {
         Actor actor = null;
         NavMeshAgent nav = null;
+        IFsm<Actor> fsm = null;
+
         protected override void OnInit(IFsm<Actor> fsm)
         {
             base.OnInit(fsm);
+            this.fsm = fsm;
             actor = fsm.Owner;
-            nav = actor.GetComponent<NavMeshAgent>();
+            nav = actor.nav;
         }
         protected override void OnEnter(IFsm<Actor> fsm)
         {
@@ -423,11 +427,25 @@ namespace RPGGame
             if (actor.ActorData.Camp == CampType.Enemy)
             {
                 GameEntry.Event.Fire(actor, ActorDialogTriggerEventArgs.Create((actor as Enemy).EnemyData.GroupId));
+                GameEntry.Event.Subscribe(NoticeGroupActorEnterBattleEventArgs.EventId, ChangeToBattle);
+            }
+        }
+
+        private void ChangeToBattle(object sender, GameEventArgs e)
+        {
+            BattleMgr mgr = sender as BattleMgr;
+            NoticeGroupActorEnterBattleEventArgs ne = e as NoticeGroupActorEnterBattleEventArgs;
+            Enemy enemy = actor as Enemy;
+            if (mgr != null && ne != null && ne.GroupId != 0 && enemy != null && enemy.EnemyData.GroupId == ne.GroupId)
+            {
+                mgr.battleActors.Add(actor);
+                actor.BattleMgr = mgr;
+                ChangeState<ActorBattleState>(fsm);
             }
         }
     }
 
-    public class ActorBattleState : FsmState<Actor> 
+    public class ActorBattleState : FsmState<Actor>
     {
         private NavMeshAgent nav;
         private Actor actor;
@@ -437,7 +455,7 @@ namespace RPGGame
         {
             base.OnInit(fsm);
             actor = fsm.Owner;
-            nav = actor.GetComponent<NavMeshAgent>();
+            nav = actor.nav;
 
         }
 
@@ -445,7 +463,7 @@ namespace RPGGame
         {
             base.OnEnter(fsm);
             nav.SetDestination(actor.transform.position);
-            PlayerTrans = GameEntry.Entity.GetEntity("Player").transform;
+            PlayerTrans = actor.BattleMgr.player.transform;
         }
 
         protected override void OnUpdate(IFsm<Actor> fsm, float elapseSeconds, float realElapseSeconds)
@@ -458,7 +476,7 @@ namespace RPGGame
                     //角色回合时选择回合中要释放的技能
                     for (int i = 0; i < actor.SkillList.Count; i++)
                     {
-                        if (actor.SkillList[i].Config.SkillId != -1 && actor.SkillList[i].Config.RestCoolDown == 0 && actor.ActorData.SP>= actor.SkillList[i].Config.SPConsume)
+                        if (actor.SkillList[i].Config.SkillId != -1 && actor.SkillList[i].Config.RestCoolDown == 0 && actor.ActorData.SP >= actor.SkillList[i].Config.SPConsume)
                         {
                             actor.SelectedSkill = actor.SkillList[i];
                         }
