@@ -11,6 +11,11 @@ namespace RPGGame
         Text Msg1Text;
         [SerializeField]
         Text Msg2Text;
+        [SerializeField]
+        Color Msg1Color;
+        [SerializeField]
+        Color Msg2Color;
+
 
         float timer = 0;
         protected override void OnOpen(object userData)
@@ -21,9 +26,8 @@ namespace RPGGame
             {
                 Msg1Text.text = msgData.Message1;
                 Msg2Text.text = msgData.Message2;
-
-                Msg1Text.color = msgData.Message1Color;
-                Msg2Text.color = msgData.Message2Color;
+                Msg1Text.color = Msg1Color;
+                Msg2Text.color = Msg2Color;
             }
         }
 
@@ -33,6 +37,7 @@ namespace RPGGame
             timer += elapseSeconds;
             if(timer > 1.5f) 
             {
+                timer = 0f;
                 this.Close();
             }
         }

@@ -75,6 +75,10 @@ namespace RPGGame
         /// ½ÇÉ«ÊÇ·ñËÀÍö
         /// </summary>
         public bool IsDead { get => m_HP <= 0; }
+        /// <summary>
+        /// ÊÇ·ñÂú×´Ì¬
+        /// </summary>
+        public bool IsEnergetic { get => (m_HP == m_MaxHP && m_SP == m_MaxSp); }
         public CampType Camp { get => m_Camp; set => m_Camp = value; }
     }
 }

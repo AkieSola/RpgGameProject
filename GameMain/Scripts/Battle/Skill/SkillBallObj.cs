@@ -11,6 +11,8 @@ namespace RPGGame
     {
         [SerializeField]
         private SkillBallObjData skillObjData = null;
+
+        float Distance;
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -19,24 +21,35 @@ namespace RPGGame
             {
                 Log.Error("SkillObjData is invalid!");
             }
+
+            
         }
 
         void Update()
         {
             transform.position += skillObjData.Speed * skillObjData.Skill.ForwardDir * Time.deltaTime;
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(skillObjData.Skill.Target != null)
+            Distance = Vector3.Distance(transform.position, skillObjData.Skill.Target.transform.position);
+            if (Distance < 3f) 
             {
-                if(other.GetComponent<Actor>() == skillObjData.Skill.Target)
-                {
-                    GameEntry.Entity.HideEntity(this.Entity.Id);
-                    skillObjData.Skill.OnBump(); 
-                }
+                GameEntry.Entity.HideEntity(this.Entity.Id);
+                skillObjData.Skill.OnBump();
             }
         }
+
+        private void FixedUpdate()
+        {
+            
+        }
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if(skillObjData.Skill.Target != null)
+        //    {
+        //        if(other.GetComponent<Actor>() == skillObjData.Skill.Target)
+        //        {
+
+        //        }
+        //    }
+        //}
 
         protected override void OnRecycle()
         {

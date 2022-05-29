@@ -19,8 +19,6 @@ public class FlagNode : Node {
 	[Output(), LabelText("下一段"), ShowIf("flagType", FlagNodeType.Start)]
 	public string next;
 
-	[Output, LabelText("触发事件")] public EventNode trigger;
-
 	protected override void Init() {
 		base.Init();
 
@@ -32,21 +30,4 @@ public class FlagNode : Node {
 	}
 }
 
-public enum DialogEventType 
-{
-	Nothing = 0,
-	ShiftToBattle = 1,
-}
 
-public class EventNode : Node
-{
-	[Input(ShowBackingValue.Never), LabelText("触发前置")]
-	public string trigger;
-	[ShowInInspector,LabelText("事件类型")]
-	public DialogEventType eventType;
-
-    public override object GetValue(NodePort port)
-	{
-		return null;
-	}
-}

@@ -10,7 +10,7 @@ namespace RPGGame
     {
         public static Skill CreateSkill(int SkillId, Actor Launcher)
         {
-            if(SkillId <= 0)
+            if(SkillId < 0)
             {
                 return null;
             }

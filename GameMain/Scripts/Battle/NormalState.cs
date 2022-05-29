@@ -13,14 +13,14 @@ namespace RPGGame
         public List<Actor> battleActors;
         private float timer;
 
-        private Player player;
+        private Player player => fsm.Owner.player;
         private IFsm<BattleMgr> fsm;
 
         protected override void OnInit(IFsm<BattleMgr> fsm)
         {
             base.OnInit(fsm);
             battleActors = new List<Actor>();
-            player = fsm.Owner.player;
+            //player = fsm.Owner.player;
             this.fsm = fsm;
         }
 
@@ -47,42 +47,17 @@ namespace RPGGame
                 }
                 ChangeState<BattleState>(fsm);
             }
-
-
         }
 
 
         protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            //timer += Time.deltaTime;
-            //if (timer >= 1f)
-            //{
-            //    timer = 0;
-            //    if (fsm.Owner.player != null)
-            //    {
-            //        Collider[] colliders = Physics.OverlapSphere(fsm.Owner.player.transform.position, 10);
-            //        battleActors.Clear();
-            //        foreach (var collider in colliders)
-            //        {
-            //            Actor a;
-            //            if (collider.TryGetComponent<Actor>(out a))
-            //            {
-            //                if (a != null)
-            //                {
-            //                    Log.Debug(fsm.CurrentState);
-            //                    battleActors.Add(a);
-            //                }
-            //            }
-            //        }
-
-            //        if (battleActors.Count > 1)
-            //        {
-            //            fsm.Owner.battleActors = battleActors;
-            //            ChangeState<BattleState>(fsm);
-            //        }
-            //    }
-            //}
+            if (player != null && !player.ActorData.IsEnergetic) 
+            {
+                player.ConsumeSP(-1);
+                player.RecoverHP(1);
+            }
         }
 
         protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)

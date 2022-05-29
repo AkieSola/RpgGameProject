@@ -10,7 +10,7 @@ namespace RPGGame
 {
     public class BattleMgr : MonoBehaviour
     {
-        IFsm<BattleMgr> battleMgrFsm;
+        public IFsm<BattleMgr> battleMgrFsm;
 
         public List<Actor> battleActors;
 

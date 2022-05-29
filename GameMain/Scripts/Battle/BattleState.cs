@@ -1,5 +1,7 @@
+using GameFramework;
 using GameFramework.Event;
 using GameFramework.Fsm;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +16,8 @@ namespace RPGGame
         private Dictionary<int, Actor> camp2Dic;  //单机模式下通常指npc敌人阵营
 
         private int m_CurActorIndex = 0;
+        private float startTimer = 0;
+        private bool isBattle = true;
         public Actor CurActor
         {
             get
@@ -36,44 +40,89 @@ namespace RPGGame
         {
             camp1Dic = new Dictionary<int, Actor>();
             camp2Dic = new Dictionary<int, Actor>();
+            GameEntry.Event.Subscribe(ActorDeadEventArgs.EventId, OnActorDead);
+            GameEntry.Event.Subscribe(ActorEnterBattleEventArgs.EventId, WhenActorEnterBattle);
+            this.fsm = fsm;
         }
+
+
+        private void OnActorDead(object sender, GameEventArgs e)
+        {
+            ActorDeadEventArgs ae = e as ActorDeadEventArgs;
+            if(ae != null&&ae.actor!=null) 
+            {
+                RemoveActor(ae.actor.ActorData.Id, fsm);
+            }
+        }
+
+        private void WhenActorEnterBattle(object sender, GameEventArgs e)
+        {
+            Actor actor = sender as Actor;
+            ActorEnterBattleEventArgs ae = e as ActorEnterBattleEventArgs;
+            if (actor != null&&ae!=null&&ae.Mgr == fsm.Owner) 
+            {
+                AddActor(actor);
+            }
+        }
+
+
         protected override void OnEnter(IFsm<BattleMgr> fsm)
         {
             base.OnEnter(fsm);
+            startTimer = 0;
+            isBattle = false;
+
             player = fsm.Owner.player;
             m_battleActors = fsm.Owner.battleActors;
-            m_battleActors.Add(player);
-            m_battleActors.Sort();
+            AddActor(player);
             m_CurActorIndex = 0;
-            foreach (var a in m_battleActors)
-            {
-                if (a.tag == "Player")
-                {
-                    //a.gameObject.tag = "Player";
-                    camp1Dic.Add(1, a);
-                }
-                else if (a.tag == "Enemy")
-                {
-                    //a.gameObject.tag = "Enemy";
-                    camp2Dic.Add(2, a);
-                }
-            }
-            battleStateFsm = GameEntry.Fsm.CreateFsm<BattleState>(this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());
-            battleStateFsm.Start<BattleRoundStartState>();
-            this.fsm = fsm;
+            
+            battleStateFsm = GameEntry.Fsm.CreateFsm<BattleState>(this, new BattleRoundStartState(), new BattleRoundDoState(), new BattleRoundEndState());  
         }
 
         protected override void OnUpdate(IFsm<BattleMgr> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
+            if (startTimer <= 0.33f)
+            {
+                startTimer += elapseSeconds;
+            }
+
+            if (!isBattle && startTimer > 0.33f)
+            {
+                isBattle = true;
+                MessageData msgData = new MessageData("战斗开始", "");
+                GameEntry.UI.OpenUIForm(UIFormId.MessageForm, msgData);
+                battleStateFsm.Start<BattleRoundStartState>();
+            }
         }
 
         protected override void OnLeave(IFsm<BattleMgr> fsm, bool isShutdown)
         {
+            MessageData msgData = new MessageData("战斗结束", "");
+            GameEntry.UI.OpenUIForm(UIFormId.MessageForm, msgData);
+            GameEntry.Fsm.DestroyFsm(battleStateFsm);
             m_battleActors.Clear();
             camp1Dic.Clear();
             camp2Dic.Clear();
+
+            GameEntry.Event.Fire(this, LevelBattleEventArgs.Create(fsm.Owner));
             base.OnLeave(fsm, isShutdown);
+        }
+
+        public void AddActor(Actor actor) 
+        {
+            m_battleActors.Add(actor);
+            if(actor.ActorData.Camp == CampType.Player) 
+            {
+                camp1Dic.Add(actor.ActorData.Id, actor);
+            }
+            else if(actor.ActorData.Camp == CampType.Enemy)
+            {
+                camp2Dic.Add(actor.ActorData.Id, actor);
+            }
+
+            m_battleActors.Sort();
         }
 
         public void RemoveActor(int id, IFsm<BattleMgr> fsm)
@@ -82,20 +131,7 @@ namespace RPGGame
             {
                 if (m_battleActors[i].ActorData.Id == id)
                 {
-                    if (m_battleActors[i].gameObject.tag == "Player")
-                    {
-                        if (camp1Dic.ContainsKey(id))
-                        {
-                            camp1Dic.Remove(id);
-
-                            if (fsm != null && camp1Dic.Count == 0)
-                            {
-                                ChangeState<NormalState>(fsm);
-                            }
-                        }
-                    }
-
-                    if (m_battleActors[i].gameObject.tag == "Enemy")
+                    if (m_battleActors[i].ActorData.Camp == CampType.Enemy)
                     {
                         if (camp2Dic.ContainsKey(id))
                         {
@@ -107,8 +143,20 @@ namespace RPGGame
                             }
                         }
                     }
-
                     m_battleActors.RemoveAt(i);
+                    if (m_battleActors[i].ActorData.Camp == CampType.Player)
+                    {
+                        if (camp1Dic.ContainsKey(id))
+                        {
+                            camp1Dic.Remove(id);
+
+                            if (fsm != null && camp1Dic.Count == 0)
+                            {
+                                ChangeState<NormalState>(fsm);
+                            }
+                        }
+                    }
+                    break;
                 }
             }
         }
@@ -124,6 +172,25 @@ namespace RPGGame
             {
                 m_CurActorIndex++;
             }
+        }
+    }
+
+    public class LevelBattleEventArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(LevelBattleEventArgs).GetHashCode();
+        public override int Id => EventId;
+
+        public BattleMgr mgr;
+
+        public static LevelBattleEventArgs Create(BattleMgr battleMgr) 
+        {
+            LevelBattleEventArgs e = ReferencePool.Acquire<LevelBattleEventArgs>();
+            e.mgr = battleMgr;
+            return e;
+        }
+        public override void Clear()
+        {
+            mgr = null;
         }
     }
 
@@ -204,6 +271,7 @@ namespace RPGGame
         {
             base.OnEnter(fsm);
             timer = 0;
+            fsm.Owner.CurActor.inTurn = true;
 #if UNITY_EDITOR
             Log.Info($"Actor {fsm.Owner.CurActor.ActorData.Id} Round Do!");
 #endif
@@ -214,6 +282,8 @@ namespace RPGGame
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
 
             //Enemy执行AI逻辑，执行结束后进入回合结束状态
+            if(fsm.Owner.CurActor == null) { return; }
+
             if (fsm.Owner.CurActor.tag == "Enemy")
             {
                 timer += realElapseSeconds;
@@ -246,6 +316,7 @@ namespace RPGGame
         {
             base.OnEnter(fsm);
             timer = 0;
+            fsm.Owner.CurActor.inTurn = false;
             MessageData msgData = new MessageData("回合结束", "");
             GameEntry.UI.OpenUIForm(UIFormId.MessageForm, msgData);
         }

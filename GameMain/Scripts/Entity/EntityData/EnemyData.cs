@@ -19,7 +19,7 @@ namespace RPGGame
         [SerializeField]
         private int m_GroupId;
         [SerializeField]
-        private List<int> SkillIdList;
+        private List<int> m_SkillIdList;
 
         public EnemyData(DREnemy dREnemy, int entityId, int typeId) : base(entityId, typeId)
         {
@@ -28,7 +28,10 @@ namespace RPGGame
             m_Lv = dREnemy.Lv;
             m_DropId = dREnemy.DropId;
             m_AIId = dREnemy.AIId;
-            SkillIdList = new List<int>() { dREnemy.Skill1Id, dREnemy.Skill2Id, dREnemy.Skill3Id, dREnemy.Skill4Id };
+            m_SkillIdList = new List<int>() { 
+                dREnemy.Skill1Id, dREnemy.Skill2Id, dREnemy.Skill3Id, dREnemy.Skill4Id, 
+                dREnemy.Skill5Id, dREnemy.Skill6Id, dREnemy.Skill7Id, dREnemy.Skill8Id 
+            };
             m_GroupId = dREnemy.GroupId;
 
             base.MaxHP = dREnemy.MaxHp;
@@ -46,5 +49,7 @@ namespace RPGGame
 
         public string Name { get => m_Name; set => m_Name = value; }
         public int GroupId { get => m_GroupId;}
+
+        public List<int> SkillIdList { get => m_SkillIdList; }
     }
 }

@@ -28,7 +28,7 @@ namespace RPGGame
         [SerializeField]
         private Button m_BagBtn = null;
         [SerializeField]
-        private Button m_TurnEndBtn = null; 
+        private Button m_TurnEndBtn = null;
 
         private ProcedureMain m_ProcedureMain = null;
         protected override void OnOpen(object userData)
@@ -39,6 +39,7 @@ namespace RPGGame
             GameEntry.Event.Subscribe(ActorRoundStartEventArgs.EventId, ShowTurnEndBtn);
             GameEntry.Event.Subscribe(UpdateActorFormInfoArgs.EventId, UpdateActorInfo);
             GameEntry.Event.Subscribe(UpdateSkillInfoEventArges.EventId, UpdateSkillShowInfo);
+            GameEntry.Event.Subscribe(LevelBattleEventArgs.EventId, LevelBattle);
 
             if (m_ProcedureMain == null)
             {
@@ -61,15 +62,26 @@ namespace RPGGame
             m_BagBtn.onClick.AddListener(() => { GameEntry.UI.OpenUIForm(UIFormId.BagFrom, m_ProcedureMain.PlayerData.ItemDic); });
 
             m_TurnEndBtn.GetComponentInChildren<Text>().text = "»ØºÏ½áÊø";
-            m_TurnEndBtn.onClick.AddListener(() => { 
+            m_TurnEndBtn.onClick.AddListener(() =>
+            {
                 GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(null));
             });
+        }
+
+        private void LevelBattle(object sender, GameEventArgs e)
+        {
+            LevelBattleEventArgs levelBattleEventArgs = (LevelBattleEventArgs)e;
+            if (levelBattleEventArgs != null) 
+            {
+                m_TurnEndBtn.gameObject.SetActive(false);
+            }
         }
 
         private void UpdateActorInfo(object sender, GameEventArgs e)
         {
             UpdateActorFormInfoArgs ue = e as UpdateActorFormInfoArgs;
-            if (ue != null && (sender as Actor).gameObject.tag == "Player") {
+            if (ue != null && (sender as Actor).gameObject.tag == "Player")
+            {
                 Player player = sender as Player;
                 m_SPSlider.value = player.ActorData.SPRatio;
                 m_HPSlider.value = player.ActorData.HPRatio;
@@ -78,14 +90,18 @@ namespace RPGGame
 
         private void UpdateSkillShowInfo(object sender, GameEventArgs e)
         {
-            m_SkillList.UpdateInfo((e as UpdateSkillInfoEventArges).SkillList);
+            Actor actor = sender as Actor;
+            if (actor is Player)
+            {
+                m_SkillList.UpdateInfo((e as UpdateSkillInfoEventArges).SkillList);
+            }
         }
 
         private void ShowTurnEndBtn(object sender, GameEventArgs e)
         {
-            if(e is ActorRoundStartEventArgs)
+            if (e is ActorRoundStartEventArgs)
             {
-                if((e as ActorRoundStartEventArgs).actor is Player)
+                if ((e as ActorRoundStartEventArgs).actor is Player)
                 {
                     m_TurnEndBtn.gameObject.SetActive(true);
                     m_TurnEndBtn.enabled = true;

@@ -92,6 +92,11 @@ namespace RPGGame
             }
         }
 
+        public void RecoverHP(int value) 
+        {
+            m_ActorData.HP += value;
+            GameEntry.Event.Fire(this, UpdateActorFormInfoArgs.Create());
+        }
 
         protected override void OnInit(object userData)
         {
@@ -166,6 +171,7 @@ namespace RPGGame
 
         protected virtual void OnDead(Entity attacker)
         {
+            GameEntry.Event.Fire(ActorDeadEventArgs.EventId, ActorDeadEventArgs.Create(this));
             GameEntry.Entity.HideEntity(this);
             GameEntry.HPBar.ClearHP();
         }
@@ -255,7 +261,7 @@ namespace RPGGame
         }
 
         /// <summary>
-        /// 动画播放时设置动画事件
+        /// 动画播放时设置动画事件 
         /// </summary>
         /// <param name="AnimationEventTiming">事件延迟时间</param>
         /// <returns></returns>
@@ -305,6 +311,31 @@ namespace RPGGame
         }
     }
 
+    public class ActorDeadEventArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(ActorDeadEventArgs).GetHashCode();
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public Actor actor;
+
+        public static ActorDeadEventArgs Create(Actor actor)
+        {
+            ActorDeadEventArgs actorDeadEventArgs = ReferencePool.Acquire<ActorDeadEventArgs>();
+            actorDeadEventArgs.actor = actor;
+            return actorDeadEventArgs;
+        }
+
+        public override void Clear()
+        {
+            actor = null;
+        }
+    }
     public class ActorDialogTriggerEventArgs : GameEventArgs
     {
         public static readonly int EventId = typeof(ActorDialogTriggerEventArgs).GetHashCode();
@@ -329,6 +360,33 @@ namespace RPGGame
         public override void Clear()
         {
             dialogGrouId = 0;
+        }
+    }
+
+    public class ActorEnterBattleEventArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(ActorEnterBattleEventArgs).GetHashCode();
+
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public BattleMgr Mgr;
+
+        public static ActorEnterBattleEventArgs Create(BattleMgr battleMgr)
+        {
+            ActorEnterBattleEventArgs e = ReferencePool.Acquire<ActorEnterBattleEventArgs>();
+            e.Mgr = battleMgr;
+            return e;
+        }
+
+        public override void Clear()
+        {
+            Mgr = null;
         }
     }
 
@@ -438,8 +496,9 @@ namespace RPGGame
             Enemy enemy = actor as Enemy;
             if (mgr != null && ne != null && ne.GroupId != 0 && enemy != null && enemy.EnemyData.GroupId == ne.GroupId)
             {
-                mgr.battleActors.Add(actor);
+                //mgr.battleActors.Add(actor);
                 actor.BattleMgr = mgr;
+                GameEntry.Event.Fire(actor, ActorEnterBattleEventArgs.Create(mgr));
                 ChangeState<ActorBattleState>(fsm);
             }
         }
@@ -451,12 +510,12 @@ namespace RPGGame
         private Actor actor;
         private Transform PlayerTrans;
         private bool inTurn;
+        float timer = 0;
         protected override void OnInit(IFsm<Actor> fsm)
         {
             base.OnInit(fsm);
             actor = fsm.Owner;
             nav = actor.nav;
-
         }
 
         protected override void OnEnter(IFsm<Actor> fsm)
@@ -469,41 +528,54 @@ namespace RPGGame
         protected override void OnUpdate(IFsm<Actor> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            if (actor.ActorData.Camp == CampType.Enemy)
+            if (!actor.isRealseingSkill)
             {
-                if (actor.inTurn)
+                timer += elapseSeconds;
+            }
+            if (timer > 0.5f)
+            {
+                timer = 0;
+                if (actor.ActorData.Camp == CampType.Enemy)
                 {
-                    //角色回合时选择回合中要释放的技能
-                    for (int i = 0; i < actor.SkillList.Count; i++)
+                    if (actor.inTurn)
                     {
-                        if (actor.SkillList[i].Config.SkillId != -1 && actor.SkillList[i].Config.RestCoolDown == 0 && actor.ActorData.SP >= actor.SkillList[i].Config.SPConsume)
+                        if (actor.SelectedSkill == null)
                         {
-                            actor.SelectedSkill = actor.SkillList[i];
+                            //角色回合时选择回合中要释放的技能
+                            for (int i = 0; i < actor.SkillList.Count; i++)
+                            {
+                                if (actor.SkillList[i] != null && actor.SkillList[i].Config.RestCoolDown == 0 && actor.ActorData.SP >= actor.SkillList[i].Config.SPConsume)
+                                {
+                                    actor.SelectedSkill = actor.SkillList[i];
+                                    break;
+                                }
+                            }
                         }
-                    }
 
-                    //当角色没事干且没有可选的技能时结束游戏
-                    if (!actor.isMoving && !actor.isRealseingSkill)
-                    {
-                        GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(actor));
-                    }
+                        //当角色没事干且没有可选的技能时结束游戏
+                        if (!actor.isMoving && !actor.isRealseingSkill && actor.SelectedSkill == null)
+                        {
+                            GameEntry.Event.Fire(this, ActorRoundFinishEventArgs.Create(actor));
+                        }
 
-                    //当选择了技能后完成技能释放
-                    if (actor.SelectedSkill != null && !actor.isRealseingSkill)
-                    {
-                        //如果距离不够则走到对应的距离
-                        if (Vector3.Distance(actor.transform.position, PlayerTrans.position) > actor.SelectedSkill.Config.Distance)
+                        //当选择了技能后完成技能释放
+                        if (actor.SelectedSkill != null && !actor.isRealseingSkill)
                         {
-                            nav.SetDestination(PlayerTrans.position);
-                        }
-                        else
-                        {
-                            nav.SetDestination(actor.transform.position);
-                        }
-                        //当角色不在移动和释放技能的状态时释放技能
-                        if (!actor.isMoving && !actor.isRealseingSkill)
-                        {
-                            actor.DoSkill(actor.SelectedSkill.Config);
+                            //如果距离不够则走到对应的距离
+                            if (Vector3.Distance(actor.transform.position, PlayerTrans.position) > actor.SelectedSkill.Config.Distance)
+                            {
+                                nav.SetDestination(PlayerTrans.position);
+                            }
+
+                            //当角色不在移动和释放技能的状态时释放技能
+                            if (Vector3.Distance(actor.transform.position, PlayerTrans.position) <= actor.SelectedSkill.Config.Distance
+                                &&!actor.isRealseingSkill)
+                            {
+                                nav.SetDestination(actor.transform.position);
+                                Vector3 tempDir = PlayerTrans.position - nav.transform.position;
+                                Vector3 forwardDir = new Vector3(tempDir.x, nav.transform.position.y, tempDir.z);
+                                actor.SelectedSkill.Launch(actor.BattleMgr.player, PlayerTrans.position, forwardDir.normalized);
+                            }
                         }
                     }
                 }
