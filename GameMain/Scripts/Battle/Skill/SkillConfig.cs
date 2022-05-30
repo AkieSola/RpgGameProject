@@ -86,6 +86,17 @@ namespace RPGGame
             }
         }
 
+        /// <summary>
+        /// ÷ÿ÷√¿‰»¥ ±º‰
+        /// </summary>
+        public void ResetCoolDown()
+        {
+            if(RestCoolDown > 0) 
+            {
+                RestCoolDown = 0;
+            }
+        }
+
         public void Clear()
         {
             throw new System.NotImplementedException();

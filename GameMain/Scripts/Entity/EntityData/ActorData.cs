@@ -39,7 +39,6 @@ namespace RPGGame
 
         public ActorData(int entityId, int typeId) : base(entityId, typeId)
         {
-
         }
 
         public float Speed { get; set; } = 3;

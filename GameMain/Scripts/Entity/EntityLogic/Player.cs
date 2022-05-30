@@ -15,13 +15,14 @@ namespace RPGGame
         private PlayerData m_PlayerData = null;
         public bool inPlayerTurn;
         float walkTimer = 0;
-
+        Camera m_camera;
         Material material;
 
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
+            m_camera = GameObject.Find("SceneCamera").GetComponent<Camera>();
         }
         protected override void OnShow(object userData)
         {
@@ -90,6 +91,7 @@ namespace RPGGame
                 }
             }
         }
+        
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -106,7 +108,7 @@ namespace RPGGame
                 }
             }
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = m_camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Input.GetMouseButtonDown(1) && canMove && m_PlayerData.SP > 0)
@@ -149,6 +151,10 @@ namespace RPGGame
                         }
                     }
                 }
+            }
+            else if(Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
+            {
+                
             }
         }
     }

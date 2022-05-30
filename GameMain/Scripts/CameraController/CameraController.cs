@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     float cameraMoveSpeed = 10f;
     public float cameraFocusSpeed = 10f;
     public Camera tabCamera;
+    public Camera sceneCamera;
     [SerializeField]
     private GameObject Player;
 
@@ -31,7 +32,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Enemy")))
         {
             hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0] = mat;

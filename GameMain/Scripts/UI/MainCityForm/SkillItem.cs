@@ -59,7 +59,7 @@ namespace RPGGame
                     GameEntry.Event.Fire(this, SelectedSkillEventArgs.Create(skill));
                 });
 
-                if (skill.Config.RestCoolDown != 0)
+                if (skill.Config.RestCoolDown > 0)
                 {
                     CoolDownRestText.enabled = true;
                     CoolDownRestText.text = skill.Config.RestCoolDown.ToString();

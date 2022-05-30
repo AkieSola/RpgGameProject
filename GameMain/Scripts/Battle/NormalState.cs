@@ -32,6 +32,11 @@ namespace RPGGame
             {
                 player.canMove = true;
                 player.inPlayerTurn = false;
+                foreach(var skill in player.SkillList) 
+                {
+                    skill.Config.ResetCoolDown();
+                }
+                GameEntry.Event.Fire(player, UpdateSkillInfoEventArges.Create(player.SkillList));
             }
         }
         private void DialogChangeToBattle(object sender, GameEventArgs e)

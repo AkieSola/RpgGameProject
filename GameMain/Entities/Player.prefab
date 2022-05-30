@@ -7044,7 +7044,7 @@ GameObject:
   - component: {fileID: 8918192787740110188}
   - component: {fileID: 832224406547783760}
   - component: {fileID: 6403579401516129203}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: tab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
