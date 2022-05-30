@@ -450,6 +450,8 @@ namespace RPGGame
                         {
                             Player player = collider.gameObject.GetComponent<Player>();
                             ChangeState<ActorDialogState>(fsm);
+
+                            player.nav.SetDestination(player.transform.position);
                             player.canMove = false;
                             Vector3 position = new Vector3(player.transform.position.x, actor.transform.position.y, player.transform.position.z);
                             actor.transform.LookAt(position);
