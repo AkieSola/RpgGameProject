@@ -26,7 +26,7 @@ namespace RPGGame
 
         private MainCityForm m_MainCityForm = null;
 
-        public Vector3 PlayerPos = new Vector3(116, 0.5f, 112.5f);
+        public Vector3 PlayerPos = new Vector3(136, 0.5f, 113f);
         public Vector3 EnemyPos = new Vector3(109.3f, 0, 112.4f);
 
         private Player m_player;

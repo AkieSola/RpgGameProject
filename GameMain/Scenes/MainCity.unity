@@ -1279,7 +1279,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1995830379}
   - component: {fileID: 1995830378}
-  - component: {fileID: 1995830377}
   m_Layer: 0
   m_Name: Tab Camera
   m_TagString: Untagged
@@ -1287,14 +1286,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1995830377
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1995830376}
-  m_Enabled: 1
 --- !u!20 &1995830378
 Camera:
   m_ObjectHideFlags: 0
@@ -1322,14 +1313,14 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 50
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 256
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 2b0c4955695f31c4ba1d0d7dc27086f9, type: 2}
-  m_TargetDisplay: 0
+  m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
