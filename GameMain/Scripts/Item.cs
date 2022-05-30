@@ -9,12 +9,14 @@ namespace RPGGame
         public int id;
         public int num;
         public DRItem dRItem;
+        public Actor owner;
 
-        public Item(DRItem dRItem, int num = 1) 
+        public Item(DRItem dRItem, Actor actor, int num = 1)
         {
             id = dRItem.Id;
             this.num = num;
             this.dRItem = dRItem;
+            this.owner = actor;
         }
     }
 }

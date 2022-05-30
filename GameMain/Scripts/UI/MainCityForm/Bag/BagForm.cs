@@ -1,3 +1,5 @@
+using GameFramework.Event;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +24,13 @@ namespace RPGGame
 
         Dictionary<int, Item> ItemDic;
         List<GameObject> ItemObjList;
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            GameEntry.Event.Subscribe(UpdateItemEventArgs.EventId, UpdateItemInfo);
+        }
+
+
         protected override void OnOpen(object userData)
         {
             base.OnOpen(userData);
@@ -55,6 +64,23 @@ namespace RPGGame
         {
             ItemDic.Clear();
             ItemDic = dic;
+        }
+
+
+        private void UpdateItemInfo(object sender, GameEventArgs e)
+        {
+            if (e != null) 
+            {
+                Item item = (e as UpdateItemEventArgs).item;
+                if (item != null)
+                {
+                    if(ItemDic.ContainsKey(item.id) && item.num == 0) 
+                    {
+                        ItemDic.Remove(item.id);
+                    }
+                    ShowItemByType(item.dRItem.Type);
+                }
+            }
         }
 
         public void ShowItemByType(int Type) 

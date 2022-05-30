@@ -18,7 +18,7 @@ namespace RPGGame
 
         Material material;
 
-        
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
@@ -52,7 +52,7 @@ namespace RPGGame
                 }
                 else
                 {
-                    Item item = new Item(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(id));
+                    Item item = new Item(GameEntry.DataTable.GetDataTable<DRItem>().GetDataRow(id), this);
                     m_PlayerData.ItemDic.Add(id, item);
                 }
             }

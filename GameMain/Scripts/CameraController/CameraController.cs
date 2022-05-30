@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
 {
     Vector3 cameraMoveDir = Vector3.zero;
     float cameraMoveSpeed = 10f;
+    public float cameraFocusSpeed = 10f;
     [SerializeField]
     private GameObject Player;
 
@@ -19,6 +20,8 @@ public class CameraController : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     public Material mat;
+
+    float newy;
     private void Start()
     {
         cameraTrans = this.transform;
@@ -32,7 +35,7 @@ public class CameraController : MonoBehaviour
         {
             hit.collider.gameObject.GetComponent<MeshRenderer>().materials[0] = mat;
         }
-    
+
         if (Player == null)
         {
             Player = GameObject.FindGameObjectWithTag("Player");
@@ -46,8 +49,18 @@ public class CameraController : MonoBehaviour
                 this.transform.position = Vector3.Lerp(this.transform.position, tmpPos, 0.2f);
             }
         }
-        
 
+        //Debug.Log("鼠标增量的值" + );
+        if (Input.mouseScrollDelta.y < 0) 
+        {
+            newy = Mathf.Clamp(this.transform.position.y + cameraFocusSpeed*Time.deltaTime, 7.5f, 25);
+            this.transform.position = new Vector3(transform.position.x, newy, transform.position.z);
+        }
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            newy = Mathf.Clamp(this.transform.position.y - cameraFocusSpeed * Time.deltaTime, 7.5f, 25);
+            this.transform.position = new Vector3(transform.position.x, newy, transform.position.z);
+        }
         //if (Input.mousePosition.x <= 0)
         //{
         //    //Input.mousePosition.Set(0, Input.mousePosition.y, Input.mousePosition.z);

@@ -31,15 +31,19 @@ namespace RPGGame
                 {
                     case 1:
                         InfoText.text = "是否使用道具？";
+                        YesBtn.onClick.AddListener(() =>
+                        {
+                            ItemUseMgr.UseItem(item);
+                            GameEntry.UI.CloseUIForm(this);
+                        });
                         break;
                     case 2:
                         InfoText.text = "是否更换装备？";
                         YesBtn.onClick.AddListener(() => 
                         {
-                                GameEntry.Event.Fire(UpdateEquipInfo.EventId, UpdateEquipInfo.Create(item.dRItem));
-                                GameEntry.UI.CloseUIForm(this);
-                            }
-                        ); 
+                            GameEntry.Event.Fire(UpdateEquipInfo.EventId, UpdateEquipInfo.Create(item.dRItem));
+                            GameEntry.UI.CloseUIForm(this);
+                        }); 
                         break;
                 }
             }

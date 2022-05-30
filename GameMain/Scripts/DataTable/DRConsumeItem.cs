@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2022-05-28 19:27:21.277
+// 生成时间：2022-05-30 09:59:18.482
 //------------------------------------------------------------
 
 using GameFramework;
@@ -34,6 +34,15 @@ namespace RPGGame
             {
                 return m_Id;
             }
+        }
+
+        /// <summary>
+        /// 获取消耗道具子id。
+        /// </summary>
+        public int SubId
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -66,6 +75,7 @@ namespace RPGGame
             index++;
             m_Id = int.Parse(columnStrings[index++]);
             index++;
+            SubId = int.Parse(columnStrings[index++]);
             PropType = int.Parse(columnStrings[index++]);
             Value = int.Parse(columnStrings[index++]);
 
@@ -80,6 +90,7 @@ namespace RPGGame
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
+                    SubId = binaryReader.Read7BitEncodedInt32();
                     PropType = binaryReader.Read7BitEncodedInt32();
                     Value = binaryReader.Read7BitEncodedInt32();
                 }

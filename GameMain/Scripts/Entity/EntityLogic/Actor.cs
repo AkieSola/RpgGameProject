@@ -532,7 +532,7 @@ namespace RPGGame
             {
                 timer += elapseSeconds;
             }
-            if (timer > 0.5f)
+            if (timer > 1f)
             {
                 timer = 0;
                 if (actor.ActorData.Camp == CampType.Enemy)
