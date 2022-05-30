@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     Vector3 cameraMoveDir = Vector3.zero;
     float cameraMoveSpeed = 10f;
     public float cameraFocusSpeed = 10f;
+    public Camera tabCamera;
     [SerializeField]
     private GameObject Player;
 
@@ -61,6 +62,8 @@ public class CameraController : MonoBehaviour
             newy = Mathf.Clamp(this.transform.position.y - cameraFocusSpeed * Time.deltaTime, 7.5f, 25);
             this.transform.position = new Vector3(transform.position.x, newy, transform.position.z);
         }
+
+        tabCamera.transform.position = new Vector3(transform.position.x, tabCamera.transform.position.y, transform.position.z);
         //if (Input.mousePosition.x <= 0)
         //{
         //    //Input.mousePosition.Set(0, Input.mousePosition.y, Input.mousePosition.z);
