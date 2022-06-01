@@ -170,6 +170,10 @@ namespace RPGGame
             GameEntry.Event.Fire(this, PlayerAddAbilityPointFormEventArgs.Create(this));
         }
 
+        public void AddItem(Item item) 
+        {
+            ItemIdList.Add(item.id);
+        }
         public int BaseMaxHP { get => baseMaxHP; }
         public int BaseMaxSP { get => baseMaxSP; }
         public float LvPowAddHP { get => m_LvPowAddHP; }

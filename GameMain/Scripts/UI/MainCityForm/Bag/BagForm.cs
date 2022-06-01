@@ -27,7 +27,8 @@ namespace RPGGame
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            GameEntry.Event.Subscribe(UpdateItemEventArgs.EventId, UpdateItemInfo);
+            GameEntry.Event.Subscribe(RemoveItemEventArgs.EventId, RemoveItemInfo);
+            GameEntry.Event.Subscribe(AddItemEventArgs.EventId, AddItemInfo);
         }
 
 
@@ -36,15 +37,15 @@ namespace RPGGame
             base.OnOpen(userData);
             ItemObjList = new List<GameObject>();
 
-            ItemDic = userData as Dictionary<int,Item>;
+            ItemDic = userData as Dictionary<int, Item>;
 
             title.text = "±³°ü";
 
-            closeBtn.onClick.AddListener(()=> { GameEntry.UI.CloseUIForm(this); });
+            closeBtn.onClick.AddListener(() => { GameEntry.UI.CloseUIForm(this); });
 
-            tog1.onValueChanged.AddListener((b) => 
+            tog1.onValueChanged.AddListener((b) =>
             {
-                if (b) 
+                if (b)
                 {
                     ShowItemByType(1);
                 }
@@ -60,32 +61,71 @@ namespace RPGGame
             ShowItemByType(1);
         }
 
-        public void UpdateItemDic(Dictionary<int, Item> dic) 
+        public void UpdateItemDic(Dictionary<int, Item> dic)
         {
             ItemDic.Clear();
             ItemDic = dic;
         }
 
 
-        private void UpdateItemInfo(object sender, GameEventArgs e)
+        private void RemoveItemInfo(object sender, GameEventArgs e)
         {
-            if (e != null) 
+            if (e != null)
             {
-                Item item = (e as UpdateItemEventArgs).item;
-                if (item != null)
+                RemoveItemEventArgs re = e as RemoveItemEventArgs;
+                if (re != null)
                 {
-                    if(ItemDic.ContainsKey(item.id) && item.num == 0) 
+                    List<Item> itemList = re.itemList;
+                    if (itemList != null)
                     {
-                        ItemDic.Remove(item.id);
+                        foreach (var item in itemList)
+                        {
+                            if (ItemDic.ContainsKey(item.id) && item.num == 0)
+                            {
+                                ItemDic.Remove(item.id);
+                            }
+                        }
                     }
-                    ShowItemByType(item.dRItem.Type);
+
+                    int Type = tog1.isOn ? 1 : 2;
+                    ShowItemByType(Type);
                 }
             }
         }
 
-        public void ShowItemByType(int Type) 
+        private void AddItemInfo(object sender, GameEventArgs e)
         {
-            switch (Type) 
+            if (e != null)
+            {
+                AddItemEventArgs ae = e as AddItemEventArgs;
+                if (ae != null)
+                {
+                    List<Item> itemList = ae.itemList;
+                    if (itemList != null)
+                    {
+                        foreach (var item in itemList)
+                        {
+                            int id = item.dRItem.Id;
+                            if (!ItemDic.ContainsKey(id))
+                            {
+                                ItemDic.Add(id, item);
+                            }
+                            else
+                            {
+                                ItemDic[id].num += item.num;
+                            }
+                        }
+                    }
+                    
+                    int Type = tog1.isOn ? 1 : 2;
+                    ShowItemByType(Type);
+                }
+            }
+        }
+
+        public void ShowItemByType(int Type)
+        {
+            switch (Type)
             {
                 case 1:
                     ClearItem();
@@ -124,9 +164,9 @@ namespace RPGGame
             }
         }
 
-        public void ClearItem() 
+        public void ClearItem()
         {
-            foreach(var obj in ItemObjList) 
+            foreach (var obj in ItemObjList)
             {
                 Destroy(obj.gameObject);
             }

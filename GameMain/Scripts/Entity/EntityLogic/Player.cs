@@ -1,4 +1,5 @@
 using GameFramework;
+using GameFramework.DataTable;
 using GameFramework.Event;
 using System;
 using System.Collections;
@@ -41,7 +42,7 @@ namespace RPGGame
             }
             //读取角色技能数据id
             //通过id拼类
-            m_PlayerData.SkillIdList = new List<int> { 1, 2, 3, 0, 0, 0, 0, 0 };    //Test
+            m_PlayerData.SkillIdList = new List<int> { 1, 2, 3, -1, -1, -1, -1, -1 };    //Test
 
             m_PlayerData.ItemIdList = new List<int> { 1, 2, 3, 4, 1, 2 };
 
@@ -91,7 +92,7 @@ namespace RPGGame
                 }
             }
         }
-        
+
 
         protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
         {
@@ -113,7 +114,7 @@ namespace RPGGame
 
             if (Input.GetMouseButtonDown(1) && canMove && m_PlayerData.SP > 0)
             {
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, 1000))
                 {
                     nav.SetDestination(hit.point);
                 }
@@ -152,10 +153,29 @@ namespace RPGGame
                     }
                 }
             }
-            else if(Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("Actor")))
+            else if (Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("DropItem")))
             {
-                
+                if (Input.GetMouseButtonDown(0))
+                {
+                    DropItemMgr dropItemMgr = hit.collider.GetComponent<DropItemMgr>();
+                    dropItemMgr.ItemPick(this);
+                }
             }
+        }
+
+        public void PickItem(List<int> ItemIdList)
+        {
+            List<Item> ItemList = new List<Item>();
+            IDataTable<DRItem> dtItem = GameEntry.DataTable.GetDataTable<DRItem>();
+            DRItem drItem;
+            Item item;
+            foreach (int Id in ItemIdList)
+            {
+                drItem = dtItem.GetDataRow(Id);
+                item = new Item(drItem, this);
+                ItemList.Add(item);
+            }
+            GameEntry.Event.Fire(this, AddItemEventArgs.Create(ItemList));
         }
     }
 

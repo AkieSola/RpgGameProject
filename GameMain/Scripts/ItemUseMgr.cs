@@ -36,7 +36,7 @@ namespace RPGGame
                                 break;
                             }
                             item.num -= 1;
-                            GameEntry.Event.Fire(null, UpdateItemEventArgs.Create(item));
+                            GameEntry.Event.Fire(null, RemoveItemEventArgs.Create(item));
                         }
                         
                         break;
@@ -46,9 +46,9 @@ namespace RPGGame
         }
     }
 
-    public class UpdateItemEventArgs : GameEventArgs
+    public class RemoveItemEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(UpdateItemEventArgs).GetHashCode();
+        public static readonly int EventId = typeof(RemoveItemEventArgs).GetHashCode();
         public override int Id
         {
             get
@@ -57,18 +57,51 @@ namespace RPGGame
             }
         }
 
-        public Item item;
+        public List<Item> itemList;
+        public int Type;
 
-        public static UpdateItemEventArgs Create(Item item) 
+        public static RemoveItemEventArgs Create(Item item) 
         {
-            UpdateItemEventArgs e = ReferencePool.Acquire<UpdateItemEventArgs>();
-            e.item = item;
+            RemoveItemEventArgs e = ReferencePool.Acquire<RemoveItemEventArgs>();
+            e.itemList = new List<Item>() { item };
+            e.Type = item.dRItem.Type;
+
             return e;
         }
 
         public override void Clear()
         {
-            item = null;
+            Type = 0;
+            itemList.Clear();
+            itemList = null;
+        }
+    }
+
+    public class AddItemEventArgs : GameEventArgs
+    {
+        public static readonly int EventId = typeof(RemoveItemEventArgs).GetHashCode();
+        public override int Id
+        {
+            get
+            {
+                return EventId;
+            }
+        }
+
+        public List<Item> itemList;
+
+        public static AddItemEventArgs Create(List<Item> itemList)
+        {
+            AddItemEventArgs e = ReferencePool.Acquire<AddItemEventArgs>();
+            e.itemList = itemList;
+
+            return e;
+        }
+
+        public override void Clear()
+        {
+            itemList.Clear();
+            itemList = null;
         }
     }
 }
